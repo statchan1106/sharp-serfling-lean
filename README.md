@@ -43,7 +43,7 @@ $$
 \qquad
 \kappa_N=
 \begin{cases}
-1,&N\text{ even},\\[2mm]
+1,&N\text{ even},\\
 \displaystyle\frac{2}{N\log((N+1)/(N-1))},&N\text{ odd}.
 \end{cases}
 $$
