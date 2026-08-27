@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dependency blueprint and step-by-step proof guide for the Sharp Serfling formalization.">
+  <meta property="og:title" content="Proof Blueprint — Sharp Serfling">
+  <meta property="og:description" content="From binary reduction and two-level extremizers to the sharp hypergeometric recursion.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statchan1106.github.io/sharp-serfling-lean/proof.html">
+  <meta property="og:image" content="https://statchan1106.github.io/sharp-serfling-lean/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Proof Blueprint — Sharp Serfling">
+  <meta name="twitter:description" content="From binary reduction and two-level extremizers to the sharp hypergeometric recursion.">
+  <meta name="twitter:image" content="https://statchan1106.github.io/sharp-serfling-lean/og.png">
+  <link rel="canonical" href="https://statchan1106.github.io/sharp-serfling-lean/proof.html">
+  <title>Proof Blueprint — Sharp Serfling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "ams" },
+      options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script defer src="assets/site-config.js"></script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><span>SS</span><strong>Formalization guide</strong></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html">Overview</a>
+        <a href="proof.html" aria-current="page">Proof blueprint</a>
+        <a href="declarations.html">Declaration map</a>
+      </nav>
+      <nav class="external-nav" aria-label="Publication links">
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · forthcoming</span>
+        <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · forthcoming</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="subhero reading">
+      <p class="eyebrow">The proof in mathematics and Lean</p>
+      <h1>How the sharp bound is assembled</h1>
+      <p class="intro">The proof has two levels of reduction and two levels of analysis: arbitrary weighted populations become two-level Hamming slices, those slices become centered hypergeometric MGFs, and a parity-sensitive induction determines the optimal constant.</p>
+      <nav class="jump-nav" aria-label="Proof sections">
+        <a href="#map">Dependency map</a>
+        <a href="#population">1 · Population</a>
+        <a href="#geometry">2 · Two levels</a>
+        <a href="#recursion">3 · Recursion</a>
+        <a href="#odd">4 · Odd branch</a>
+        <a href="#assembly">5 · Assembly</a>
+      </nav>
+    </section>
+
+    <section id="map" class="section muted-section">
+      <div class="container">
+        <div class="blueprint-heading">
+          <div>
+            <p class="section-kicker">Formalization blueprint</p>
+            <h2>The dependency graph at a glance</h2>
+          </div>
+          <p>The graph separates the finite-population reduction, extremal geometry, and hypergeometric analysis before they merge into the sharp theorem and its corollaries.</p>
+        </div>
+
+        <div class="blueprint-legend" aria-label="Dependency graph legend">
+          <span class="legend-reduction">Reduction</span>
+          <span class="legend-geometry">Geometry</span>
+          <span class="legend-probability">Hypergeometric</span>
+          <span class="legend-result">Exported result</span>
+        </div>
+
+        <div class="proof-map" role="figure" aria-label="Dependency graph for the Sharp Serfling formalization">
+          <div class="map-node map-reduction map-wide">
+            <span>Weighted finite population</span>
+            <strong>Center the coefficients and normalize the range</strong>
+            <code>centeredWeight · statistic_affine · sum_sq_centeredWeight_eq_rho</code>
+          </div>
+          <div class="map-arrow split-arrow" aria-hidden="true">↓ three supporting tracks ↓</div>
+
+          <div class="map-tracks">
+            <div class="map-track">
+              <p>Reduction track</p>
+              <div class="map-node map-reduction"><span>Cube extremality</span><strong>Binary population reduction</strong><code>binaryRangeReduction</code></div>
+              <div class="map-arrow" aria-hidden="true">↓</div>
+              <div class="map-node map-reduction"><span>Exact bridge</span><strong>Permutation MGF = slice MGF</strong><code>mgf_binary_eq_sliceMgf</code></div>
+            </div>
+
+            <div class="map-track">
+              <p>Geometry track</p>
+              <div class="map-node map-geometry"><span>Compactness</span><strong>A slice maximizer exists</strong><code>exists_sliceMgf_maximizer</code></div>
+              <div class="map-arrow" aria-hidden="true">↓</div>
+              <div class="map-node map-geometry"><span>Three-coordinate core</span><strong>Every triple has a repeated value</strong><code>threePoint_globalMax_has_duplicate</code></div>
+              <div class="map-arrow" aria-hidden="true">↓</div>
+              <div class="map-node map-geometry"><span>Proposition 2</span><strong>Two-level maximizer</strong><code>exists_twoLevel_sliceMgf_maximizer</code></div>
+            </div>
+
+            <div class="map-track">
+              <p>Hypergeometric track</p>
+              <div class="map-node map-probability"><span>Exact representation</span><strong>Two levels = centered hypergeometric</strong><code>sliceMgf_canonicalTwoLevel</code></div>
+              <div class="map-arrow" aria-hidden="true">↓</div>
+              <div class="map-node map-probability"><span>Lemma 1</span><strong>Derivative recursion</strong><code>deriv_mgf_recursion</code></div>
+              <div class="map-arrow" aria-hidden="true">↓</div>
+              <div class="map-node map-probability"><span>Parity branches</span><strong>Universal even + sharp odd bounds</strong><code>log_mgf_le_universal · odd_mgf_le</code></div>
+            </div>
+          </div>
+
+          <div class="map-arrow merge-arrow" aria-hidden="true">tracks combine ↓</div>
+          <div class="map-node map-result map-wide">
+            <span>Theorem 2 + Proposition 1</span>
+            <strong>Sharp centered-hypergeometric MGF and optimal coefficient</strong>
+            <code>sharp_mgf · kappaStar_eq_kappa · sharp_constant</code>
+          </div>
+          <div class="map-arrow" aria-hidden="true">↓</div>
+          <div class="map-node map-result map-wide">
+            <span>Theorem 1</span>
+            <strong>Weighted finite-population MGF</strong>
+            <code>finitePopulation_mgf · finitePopulation_sharp_constant</code>
+          </div>
+          <div class="map-arrow" aria-hidden="true">↓</div>
+          <div class="map-outcomes">
+            <div class="map-node map-result"><span>Corollary 1</span><strong>Serfling MGF and tails</strong><code>serfling_mgf · serfling_tail</code></div>
+            <div class="map-node map-result"><span>Corollary 2</span><strong>Exchangeable MGF and tail</strong><code>weighted_exchangeable_mgf_centeredNorm_inLaw</code></div>
+            <div class="map-node map-result"><span>Sharpness</span><strong>Smallest exchangeable constant</strong><code>exchangeableInLaw_Cstar_sharp_constant</code></div>
+            <div class="map-node map-result"><span>Asymptotics</span><strong>(N(C_N^\star-1)\to1)</strong><code>tendsto_nat_mul_exchangeableConstant_sub_one</code></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="reading">
+        <p class="section-kicker">How to read the detailed blocks</p>
+        <h2>Mathematics first, formal certificate second</h2>
+        <div class="method-key">
+          <div><span>Paper target</span><p>The mathematical statement being established.</p></div>
+          <div><span>Proof move</span><p>The reduction or estimate that advances the argument.</p></div>
+          <div><span>Lean certificate</span><p>The declaration that checks the claim.</p></div>
+          <div><span>Boundary work</span><p>Degenerate cases and hypotheses made explicit in the formal proof.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="population" class="proof-section reading">
+      <header class="proof-heading"><span>1</span><div><p class="section-kicker">Finite-population reduction</p><h2>From arbitrary intervals to a Hamming slice</h2></div></header>
+      <p>Zero-pad the coefficient vector to (N) coordinates and remove its constant component. This makes the statistic insensitive to the population mean and yields the exact identity</p>
+      <div class="formula">
+        \[
+        \rho_N(w)=\frac{N}{N-1}\lVert w^\circ\rVert_2^2.
+        \]
+      </div>
+      <p>Affine normalization sends (X\in[a,b]^N) to the unit cube. Convexity of the permutation MGF then moves the maximum to a binary population. Conditioning on its number of ones turns the permutation average into a fixed-cardinality subset average.</p>
+
+      <div class="formal-pair">
+        <article class="formal-paper">
+          <p class="pair-label">Mathematics · exact chain</p>
+          <div class="mini-chain">
+            <span class="paper-step">interval cube</span><span>→</span>
+            <span class="paper-step">binary vertex</span><span>→</span>
+            <span class="paper-step">K-subset</span><span>→</span>
+            <span class="paper-step">centered slice MGF</span>
+          </div>
+          <p>The reduction preserves the centered-weight norm and introduces no sign restriction on (w).</p>
+        </article>
+        <article class="formal-lean">
+          <p class="pair-label">Lean · principal certificates</p>
+          <pre><code>binaryRangeReduction
+finiteAverage_sample_orbit
+sum_sq_centeredWeight_eq_rho
+mgf_binary_eq_sliceMgf
+statistic_affine</code></pre>
+        </article>
+      </div>
+
+      <div class="proof-translation">
+        <div><span>Boundary work</span><p>Constant populations and the empty or full binary slices are discharged explicitly.</p></div>
+        <div><span>Module path</span><p><code>SharpSerfling/FinitePopulation/BinaryReduction.lean</code>, <code>OrbitAverage.lean</code>, and <code>BinarySlice.lean</code>.</p></div>
+      </div>
+    </section>
+
+    <section id="geometry" class="proof-section reading">
+      <header class="proof-heading"><span>2</span><div><p class="section-kicker">Extremal geometry</p><h2>Why a maximizer has only two coordinate values</h2></div></header>
+      <p>Fix the centered Euclidean norm of the coefficient vector. Compactness gives a global maximizer of the slice MGF. The numerator is rewritten as an elementary symmetric polynomial, so any three coordinates can be isolated while the remaining coordinates enter through nonnegative coefficients.</p>
+      <p>On the circle cut out by fixed sum and fixed squared norm, first- and second-order conditions combine with a repeated-Rolle/Hermite sign argument. A strict maximum cannot have three distinct coordinates. Applying this to every triple forces a global maximizer with at most two levels.</p>
+
+      <div class="formal-pair">
+        <article class="formal-paper">
+          <p class="pair-label">Paper · Proposition 2</p>
+          <div class="formula compact-formula">
+            \[
+            \max_{\substack{\mathbf 1^\top y=0\\ \lVert y\rVert_2^2=r^2}}
+            \operatorname{MGF}_{N,K}(y)
+            \quad\text{is attained by a vector with at most two values.}
+            \]
+          </div>
+        </article>
+        <article class="formal-lean">
+          <p class="pair-label">Lean · structural certificate</p>
+          <pre><code>theorem exists_twoLevel_sliceMgf_maximizer
+    {N K : ℕ} (hN : 2 ≤ N)
+    (hK0 : 1 ≤ K) (hKN : K ≤ N - 1)
+    {rSq : ℝ} (hr : 0 ≤ rSq)
+    {y : Fin N → ℝ}
+    (hy : y ∈ centeredSphere N rSq) :
+    ∃ z ∈ centeredSphere N rSq,
+      (∀ x ∈ centeredSphere N rSq,
+        sliceMgf N K x ≤ sliceMgf N K z) ∧
+      HasAtMostTwoValues z</code></pre>
+        </article>
+      </div>
+
+      <details class="lean-detail">
+        <summary>Analytic sub-certificates</summary>
+        <div><code>exists_iteratedDeriv_five_eq_zero_of_three_double_roots</code><p>Repeated Rolle theorem for three double roots.</p></div>
+        <div><code>hermite_weighted_deriv_pos</code><p>The quintic Hermite interpolation sign needed by the three-coordinate obstruction.</p></div>
+        <div><code>threePoint_globalMax_has_duplicate</code><p>A constrained global maximum on the three-coordinate sphere has a repeated value.</p></div>
+      </details>
+    </section>
+
+    <section id="recursion" class="proof-section reading">
+      <header class="proof-heading"><span>3</span><div><p class="section-kicker">Hypergeometric core</p><h2>The recursion that retains the variance scale</h2></div></header>
+      <p>A centered two-level slice is a scaled centered hypergeometric count (H_{N,K,m}-Km/N). Its MGF (G_{N,K,m}) obeys an exact derivative identity that removes one success, one sampled coordinate, and two population coordinates:</p>
+      <div class="formula theorem-formula">
+        \[
+        G'_{N,K,m}(t)
+        =2v_{N,K,m}e^{r_{N,K,m}t}\sinh(t/2)
+          G_{N-2,K-1,m-1}(t),
+        \]
+        \[
+        v_{N,K,m}=\frac{K(N-K)m(N-m)}{N^2(N-1)}.
+        \]
+      </div>
+      <p>The prefactor is exactly the hypergeometric variance. That identity is the reason the sample-size term (m(N-m)/(N-1)) survives the induction instead of being replaced by a looser finite-population correction.</p>
+
+      <div class="formal-pair">
+        <article class="formal-paper">
+          <p class="pair-label">Paper · Theorem 2</p>
+          <div class="formula compact-formula">
+            \[
+            \log G_{N,K,m}(t)
+            \le
+            \kappa_N\frac{m(N-m)}{8(N-1)}t^2.
+            \]
+          </div>
+        </article>
+        <article class="formal-lean">
+          <p class="pair-label">Lean · recursion and final bound</p>
+          <pre><code>deriv_mgf_recursion
+mgf_successComplement
+mgf_sampleComplement
+
+theorem sharp_mgf {N K m : ℕ}
+    (hN : 2 ≤ N) (hK : K ≤ N)
+    (hm : m ≤ N) (t : ℝ) :
+  Real.log (mgf N K m t) ≤
+    kappa N * hypergeomScale N m * t ^ 2</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <section id="odd" class="proof-section reading">
+      <header class="proof-heading"><span>4</span><div><p class="section-kicker">Sharp parity analysis</p><h2>The easy even branch and the hard odd branch</h2></div></header>
+      <div class="route-comparison">
+        <article>
+          <h3>Even (N)</h3>
+          <p>The universal coefficient-one recursion bound is already sharp. An exactly balanced population (K=N/2) forces equality in the normalized second-order limit at the origin.</p>
+          <p><code>log_mgf_le_universal</code><br><code>tendsto_normalizedLogMgf_even_central</code></p>
+        </article>
+        <article>
+          <h3>Odd (N)</h3>
+          <p>The nearest-balanced Bernoulli slice identifies the smaller candidate coefficient, but controlling every (m) requires a sharper induction and a separate central-slice argument.</p>
+          <p><code>mgf_one_le_oddProxy</code><br><code>odd_mgf_le</code></p>
+        </article>
+      </div>
+
+      <p>For noncentral slices, a pointwise derivative comparison closes the induction. At the hard central slice, that comparison can cross the target. The proof integrates the derivative difference, reduces its minimum to a single endpoint, and shows that the positive signed area dominates the negative one.</p>
+
+      <div class="mini-chain">
+        <code>centralDeficit_bounds</code><span>→</span>
+        <code>oddNoncentralEnvelope</code><span>→</span>
+        <code>singleCrossing_integral_nonneg</code><span>→</span>
+        <code>centralParameters</code><span>→</span>
+        <code>odd_mgf_le</code>
+      </div>
+
+      <div class="proof-translation">
+        <div><span>Base cases</span><p>The one-draw case contains a self-contained Kearns-Saul proof; the central two-draw law is handled exactly.</p></div>
+        <div><span>Certificates</span><p>The polynomial endpoint estimates used in the central parameter check are verified as <code>P0_nonneg</code>, <code>P12_nonneg</code>, and <code>P7_nonneg</code>.</p></div>
+      </div>
+    </section>
+
+    <section id="assembly" class="proof-section reading">
+      <header class="proof-heading"><span>5</span><div><p class="section-kicker">Sharpness and assembly</p><h2>Return from the scalar problem to the main theorem</h2></div></header>
+      <p>The variational constant is defined as the maximum over sample size and success count, followed by the supremum over nonzero tilt. The upper bound comes from <code>sharp_mgf</code>; the matching lower bound is local for even (N) and attained at nonzero tilt for odd (N).</p>
+      <div class="formula">
+        \[
+        \kappa_N^\star
+        =
+        \max_{1\le m\le N-1}\max_{0\le K\le N}
+        \sup_{t\ne0}
+        \frac{8(N-1)}{m(N-m)t^2}\log G_{N,K,m}(t)
+        =\kappa_N.
+        \]
+      </div>
+
+      <div class="consequence-list">
+        <article><span>Theorem 1</span><div><h3>Weighted finite population</h3><p>Binary reduction, the exact slice bridges, and the sharp hypergeometric theorem give the full range-normalized MGF inequality.</p><code>finitePopulation_mgf · finitePopulation_sharp_constant</code></div></article>
+        <article><span>Corollary 1</span><div><h3>Sharp Serfling correction</h3><p>Equal weights identify the statistic with the sample-mean deviation and specialize (ho_N(w)) to ((N-n)/(n(N-1))).</p><code>serfling_mgf · serfling_tail · serfling_lower_tail · serfling_twoSided_tail</code></div></article>
+        <article><span>Corollary 2</span><div><h3>Weighted exchangeable contrast</h3><p>Uniform permutation and conditioning transfer the result to equality-in-law exchangeability.</p><code>weighted_exchangeable_mgf_centeredNorm_inLaw · exchangeableInLaw_Cstar_sharp_constant</code></div></article>
+        <article><span>Asymptotics</span><div><h3>Exact first-order inflation</h3><p>The parity expansions have explicit (O(N^{-3})) remainders and imply (N(C_N^\star-1)\to1).</p><code>exchangeableConstant_even_expansion · exchangeableConstant_odd_expansion</code></div></article>
+      </div>
+
+      <p class="numbering-note"><strong>Audit boundary.</strong> The proof graph describes mathematical dependencies at a readable scale. <code>AxiomAudit.lean</code> separately asks Lean's kernel for the axioms used by every exported result.</p>
+    </section>
+
+    <section class="section dark-section">
+      <div class="container next-grid">
+        <div><p class="section-kicker">Cross-reference</p><h2>Find the exact certificate</h2></div>
+        <a class="next-card" href="declarations.html"><span>01</span><strong>Declaration map</strong><p>Search by theorem number, mathematical role, module, or Lean identifier.</p></a>
+        <a class="next-card" href="index.html"><span>02</span><strong>Return to overview</strong><p>Review the main theorem, sharp constant, and consequences.</p></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Sharp Serfling formalization</p>
+      <div>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · forthcoming</span>
+        <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · forthcoming</span>
+        <a href="https://statchan1106.github.io/">Seongchan Lee</a>
+        <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a>
+      </div>
+    </div>
+  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite">Copied</div>
+</body>
+</html>
