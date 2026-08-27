@@ -28,7 +28,7 @@ where
 $$
 \kappa_N =
 \begin{cases}
-1, & N \text{ even},\\[2mm]
+1, & N \text{ even},\\
 \displaystyle\frac{2}{N\log((N+1)/(N-1))}, & N \text{ odd}.
 \end{cases}
 $$
@@ -107,7 +107,7 @@ with
 $$
 v_{N,K,m}
 =\frac{K(N-K)m(N-m)}{N^2(N-1)}
-=\operatorname{Var}(H_{N,K,m}).
+=\text{Var}(H_{N,K,m}).
 $$
 
 The variance prefactor is what preserves \(m(N-m)/(N-1)\) through the
