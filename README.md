@@ -5,9 +5,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Paper-forthcoming-9ca3af?style=flat-square" alt="Paper forthcoming">
+  <a href="docs/Sharp_Serfling_49.pdf"><img src="https://img.shields.io/badge/Paper-PDF-2563eb?style=flat-square" alt="Paper PDF"></a>
   <a href="https://statchan1106.github.io/sharp-serfling-lean/"><img src="https://img.shields.io/badge/Project%20page-open-126765?style=flat-square" alt="Project page"></a>
-  <img src="https://img.shields.io/badge/Code-link%20pending-9ca3af?style=flat-square" alt="Code link pending">
+  <a href="https://github.com/statchan1106/sharp-serfling-lean"><img src="https://img.shields.io/badge/Code-GitHub-111827?style=flat-square" alt="GitHub repository"></a>
   <a href="https://github.com/statchan1106/sharp-serfling-lean/actions/workflows/lean_action_ci.yml?query=branch%3Amain"><img src="https://github.com/statchan1106/sharp-serfling-lean/actions/workflows/lean_action_ci.yml/badge.svg?branch=main" alt="Lean CI"></a>
 </p>
 
@@ -31,7 +31,7 @@ weights $w\in\mathbb R^n$, set
 $$
 T_w=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N),\qquad
 \rho_N(w)=
-\frac{N\sum_iw_i^2-(\sum_iw_i)^2}{N(N-1)}.
+\frac{N\sum_iw_i^2-(\sum_iw_i)^2}{N-1}.
 $$
 
 The formalized theorem proves
@@ -61,6 +61,8 @@ minimality theorem is
 | Smallest uniform finite-population coefficient | `FinitePopulation.finitePopulation_sharp_constant` |
 | Serfling MGF and upper tail | `FinitePopulation.serfling_mgf`, `serfling_tail` |
 | Lower and two-sided Serfling tails | `FinitePopulation.serfling_lower_tail`, `serfling_twoSided_tail` |
+| Serfling correction comparison | `FinitePopulation.serfling_correction_chain` |
+| Fixed-even and uniform-in-sample-size Serfling sharpness | `FinitePopulation.serfling_fixed_even_sharp`, `serfling_uniform_sharp_constant` |
 | Weighted exchangeable MGF in law | `FinitePopulation.weighted_exchangeable_mgf_centeredNorm_inLaw` |
 | Smallest exchangeable coefficient | `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant` |
 | Sharp centered-hypergeometric MGF | `Hypergeometric.sharp_mgf` |
@@ -97,11 +99,12 @@ adds a searchable declaration map.
 lake exe cache get
 lake build
 lake env lean AxiomAudit.lean
+lake env lean FullAxiomAudit.lean
 rg -n '\b(sorry|admit)\b|^\s*axiom\b|\b(unsafe|implemented_by|opaque)\b' . \
   --glob '*.lean' --glob '!**/.lake/**'
 ```
 
-The build and public-theorem audit also run in GitHub Actions.
+The build, both kernel audits, and the forbidden-source scan also run in GitHub Actions.
 
 ## Repository layout
 
@@ -110,14 +113,9 @@ The build and public-theorem audit also run in GitHub Actions.
 | `SharpSerfling/` | Formal definitions, reductions, analytic estimates, and exported theorems |
 | `blueprint/` | GitHub-readable proof guide and declaration audit |
 | `docs/` | Reader-oriented project page deployed through GitHub Pages |
-| `AxiomAudit.lean` | Kernel assumption audit for public results |
+| `AxiomAudit.lean` | Kernel assumption audit for headline results |
+| `FullAxiomAudit.lean` | Automatic audit of every declaration in the project namespace |
 | `TRACEABILITY.md` | Detailed manuscript-to-declaration map |
-
-## Publication links
-
-The project page intentionally keeps the Paper and Code controls disabled before
-release. To activate them, edit only `docs/assets/site-config.js` and insert the
-public URLs; every page upgrades the placeholders automatically.
 
 ## Trust boundary
 
@@ -125,3 +123,6 @@ Project sources contain no `sorry`, `admit`, project-defined `axiom`, `unsafe`,
 `implemented_by`, or `opaque` declaration. The public theorem audit reports
 only the standard logical foundations inherited from Lean and Mathlib:
 `propext`, `Classical.choice`, and `Quot.sound`.
+
+The audited manuscript is `Sharp_Serfling (49).pdf` (27 pages, SHA-256
+`1b4f0ddc2acd2fb8ed93cac9011f2f816d5938996181d30ce022fc970cc138cd`).

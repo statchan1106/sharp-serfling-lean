@@ -1,8 +1,4 @@
-/*
- * Publication links are intentionally disabled before release.
- * To activate them later, replace the empty strings with the public URLs.
- */
 window.SHARP_SERFLING_LINKS = {
-  paper: "",
-  code: ""
+  paper: "Sharp_Serfling_49.pdf",
+  code: "https://github.com/statchan1106/sharp-serfling-lean"
 };

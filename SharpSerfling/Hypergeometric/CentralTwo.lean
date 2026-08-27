@@ -792,6 +792,19 @@ theorem log_mgf_lowerNearest_two_eq_phi {N : ℕ}
   unfold centralTwoPhi
   ring
 
+/-- Equality in the central two-draw estimate at the manuscript's distinguished
+tilt `log ((N + 1) / (N - 1))` (Lemma 5). -/
+theorem log_mgf_lowerNearest_two_eq_exact_at_increment {N : ℕ}
+    (hN : 5 ≤ N) (hOdd : Odd N) :
+    Real.log (mgf N ((N - 1) / 2) 2 (centralTwoLogIncrement N)) =
+      (centralTwoLogIncrement N) ^ 2 /
+        ((N : ℝ) * centralTwoLogIncrement N) := by
+  rw [log_mgf_lowerNearest_two_eq_phi hN hOdd]
+  have hreflect := centralTwoError_reflect hN (0 : ℝ)
+  rw [sub_zero, centralTwoError_zero] at hreflect
+  unfold centralTwoError at hreflect
+  linarith
+
 /-- The optimal quadratic logarithmic proxy for the manuscript's central
 three-point base case. -/
 theorem log_mgf_lowerNearest_two_le_exact {N : ℕ}

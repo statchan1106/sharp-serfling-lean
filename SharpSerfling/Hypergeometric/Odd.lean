@@ -161,6 +161,51 @@ theorem kappa_odd_upper {N : ℕ} (hN : 3 ≤ N) (hOdd : Odd N) :
     2 = (N : ℝ) * (2 / (N : ℝ)) := by field_simp [ne_of_gt hNr]
     _ ≤ (N : ℝ) * oddLogIncrement N := this
 
+/-- For an odd population the sharp multiplier is strictly smaller than one,
+as stated after Theorem 1 in the manuscript. -/
+theorem kappa_odd_lt_one {N : ℕ} (hN : 3 ≤ N) (hOdd : Odd N) :
+    SharpSerfling.kappa N < 1 := by
+  have hnotEven : ¬Even N := Nat.not_even_iff_odd.mpr hOdd
+  have hNr : 0 < (N : ℝ) := by positivity
+  have hx0 : 0 ≤ (1 : ℝ) / N := by positivity
+  have hx1 : (1 : ℝ) / N < 1 := by
+    rw [div_lt_one hNr]
+    exact_mod_cast (show 1 < N by omega)
+  have hseries := Real.sum_range_le_log_div hx0 hx1 2
+  norm_num [Finset.sum_range_succ] at hseries
+  have hstrict : (N : ℝ)⁻¹ <
+      1 / 2 * Real.log ((1 + (N : ℝ)⁻¹) / (1 - (N : ℝ)⁻¹)) :=
+    lt_of_lt_of_le (lt_add_of_pos_right _ (by positivity)) hseries
+  have hlog : 2 / (N : ℝ) < oddLogIncrement N := by
+    rw [oddLogIncrement_eq_scaled_log (by omega)]
+    have hcalc : 2 * (N : ℝ)⁻¹ <
+        Real.log ((1 + (N : ℝ)⁻¹) / (1 - (N : ℝ)⁻¹)) := by
+      calc
+        2 * (N : ℝ)⁻¹ <
+            2 * (1 / 2 * Real.log ((1 + (N : ℝ)⁻¹) / (1 - (N : ℝ)⁻¹))) :=
+          mul_lt_mul_of_pos_left hstrict (by norm_num)
+        _ = Real.log ((1 + (N : ℝ)⁻¹) / (1 - (N : ℝ)⁻¹)) := by ring
+    simpa only [one_div, div_eq_mul_inv, one_mul] using hcalc
+  have hlogPos : 0 < oddLogIncrement N :=
+    lt_trans (by positivity : 0 < 2 / (N : ℝ)) hlog
+  rw [SharpSerfling.kappa_of_not_even hnotEven]
+  change 2 / ((N : ℝ) * oddLogIncrement N) < 1
+  rw [div_lt_one (mul_pos hNr hlogPos)]
+  calc
+    2 = (N : ℝ) * (2 / (N : ℝ)) := by field_simp [ne_of_gt hNr]
+    _ < (N : ℝ) * oddLogIncrement N :=
+      mul_lt_mul_of_pos_left hlog hNr
+
+/-- The parity-independent upper bound used in the Serfling correction
+comparison. -/
+theorem kappa_le_one {N : ℕ} (hN : 2 ≤ N) :
+    SharpSerfling.kappa N ≤ 1 := by
+  by_cases hEven : Even N
+  · rw [SharpSerfling.kappa_of_even hEven]
+  · have hOdd : Odd N := Nat.not_even_iff_odd.mp hEven
+    obtain ⟨q, hq⟩ := hOdd
+    exact kappa_odd_upper (by omega) ⟨q, hq⟩
+
 theorem half_log_div_le_sharp_rational {x : ℝ}
     (hx0 : 0 ≤ x) (hx13 : x ≤ 1 / 3) :
     1 / 2 * Real.log ((1 + x) / (1 - x)) ≤ x / (1 - x ^ 2 / 2) := by

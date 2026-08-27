@@ -1,10 +1,12 @@
 import SharpSerfling.FinitePopulation.Exchangeable
+import SharpSerfling.Hypergeometric.SmallTilt
 
 namespace SharpSerfling.FinitePopulation
 
 open scoped BigOperators
 open SharpSerfling.Hypergeometric
 open MeasureTheory
+open Filter Topology
 
 /-- Binary vector marking the first `K` coordinates. -/
 noncomputable def markedIndicator (N K : ℕ) (j : Fin N) : ℝ :=
@@ -84,6 +86,185 @@ theorem rho_markedIndicator {N m : ℕ} (hN : 2 ≤ N) (hm : m ≤ N) :
     have : (1 : ℝ) < N := by exact_mod_cast (show 1 < N by omega)
     linarith
   field_simp [hNm1]
+
+/-- Equal sample-mean weights, after centering and scaling by `n * t`, are
+exactly the canonical two-level vector used by the hypergeometric theory. -/
+theorem scaled_centeredWeight_equalWeights {N n : ℕ} (hN : 0 < N)
+    (hn0 : 0 < n) (hn : n ≤ N) (t : ℝ) :
+    (fun j ↦ ((n : ℝ) * t) *
+      centeredWeight hn (fun _ ↦ (1 : ℝ) / (n : ℝ)) j) =
+      canonicalTwoLevel N n t := by
+  funext j
+  have hnR : (n : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hn0)
+  have hNR : (N : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hN)
+  have hsum : (∑ i : Fin n, (1 : ℝ) / (n : ℝ)) = 1 := by
+    simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+    field_simp [hnR]
+  unfold centeredWeight canonicalTwoLevel
+  rw [hsum]
+  by_cases hj : (j : ℕ) < n
+  · let i : Fin n := ⟨j, hj⟩
+    have hij : Fin.castLE hn i = j := by ext; rfl
+    have hz : zeroPad hn (fun _ : Fin n ↦ (1 : ℝ) / (n : ℝ)) j =
+        (1 : ℝ) / (n : ℝ) := by
+      rw [← hij, zeroPad_castLE]
+    rw [hz]
+    simp [Hypergeometric.marked, hj]
+    field_simp [hnR, hNR]
+  · have hz : zeroPad hn (fun _ : Fin n ↦ (1 : ℝ) / (n : ℝ)) j = 0 := by
+      unfold zeroPad
+      apply Function.extend_apply'
+      rintro ⟨i, rfl⟩
+      exact hj i.isLt
+    rw [hz]
+    simp [Hypergeometric.marked, hj]
+    field_simp [hNR]
+
+/-- Exact embedding of the centered hypergeometric MGF into the MGF of a
+without-replacement sample mean from a binary population. -/
+theorem sampleMeanMgf_markedIndicator {N K n : ℕ} (hN : 0 < N)
+    (hK : K ≤ N) (hn0 : 0 < n) (hn : n ≤ N) (t : ℝ) :
+    sampleMeanMgf hn (markedIndicator N K) ((n : ℝ) * t) =
+      Hypergeometric.mgf N K n t := by
+  rw [sampleMeanMgf_eq_mgf hn0 hn]
+  rw [mgf_binary_eq_sliceMgf hN hn (markedIndicator N K)
+    (markedIndicator_binary N K) (fun _ ↦ (1 : ℝ) / (n : ℝ)) ((n : ℝ) * t)]
+  rw [successCount_markedIndicator hK,
+    scaled_centeredWeight_equalWeights hN hn0 hn]
+  rw [sliceMgf_canonicalTwoLevel hN hn,
+    Hypergeometric.mgf_parameterSwap hn hK]
+
+/-- A coefficient valid for the sample-mean MGF at a fixed sample size.  This
+is the exact normalization used in Corollary 1. -/
+def SerflingFixedCoefficient (N n : ℕ) (c : ℝ) : Prop :=
+  ∀ (hn : n ≤ N) (a b : ℝ) (X : Fin N → ℝ),
+    (∀ j, a ≤ X j ∧ X j ≤ b) → ∀ t : ℝ,
+    Real.log (sampleMeanMgf hn X t) ≤
+      c * ((N : ℝ) - (n : ℝ)) /
+        (8 * (n : ℝ) * ((N : ℝ) - 1)) * (b - a) ^ 2 * t ^ 2
+
+/-- A single coefficient valid in the sample-mean inequality simultaneously
+for all nontrivial sample sizes. -/
+def SerflingUniformCoefficient (N : ℕ) (c : ℝ) : Prop :=
+  ∀ n : ℕ, 1 ≤ n → n ≤ N - 1 → SerflingFixedCoefficient N n c
+
+theorem serflingFixedCoefficient_kappa {N n : ℕ} (hN : 2 ≤ N)
+    (hn0 : 1 ≤ n) (hnN : n ≤ N - 1) :
+    SerflingFixedCoefficient N n (SharpSerfling.kappa N) := by
+  intro hn a b X hX t
+  exact serfling_mgf hN hn0 hnN X hX t
+
+theorem serflingUniformCoefficient_kappa {N : ℕ} (hN : 2 ≤ N) :
+    SerflingUniformCoefficient N (SharpSerfling.kappa N) := by
+  intro n hn0 hnN
+  exact serflingFixedCoefficient_kappa hN hn0 hnN
+
+/-- Any fixed-`n` sample-mean coefficient also bounds the corresponding
+hypergeometric MGF, through the explicit binary population witness. -/
+theorem hypergeom_mgf_le_of_serflingFixedCoefficient {N n : ℕ}
+    (hN : 2 ≤ N) (hn0 : 1 ≤ n) (hnN : n ≤ N - 1) {c : ℝ}
+    (hc : SerflingFixedCoefficient N n c) (K : ℕ) (hK : K ≤ N) (t : ℝ) :
+    Real.log (Hypergeometric.mgf N K n t) ≤
+      c * SharpSerfling.hypergeomScale N n * t ^ 2 := by
+  have hn : n ≤ N := by omega
+  have hv : ∀ j, (0 : ℝ) ≤ markedIndicator N K j ∧
+      markedIndicator N K j ≤ 1 := by
+    intro j
+    rcases markedIndicator_binary N K j with h | h <;> simp [h]
+  have hbound := hc hn 0 1 (markedIndicator N K) hv ((n : ℝ) * t)
+  rw [sampleMeanMgf_markedIndicator (by omega) hK (by omega) hn] at hbound
+  calc
+    Real.log (Hypergeometric.mgf N K n t) ≤
+        c * ((N : ℝ) - (n : ℝ)) /
+          (8 * (n : ℝ) * ((N : ℝ) - 1)) * (1 - 0) ^ 2 *
+            ((n : ℝ) * t) ^ 2 := hbound
+    _ = c * SharpSerfling.hypergeomScale N n * t ^ 2 := by
+      have hnR : (n : ℝ) ≠ 0 := by positivity
+      have hNm1 : (N : ℝ) - 1 ≠ 0 := by
+        have : (1 : ℝ) < (N : ℝ) := by
+          exact_mod_cast (show 1 < N by omega)
+        linarith
+      unfold SharpSerfling.hypergeomScale
+      field_simp [hnR, hNm1]
+      ring
+
+theorem hypergeomUniform_of_serflingUniform {N : ℕ} (hN : 2 ≤ N)
+    {c : ℝ} (hc : SerflingUniformCoefficient N c) :
+    Hypergeometric.UniformCoefficient N c := by
+  intro K n hK hn0 hnN t
+  exact hypergeom_mgf_le_of_serflingFixedCoefficient hN hn0 hnN
+    (hc n hn0 hnN) K hK t
+
+/-- Corollary 1 with its uniform sharpness clause: `κ_N` is valid for every
+sample size and no smaller population-size-only multiplier can be valid. -/
+theorem serfling_uniform_sharp_constant {N : ℕ} (hN : 2 ≤ N) :
+    SerflingUniformCoefficient N (SharpSerfling.kappa N) ∧
+      ∀ c : ℝ, SerflingUniformCoefficient N c →
+        SharpSerfling.kappa N ≤ c := by
+  constructor
+  · exact serflingUniformCoefficient_kappa hN
+  · intro c hc
+    exact Hypergeometric.kappa_le_of_uniformCoefficient hN
+      (hypergeomUniform_of_serflingUniform hN hc)
+
+theorem normalizedLogMgf_le_of_serflingFixedCoefficient {N n : ℕ}
+    (hN : 2 ≤ N) (hn0 : 1 ≤ n) (hnN : n ≤ N - 1) {c : ℝ}
+    (hc : SerflingFixedCoefficient N n c) (K : ℕ) (hK : K ≤ N)
+    (t : ℝ) (ht : t ≠ 0) :
+    Hypergeometric.normalizedLogMgf N K n t ≤ c := by
+  have hscale : 0 < SharpSerfling.hypergeomScale N n :=
+    Hypergeometric.hypergeomScale_pos_of_nontrivial hN hn0 hnN
+  have hden : 0 < SharpSerfling.hypergeomScale N n * t ^ 2 :=
+    mul_pos hscale (sq_pos_of_ne_zero ht)
+  unfold Hypergeometric.normalizedLogMgf
+  apply (div_le_iff₀ hden).2
+  simpa [mul_assoc] using
+    hypergeom_mgf_le_of_serflingFixedCoefficient hN hn0 hnN hc K hK t
+
+/-- The fixed-sample-size sharpness assertion of Corollary 1 for even
+population size: for every `1 ≤ n ≤ N - 1`, the best multiplier is one. -/
+theorem serfling_fixed_even_sharp {q n : ℕ} (hq : 0 < q)
+    (hn0 : 1 ≤ n) (hnN : n ≤ 2 * q - 1) :
+    SerflingFixedCoefficient (2 * q) n (SharpSerfling.kappa (2 * q)) ∧
+      ∀ c : ℝ, SerflingFixedCoefficient (2 * q) n c →
+        SharpSerfling.kappa (2 * q) ≤ c := by
+  constructor
+  · exact serflingFixedCoefficient_kappa (by omega) hn0 hnN
+  · intro c hc
+    have hlim := Hypergeometric.tendsto_normalizedLogMgf_even_central hq hn0 hnN
+    have hevent : ∀ᶠ t in nhdsWithin (0 : ℝ) {0}ᶜ,
+        Hypergeometric.normalizedLogMgf (2 * q) q n t ≤ c := by
+      filter_upwards [self_mem_nhdsWithin] with t ht
+      have ht0 : t ≠ 0 := by simpa using ht
+      exact normalizedLogMgf_le_of_serflingFixedCoefficient
+        (by omega) hn0 hnN hc q (by omega) t ht0
+    have hone : (1 : ℝ) ≤ c := le_of_tendsto hlim hevent
+    have hEven : Even (2 * q) := ⟨q, by omega⟩
+    rw [SharpSerfling.kappa_of_even hEven]
+    exact hone
+
+/-- For odd `N`, uniform sharpness is attained already at sample size one by
+the explicit central binary population and distinguished nonzero tilt. -/
+theorem serfling_uniform_odd_witness {q : ℕ} (hq : 0 < q) :
+    Real.log
+        (sampleMeanMgf (show 1 ≤ 2 * q + 1 by omega)
+          (markedIndicator (2 * q + 1) q)
+          (2 * Hypergeometric.oddLogIncrement (2 * q + 1))) /
+        (SharpSerfling.hypergeomScale (2 * q + 1) 1 *
+          (2 * Hypergeometric.oddLogIncrement (2 * q + 1)) ^ 2) =
+      SharpSerfling.kappa (2 * q + 1) := by
+  have hbridge := sampleMeanMgf_markedIndicator
+    (N := 2 * q + 1) (K := q) (n := 1) (by omega) (by omega)
+    (by omega) (by omega) (2 * Hypergeometric.oddLogIncrement (2 * q + 1))
+  have hwitness := Hypergeometric.normalizedLogMgf_odd_witness hq
+  unfold Hypergeometric.normalizedLogMgf at hwitness
+  rw [show sampleMeanMgf (show 1 ≤ 2 * q + 1 by omega)
+      (markedIndicator (2 * q + 1) q)
+      (2 * Hypergeometric.oddLogIncrement (2 * q + 1)) =
+        Hypergeometric.mgf (2 * q + 1) q 1
+          (2 * Hypergeometric.oddLogIncrement (2 * q + 1)) by
+      simpa using hbridge]
+  exact hwitness
 
 /-- A candidate coefficient valid for every bounded weighted finite
 population of a fixed size `N`. -/

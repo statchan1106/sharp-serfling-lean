@@ -11,11 +11,15 @@ inherit the namespace shown in the first column.
 | Optimality of the finite-population coefficient | `FinitePopulation.finitePopulation_sharp_constant` | complete |
 | Serfling MGF | `FinitePopulation.serfling_mgf` | complete |
 | Upper, lower, and two-sided Serfling tails | `FinitePopulation.serfling_tail`, `serfling_lower_tail`, `serfling_twoSided_tail` | complete |
+| Corollary 1 correction comparison | `FinitePopulation.serfling_correction_chain` | complete |
+| Corollary 1 fixed-`n` sharpness for even `N` | `FinitePopulation.serfling_fixed_even_sharp` | complete |
+| Corollary 1 uniform-in-`n` sharpness and odd witness | `FinitePopulation.serfling_uniform_sharp_constant`, `serfling_uniform_odd_witness` | complete |
 | Exchangeable MGF under equality in law | `FinitePopulation.weighted_exchangeable_mgf_centeredNorm_inLaw` | complete |
 | Exchangeable Chernoff tail | `FinitePopulation.weighted_exchangeable_tail_inLaw` | complete |
 | Optimal exchangeable coefficient \(C_N^\star\) | `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant` | complete |
 | Sharp centered-hypergeometric MGF | `Hypergeometric.sharp_mgf`, `sharpMGFStatement` | complete |
 | Variational evaluation \(\kappa_N^\star=\kappa_N\) | `Hypergeometric.kappaStar_eq_kappa` | complete |
+| Proposition 2, coefficient-one hypergeometric bound | `Hypergeometric.log_mgf_le_universal` | complete |
 
 ## Structural reduction
 
@@ -37,6 +41,7 @@ inherit the namespace shown in the first column.
 | Universal coefficient-one bound | `Hypergeometric.log_mgf_le_universal` | complete |
 | Sharp Bernoulli base | `Hypergeometric.mgf_one_le_oddProxy` | complete |
 | Central two-draw base | `Hypergeometric.mgf_lowerNearest_two_le_oddProxy` | complete |
+| Lemma 5 equality at its distinguished tilt | `Hypergeometric.log_mgf_lowerNearest_two_eq_exact_at_increment` | complete |
 | Noncentral derivative envelope | `Hypergeometric.oddNoncentralEnvelope` | complete |
 | Signed-area comparison | `Analysis.singleCrossing_integral_nonneg` | complete |
 | Hard-central parameter verification | `Hypergeometric.centralParameters` | complete |
@@ -58,7 +63,9 @@ inherit the namespace shown in the first column.
 
 ## Trust boundary
 
-`AxiomAudit.lean` prints the axioms of every exported result. Project sources
+`AxiomAudit.lean` prints the axioms of the headline results, and
+`FullAxiomAudit.lean` automatically checks every declaration in the project
+namespace. Project sources
 contain no `sorry`, `admit`, project-defined `axiom`, `unsafe`,
 `implemented_by`, or `opaque` declaration. The expected kernel report contains
 only `propext`, `Classical.choice`, and `Quot.sound`.

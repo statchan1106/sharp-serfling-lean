@@ -28,6 +28,7 @@ import SharpSerfling
 #print axioms SharpSerfling.FinitePopulation.finitePopulation_mgf
 #print axioms SharpSerfling.FinitePopulation.statistic_equalWeights
 #print axioms SharpSerfling.FinitePopulation.serfling_mgf
+#print axioms SharpSerfling.FinitePopulation.serfling_correction_chain
 #print axioms SharpSerfling.FinitePopulation.uniformUpperTail_le_chernoff
 #print axioms SharpSerfling.FinitePopulation.serfling_tail
 #print axioms SharpSerfling.FinitePopulation.serfling_lower_tail
@@ -41,6 +42,10 @@ import SharpSerfling
 #print axioms SharpSerfling.FinitePopulation.finitePopulation_sharp_constant
 #print axioms SharpSerfling.FinitePopulation.isExchangeable_uniformPermutation
 #print axioms SharpSerfling.FinitePopulation.exchangeable_sharp_constant
+#print axioms SharpSerfling.FinitePopulation.sampleMeanMgf_markedIndicator
+#print axioms SharpSerfling.FinitePopulation.serfling_fixed_even_sharp
+#print axioms SharpSerfling.FinitePopulation.serfling_uniform_odd_witness
+#print axioms SharpSerfling.FinitePopulation.serfling_uniform_sharp_constant
 #print axioms SharpSerfling.Analysis.exists_iteratedDeriv_five_eq_zero_of_three_double_roots
 #print axioms SharpSerfling.Analysis.hermite_weighted_deriv_pos
 #print axioms SharpSerfling.Analysis.threePoint_globalMax_has_duplicate
@@ -57,6 +62,8 @@ import SharpSerfling
 #print axioms SharpSerfling.Hypergeometric.log_mgf_le_universal
 #print axioms SharpSerfling.Hypergeometric.kappa_odd_lower
 #print axioms SharpSerfling.Hypergeometric.kappa_odd_upper
+#print axioms SharpSerfling.Hypergeometric.kappa_odd_lt_one
+#print axioms SharpSerfling.Hypergeometric.kappa_le_one
 #print axioms SharpSerfling.Hypergeometric.oddGamma_ge_alpha_sq_div_six
 #print axioms SharpSerfling.Hypergeometric.oddGamma_ge_alpha_sq_add_u_div_twelve
 #print axioms SharpSerfling.Hypergeometric.oddGamma_ge_alpha_sq_add_u_div_seven
@@ -87,6 +94,7 @@ import SharpSerfling
 #print axioms SharpSerfling.Hypergeometric.odd_mgf_le_half_nonneg_of_bases
 #print axioms SharpSerfling.Hypergeometric.odd_mgf_le_of_bases
 #print axioms SharpSerfling.Hypergeometric.log_mgf_lowerNearest_two_le_exact
+#print axioms SharpSerfling.Hypergeometric.log_mgf_lowerNearest_two_eq_exact_at_increment
 #print axioms SharpSerfling.Hypergeometric.mgf_lowerNearest_two_le_oddProxy
 #print axioms SharpSerfling.Hypergeometric.onePhi_le_exact
 #print axioms SharpSerfling.Hypergeometric.mgf_one_le_oddProxy

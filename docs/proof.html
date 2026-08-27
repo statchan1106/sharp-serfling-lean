@@ -17,7 +17,7 @@
   <title>Proof Blueprint — Sharp Serfling</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Source+Sans+3:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
   <script>
     window.MathJax = {
@@ -40,8 +40,8 @@
         <a href="declarations.html">Declaration map</a>
       </nav>
       <nav class="external-nav" aria-label="Publication links">
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · forthcoming</span>
-        <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · forthcoming</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · GitHub</span>
       </nav>
     </div>
   </header>
@@ -100,7 +100,7 @@
               <div class="map-arrow" aria-hidden="true">↓</div>
               <div class="map-node map-geometry"><span>Three-coordinate core</span><strong>Every triple has a repeated value</strong><code>threePoint_globalMax_has_duplicate</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
-              <div class="map-node map-geometry"><span>Proposition 2</span><strong>Two-level maximizer</strong><code>exists_twoLevel_sliceMgf_maximizer</code></div>
+              <div class="map-node map-geometry"><span>Lee–Kim reduction</span><strong>Two-level maximizer, verified internally</strong><code>exists_twoLevel_sliceMgf_maximizer</code></div>
             </div>
 
             <div class="map-track">
@@ -108,6 +108,8 @@
               <div class="map-node map-probability"><span>Exact representation</span><strong>Two levels = centered hypergeometric</strong><code>sliceMgf_canonicalTwoLevel</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
               <div class="map-node map-probability"><span>Lemma 1</span><strong>Derivative recursion</strong><code>deriv_mgf_recursion</code></div>
+              <div class="map-arrow" aria-hidden="true">↓</div>
+              <div class="map-node map-probability"><span>Proposition 2</span><strong>Uniform coefficient-one bound</strong><code>log_mgf_le_universal</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
               <div class="map-node map-probability"><span>Parity branches</span><strong>Universal even + sharp odd bounds</strong><code>log_mgf_le_universal · odd_mgf_le</code></div>
             </div>
@@ -130,7 +132,7 @@
             <div class="map-node map-result"><span>Corollary 1</span><strong>Serfling MGF and tails</strong><code>serfling_mgf · serfling_tail</code></div>
             <div class="map-node map-result"><span>Corollary 2</span><strong>Exchangeable MGF and tail</strong><code>weighted_exchangeable_mgf_centeredNorm_inLaw</code></div>
             <div class="map-node map-result"><span>Sharpness</span><strong>Smallest exchangeable constant</strong><code>exchangeableInLaw_Cstar_sharp_constant</code></div>
-            <div class="map-node map-result"><span>Asymptotics</span><strong>(N(C_N^\star-1)\to1)</strong><code>tendsto_nat_mul_exchangeableConstant_sub_one</code></div>
+            <div class="map-node map-result"><span>Asymptotics</span><strong>\(N(C_N^\star-1)\to1\)</strong><code>tendsto_nat_mul_exchangeableConstant_sub_one</code></div>
           </div>
         </div>
       </div>
@@ -151,13 +153,13 @@
 
     <section id="population" class="proof-section reading">
       <header class="proof-heading"><span>1</span><div><p class="section-kicker">Finite-population reduction</p><h2>From arbitrary intervals to a Hamming slice</h2></div></header>
-      <p>Zero-pad the coefficient vector to (N) coordinates and remove its constant component. This makes the statistic insensitive to the population mean and yields the exact identity</p>
+      <p>Zero-pad the coefficient vector to \(N\) coordinates and remove its constant component. This makes the statistic insensitive to the population mean and yields the exact identity</p>
       <div class="formula">
         \[
         \rho_N(w)=\frac{N}{N-1}\lVert w^\circ\rVert_2^2.
         \]
       </div>
-      <p>Affine normalization sends (X\in[a,b]^N) to the unit cube. Convexity of the permutation MGF then moves the maximum to a binary population. Conditioning on its number of ones turns the permutation average into a fixed-cardinality subset average.</p>
+      <p>Affine normalization sends \(X\in[a,b]^N\) to the unit cube. Convexity of the permutation MGF then moves the maximum to a binary population. Conditioning on its number of ones turns the permutation average into a fixed-cardinality subset average.</p>
 
       <div class="formal-pair">
         <article class="formal-paper">
@@ -168,7 +170,7 @@
             <span class="paper-step">K-subset</span><span>→</span>
             <span class="paper-step">centered slice MGF</span>
           </div>
-          <p>The reduction preserves the centered-weight norm and introduces no sign restriction on (w).</p>
+          <p>The reduction preserves the centered-weight norm and introduces no sign restriction on \(w\).</p>
         </article>
         <article class="formal-lean">
           <p class="pair-label">Lean · principal certificates</p>
@@ -193,7 +195,7 @@ statistic_affine</code></pre>
 
       <div class="formal-pair">
         <article class="formal-paper">
-          <p class="pair-label">Paper · Proposition 2</p>
+          <p class="pair-label">Lee–Kim reduction cited in Section 3</p>
           <div class="formula compact-formula">
             \[
             \max_{\substack{\mathbf 1^\top y=0\\ \lVert y\rVert_2^2=r^2}}
@@ -227,7 +229,7 @@ statistic_affine</code></pre>
 
     <section id="recursion" class="proof-section reading">
       <header class="proof-heading"><span>3</span><div><p class="section-kicker">Hypergeometric core</p><h2>The recursion that retains the variance scale</h2></div></header>
-      <p>A centered two-level slice is a scaled centered hypergeometric count (H_{N,K,m}-Km/N). Its MGF (G_{N,K,m}) obeys an exact derivative identity that removes one success, one sampled coordinate, and two population coordinates:</p>
+      <p>A centered two-level slice is a scaled centered hypergeometric count \(H_{N,K,m}-Km/N\). Its MGF \(G_{N,K,m}\) obeys an exact derivative identity that removes one success, one sampled coordinate, and two population coordinates:</p>
       <div class="formula theorem-formula">
         \[
         G'_{N,K,m}(t)
@@ -238,7 +240,7 @@ statistic_affine</code></pre>
         v_{N,K,m}=\frac{K(N-K)m(N-m)}{N^2(N-1)}.
         \]
       </div>
-      <p>The prefactor is exactly the hypergeometric variance. That identity is the reason the sample-size term (m(N-m)/(N-1)) survives the induction instead of being replaced by a looser finite-population correction.</p>
+      <p>The prefactor is exactly the hypergeometric variance. That identity is the reason the sample-size term \(m(N-m)/(N-1)\) survives the induction instead of being replaced by a looser finite-population correction.</p>
 
       <div class="formal-pair">
         <article class="formal-paper">
@@ -270,13 +272,13 @@ theorem sharp_mgf {N K m : ℕ}
       <header class="proof-heading"><span>4</span><div><p class="section-kicker">Sharp parity analysis</p><h2>The easy even branch and the hard odd branch</h2></div></header>
       <div class="route-comparison">
         <article>
-          <h3>Even (N)</h3>
-          <p>The universal coefficient-one recursion bound is already sharp. An exactly balanced population (K=N/2) forces equality in the normalized second-order limit at the origin.</p>
+          <h3>Even \(N\)</h3>
+          <p>The universal coefficient-one recursion bound is already sharp. An exactly balanced population \(K=N/2\) forces equality in the normalized second-order limit at the origin.</p>
           <p><code>log_mgf_le_universal</code><br><code>tendsto_normalizedLogMgf_even_central</code></p>
         </article>
         <article>
-          <h3>Odd (N)</h3>
-          <p>The nearest-balanced Bernoulli slice identifies the smaller candidate coefficient, but controlling every (m) requires a sharper induction and a separate central-slice argument.</p>
+          <h3>Odd \(N\)</h3>
+          <p>The nearest-balanced Bernoulli slice identifies the smaller candidate coefficient, but controlling every \(m\) requires a sharper induction and a separate central-slice argument.</p>
           <p><code>mgf_one_le_oddProxy</code><br><code>odd_mgf_le</code></p>
         </article>
       </div>
@@ -292,14 +294,14 @@ theorem sharp_mgf {N K m : ℕ}
       </div>
 
       <div class="proof-translation">
-        <div><span>Base cases</span><p>The one-draw case contains a self-contained Kearns-Saul proof; the central two-draw law is handled exactly.</p></div>
+        <div><span>Base cases</span><p>The one-draw case contains a self-contained Kearns–Saul proof; the central two-draw law and its equality at \(t=L_{N,2}\) are handled exactly by <code>log_mgf_lowerNearest_two_eq_exact_at_increment</code>.</p></div>
         <div><span>Certificates</span><p>The polynomial endpoint estimates used in the central parameter check are verified as <code>P0_nonneg</code>, <code>P12_nonneg</code>, and <code>P7_nonneg</code>.</p></div>
       </div>
     </section>
 
     <section id="assembly" class="proof-section reading">
       <header class="proof-heading"><span>5</span><div><p class="section-kicker">Sharpness and assembly</p><h2>Return from the scalar problem to the main theorem</h2></div></header>
-      <p>The variational constant is defined as the maximum over sample size and success count, followed by the supremum over nonzero tilt. The upper bound comes from <code>sharp_mgf</code>; the matching lower bound is local for even (N) and attained at nonzero tilt for odd (N).</p>
+      <p>The variational constant is defined as the maximum over sample size and success count, followed by the supremum over nonzero tilt. The upper bound comes from <code>sharp_mgf</code>; the matching lower bound is local for even \(N\) and attained at nonzero tilt for odd \(N\).</p>
       <div class="formula">
         \[
         \kappa_N^\star
@@ -313,12 +315,12 @@ theorem sharp_mgf {N K m : ℕ}
 
       <div class="consequence-list">
         <article><span>Theorem 1</span><div><h3>Weighted finite population</h3><p>Binary reduction, the exact slice bridges, and the sharp hypergeometric theorem give the full range-normalized MGF inequality.</p><code>finitePopulation_mgf · finitePopulation_sharp_constant</code></div></article>
-        <article><span>Corollary 1</span><div><h3>Sharp Serfling correction</h3><p>Equal weights identify the statistic with the sample-mean deviation and specialize (ho_N(w)) to ((N-n)/(n(N-1))).</p><code>serfling_mgf · serfling_tail · serfling_lower_tail · serfling_twoSided_tail</code></div></article>
+        <article><span>Corollary 1</span><div><h3>Sharp Serfling correction</h3><p>Equal weights identify the statistic with the sample-mean deviation and specialize \(\rho_N(w)\) to \((N-n)/(n(N-1))\). Fixed-\(n\) even sharpness and uniform-in-\(n\) sharpness are checked explicitly.</p><code>serfling_mgf · serfling_correction_chain · serfling_fixed_even_sharp · serfling_uniform_sharp_constant</code></div></article>
         <article><span>Corollary 2</span><div><h3>Weighted exchangeable contrast</h3><p>Uniform permutation and conditioning transfer the result to equality-in-law exchangeability.</p><code>weighted_exchangeable_mgf_centeredNorm_inLaw · exchangeableInLaw_Cstar_sharp_constant</code></div></article>
-        <article><span>Asymptotics</span><div><h3>Exact first-order inflation</h3><p>The parity expansions have explicit (O(N^{-3})) remainders and imply (N(C_N^\star-1)\to1).</p><code>exchangeableConstant_even_expansion · exchangeableConstant_odd_expansion</code></div></article>
+        <article><span>Asymptotics</span><div><h3>Exact first-order inflation</h3><p>The parity expansions have explicit \(O(N^{-3})\) remainders and imply \(N(C_N^\star-1)\to1\).</p><code>exchangeableConstant_even_expansion · exchangeableConstant_odd_expansion</code></div></article>
       </div>
 
-      <p class="numbering-note"><strong>Audit boundary.</strong> The proof graph describes mathematical dependencies at a readable scale. <code>AxiomAudit.lean</code> separately asks Lean's kernel for the axioms used by every exported result.</p>
+      <p class="numbering-note"><strong>Audit boundary.</strong> The proof graph describes mathematical dependencies at a readable scale. <code>AxiomAudit.lean</code> covers headline declarations and <code>FullAxiomAudit.lean</code> automatically checks every declaration in the project namespace.</p>
     </section>
 
     <section class="section dark-section">
@@ -334,8 +336,8 @@ theorem sharp_mgf {N K m : ℕ}
     <div class="container footer-inner">
       <p>Sharp Serfling formalization</p>
       <div>
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · forthcoming</span>
-        <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · forthcoming</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · GitHub</span>
         <a href="https://statchan1106.github.io/">Seongchan Lee</a>
         <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a>
       </div>

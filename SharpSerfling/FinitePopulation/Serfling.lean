@@ -1,4 +1,5 @@
 import SharpSerfling.FinitePopulation.MainTheorem
+import SharpSerfling.Hypergeometric.Odd
 
 namespace SharpSerfling.FinitePopulation
 
@@ -62,6 +63,37 @@ theorem serfling_mgf {N n : ℕ} (hN : 2 ≤ N) (hn0 : 1 ≤ n)
         have : (1 : ℝ) < N := by exact_mod_cast (show 1 < N by omega)
         linarith
       field_simp [hnR, hNm1]
+
+/-- The complete comparison stated after Corollary 1: the sharp correction is
+no larger than Serfling's finite-population correction, which is in turn no
+larger than the common `(N - n + 1) / N` variant. -/
+theorem serfling_correction_chain {N n : ℕ} (hN : 2 ≤ N)
+    (hn0 : 1 ≤ n) (hnN : n ≤ N - 1) :
+    SharpSerfling.kappa N * ((N : ℝ) - (n : ℝ)) / ((N : ℝ) - 1) ≤
+        ((N : ℝ) - (n : ℝ)) / ((N : ℝ) - 1) ∧
+      ((N : ℝ) - (n : ℝ)) / ((N : ℝ) - 1) ≤
+        ((N : ℝ) - (n : ℝ) + 1) / (N : ℝ) := by
+  have hnCast : (n : ℝ) ≤ (N : ℝ) := by
+    exact_mod_cast (show n ≤ N by omega)
+  have hn0Cast : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn0
+  have hNn : 0 ≤ (N : ℝ) - (n : ℝ) := by linarith
+  have hNm1 : 0 < (N : ℝ) - 1 := by
+    have hOneN : (1 : ℝ) < (N : ℝ) := by
+      exact_mod_cast (show 1 < N by omega)
+    linarith
+  have hNpos : 0 < (N : ℝ) := by positivity
+  constructor
+  · calc
+      SharpSerfling.kappa N * ((N : ℝ) - (n : ℝ)) / ((N : ℝ) - 1) =
+          SharpSerfling.kappa N *
+            (((N : ℝ) - (n : ℝ)) / ((N : ℝ) - 1)) := by ring
+      _ ≤ 1 * (((N : ℝ) - (n : ℝ)) / ((N : ℝ) - 1)) :=
+        mul_le_mul_of_nonneg_right
+          (SharpSerfling.Hypergeometric.kappa_le_one hN)
+          (div_nonneg hNn hNm1.le)
+      _ = ((N : ℝ) - (n : ℝ)) / ((N : ℝ) - 1) := by ring
+  · apply (div_le_div_iff₀ hNm1 hNpos).2
+    nlinarith
 
 /-- Uniform finite-space probability of an upper-tail event. -/
 noncomputable def uniformUpperTail {Ω : Type*} [Fintype Ω]

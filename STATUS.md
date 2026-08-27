@@ -79,7 +79,8 @@
   elementary symmetric function, expanded exactly after isolating any three
   coordinates, and all boundary degrees `K = 1`, `K = 2`, and `K ≥ 3` are
   handled.  Consequently a global slice-MGF maximizer has at most two distinct
-  coordinate values; this is the full structural Proposition 2.
+  coordinate values; this internally verifies the Lee--Kim structural reduction
+  cited in Section 3 of manuscript (49).
 - M7 main weighted MGF theorem: every two-valued centered maximizer is
   identified, up to coordinate permutation, with a canonical two-level vector;
   the sharp hypergeometric estimate therefore bounds every centered slice.
@@ -120,10 +121,23 @@
   and `exchangeableInLaw_sharp_constant` proves both validity and minimality.
 - The displayed parity-dependent expansions of `C_N^⋆` have explicit
   `O(N⁻³)` remainders, and `N(C_N^⋆ - 1) → 1` is kernel-checked.
+- Corollary 1 sharpness is represented at the sample-mean level itself.
+  `sampleMeanMgf_markedIndicator` gives the exact hypergeometric witness;
+  `serfling_fixed_even_sharp` proves fixed-`n` minimality for even populations;
+  `serfling_uniform_sharp_constant` proves uniform-in-`n` minimality; and
+  `serfling_uniform_odd_witness` records the odd `n = 1` attainment.
+- The comparison of all three finite-population corrections is checked by
+  `serfling_correction_chain`. The strict odd inequality `κ_N < 1` is checked
+  by `kappa_odd_lt_one`.
+- The equality clause in manuscript Lemma 5 at `t = L_{N,2}` is exposed as
+  `log_mgf_lowerNearest_two_eq_exact_at_increment`.
+- `FullAxiomAudit.lean` audits every declaration in the `SharpSerfling`
+  namespace automatically; CI also rejects all trust-bypassing source forms.
 
 ## Current milestone
 
-Formalization complete for the current manuscript: all named theorems,
+Formalization complete for the 27-page `Sharp_Serfling (49).pdf` (SHA-256
+`1b4f0ddc2fb8ed93cac9011f2f816d5938996181d30ce022fc970cc138cd`): all named theorems,
 propositions, corollaries, and lemmas, together with the displayed variance,
 variational-optimality, degeneracy, and asymptotic claims, are represented by
 kernel-checked declarations. Every checked-in declaration is complete.

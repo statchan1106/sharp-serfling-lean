@@ -15,3 +15,15 @@ jobs:
 
       - name: Audit public theorem assumptions
         run: lake env lean AxiomAudit.lean
+
+      - name: Audit every project declaration
+        run: lake env lean FullAxiomAudit.lean
+
+      - name: Reject trust-bypassing declarations
+        shell: bash
+        run: |
+          if rg -n '\b(sorry|admit)\b|^\s*axiom\b|\b(unsafe|implemented_by|opaque)\b' \
+              --glob '*.lean' --glob '!**/.lake/**' .; then
+            echo 'Forbidden Lean declaration found.' >&2
+            exit 1
+          fi

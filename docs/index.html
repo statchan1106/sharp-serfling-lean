@@ -17,7 +17,7 @@
   <title>Sharp Serfling — Formalization Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Source+Sans+3:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
   <script>
     window.MathJax = {
@@ -40,8 +40,8 @@
         <a href="declarations.html">Declaration map</a>
       </nav>
       <nav class="external-nav" aria-label="Publication links">
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · forthcoming</span>
-        <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · forthcoming</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · GitHub</span>
       </nav>
     </div>
   </header>
@@ -76,7 +76,7 @@
           \le
           \frac{\kappa_N}{8}\,\rho_N(w)(b-a)^2t^2,
           \qquad
-          \rho_N(w)=\frac{N\sum_i w_i^2-(\sum_i w_i)^2}{N(N-1)}.
+          \rho_N(w)=\frac{N\sum_i w_i^2-(\sum_i w_i)^2}{N-1}.
           \]
         </div>
 
@@ -127,8 +127,8 @@
           \[
           \kappa_N=
           \begin{cases}
-          1, & N \text{ even},\\[4pt]
-          \displaystyle \frac{2}{N\log((N+1)/(N-1))}, & N \text{ odd}.
+          1, &amp; N \text{ even},\\[4pt]
+          \displaystyle \frac{2}{N\log((N+1)/(N-1))}, &amp; N \text{ odd}.
           \end{cases}
           \]
         </div>
@@ -154,7 +154,7 @@
           </article>
           <article>
             <h3>Kernel-checked scope</h3>
-            <p>The source contains no <code>sorry</code>, <code>admit</code>, project-defined axiom, <code>unsafe</code>, <code>implemented_by</code>, or <code>opaque</code> declaration. The public audit reports only Lean and Mathlib's ordinary logical foundations.</p>
+            <p>The source contains no <code>sorry</code>, <code>admit</code>, project-defined axiom, <code>unsafe</code>, <code>implemented_by</code>, or <code>opaque</code> declaration. An automatic full-namespace audit checks every project declaration and reports only Lean and Mathlib's ordinary logical foundations.</p>
           </article>
         </div>
       </div>
@@ -176,8 +176,8 @@
     <div class="container footer-inner">
       <p>Sharp Serfling formalization</p>
       <div>
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · forthcoming</span>
-        <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · forthcoming</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · GitHub</span>
         <a href="https://statchan1106.github.io/">Seongchan Lee</a>
         <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a>
       </div>

@@ -12,7 +12,7 @@ weights \(w \in \mathbb R^n\), define
 $$
 T_w=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N), \qquad
 \rho_N(w)=
-\frac{N\sum_i w_i^2-(\sum_i w_i)^2}{N(N-1)}.
+\frac{N\sum_i w_i^2-(\sum_i w_i)^2}{N-1}.
 $$
 
 The main theorem proves
@@ -74,9 +74,10 @@ Lean certificates:
 - `FinitePopulation.finiteAverage_sample_orbit`
 - `FinitePopulation.mgf_binary_eq_sliceMgf`
 
-## 2. The two-level extremizer
+## 2. The two-level extremizer (formalized Lee--Kim reduction)
 
-On the centered fixed-radius sphere, compactness supplies a slice-MGF
+The manuscript cites this reduction to Lee and Kim (2026); the Lean development
+also proves it internally. On the centered fixed-radius sphere, compactness supplies a slice-MGF
 maximizer. The slice numerator is expressed through elementary symmetric
 polynomials. After isolating any three coordinates, a constrained-circle
 argument, a repeated-Rolle theorem, and a Hermite interpolation sign lemma rule
@@ -135,6 +136,7 @@ Lean certificates:
 - `Hypergeometric.log_mgf_le_universal`
 - `Hypergeometric.mgf_one_le_oddProxy`
 - `Hypergeometric.mgf_lowerNearest_two_le_oddProxy`
+- `Hypergeometric.log_mgf_lowerNearest_two_eq_exact_at_increment`
 - `Hypergeometric.oddNoncentralEnvelope`
 - `Analysis.singleCrossing_integral_nonneg`
 - `Hypergeometric.centralParameters`
@@ -156,6 +158,10 @@ Lean certificates:
 - `Hypergeometric.sharp_constant`
 - `FinitePopulation.serfling_mgf`
 - `FinitePopulation.serfling_tail`
+- `FinitePopulation.serfling_correction_chain`
+- `FinitePopulation.serfling_fixed_even_sharp`
+- `FinitePopulation.serfling_uniform_sharp_constant`
+- `FinitePopulation.serfling_uniform_odd_witness`
 - `FinitePopulation.weighted_exchangeable_mgf_centeredNorm_inLaw`
 - `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant`
 
