@@ -25,7 +25,7 @@ hypergeometric extremal problem, and the even/odd asymptotics.
 
 ## Main result
 
-For a fixed population \(X\in[a,b]^N\), a uniform permutation \(\pi\), and
+For a fixed population $(X\in[a,b]^N)$, a uniform permutation \(\pi\), and
 weights \(w\in\mathbb R^n\), set
 
 $$
