@@ -25,8 +25,8 @@ hypergeometric extremal problem, and the even/odd asymptotics.
 
 ## Main result
 
-For a fixed population $(X\in[a,b]^N)$, a uniform permutation \(\pi\), and
-weights \(w\in\mathbb R^n\), set
+For a fixed population $X\in[a,b]^N$, a uniform permutation $\pi$, and
+weights $w\in\mathbb R^n$, set
 
 $$
 T_w=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N),\qquad
