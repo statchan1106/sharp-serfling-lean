@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="docs/Sharp_Serfling_49.pdf"><img src="https://img.shields.io/badge/Paper-PDF-2563eb?style=flat-square" alt="Paper PDF"></a>
+  <img src="https://img.shields.io/badge/Paper-coming%20soon-9ca3af?style=flat-square" alt="Paper coming soon">
   <a href="https://statchan1106.github.io/sharp-serfling-lean/"><img src="https://img.shields.io/badge/Project%20page-open-126765?style=flat-square" alt="Project page"></a>
   <a href="https://github.com/statchan1106/sharp-serfling-lean"><img src="https://img.shields.io/badge/Code-GitHub-111827?style=flat-square" alt="GitHub repository"></a>
   <a href="https://github.com/statchan1106/sharp-serfling-lean/actions/workflows/lean_action_ci.yml?query=branch%3Amain"><img src="https://github.com/statchan1106/sharp-serfling-lean/actions/workflows/lean_action_ci.yml/badge.svg?branch=main" alt="Lean CI"></a>
