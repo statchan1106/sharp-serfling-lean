@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Dependency blueprint and step-by-step proof guide for the Sharp Serfling formalization.">
-  <meta property="og:title" content="Proof Blueprint — Sharp Serfling">
-  <meta property="og:description" content="From binary reduction and two-level extremizers to the sharp hypergeometric recursion.">
+  <meta name="description" content="A step-by-step explanation of how the weighted sampling problem reduces to a hypergeometric counting problem, with Lean certificates.">
+  <meta property="og:title" content="Proof Guide — Sharp Serfling">
+  <meta property="og:description" content="Follow the proof from interval-valued populations to zero-one counting, smaller recursions, and the best constant.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statchan1106.github.io/sharp-serfling-lean/proof.html">
   <meta property="og:image" content="https://statchan1106.github.io/sharp-serfling-lean/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Proof Blueprint — Sharp Serfling">
-  <meta name="twitter:description" content="From binary reduction and two-level extremizers to the sharp hypergeometric recursion.">
+  <meta name="twitter:title" content="Proof Guide — Sharp Serfling">
+  <meta name="twitter:description" content="Follow the proof from interval-valued populations to zero-one counting, smaller recursions, and the best constant.">
   <meta name="twitter:image" content="https://statchan1106.github.io/sharp-serfling-lean/og.png">
   <link rel="canonical" href="https://statchan1106.github.io/sharp-serfling-lean/proof.html">
-  <title>Proof Blueprint — Sharp Serfling</title>
+  <title>Proof Guide — Sharp Serfling</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Source+Sans+3:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
@@ -33,14 +33,14 @@
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="index.html"><span>SS</span><strong>Formalization guide</strong></a>
+      <a class="brand" href="index.html"><span>SS</span><strong>Reader's proof guide</strong></a>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="index.html">Overview</a>
-        <a href="proof.html" aria-current="page">Proof blueprint</a>
-        <a href="declarations.html">Declaration map</a>
+        <a href="proof.html" aria-current="page">Proof guide</a>
+        <a href="declarations.html">Lean map</a>
       </nav>
       <nav class="external-nav" aria-label="Publication links">
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · forthcoming</span>
         <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · GitHub</span>
       </nav>
     </div>
@@ -48,16 +48,17 @@
 
   <main id="content">
     <section class="subhero reading">
-      <p class="eyebrow">The proof in mathematics and Lean</p>
-      <h1>How the sharp bound is assembled</h1>
-      <p class="intro">The proof has two levels of reduction and two levels of analysis: arbitrary weighted populations become two-level Hamming slices, those slices become centered hypergeometric MGFs, and a parity-sensitive induction determines the optimal constant.</p>
+      <p class="eyebrow">The proof as a sequence of simpler questions</p>
+      <h1>How a weighted sampling problem becomes one counting problem</h1>
+      <p class="intro">The proof starts with arbitrary values and signed weights. It first shows what a worst case must look like, then turns that worst case into the number of marked items drawn without replacement. An exact relation to a smaller population finishes the bound.</p>
+      <p class="reader-note"><strong>First-time reader?</strong> Read the explanatory paragraphs and the light-colored mathematics cards. The dark Lean cards record the exact machine-checked statements and can be skipped on a first pass.</p>
       <nav class="jump-nav" aria-label="Proof sections">
-        <a href="#map">Dependency map</a>
-        <a href="#population">1 · Population</a>
-        <a href="#geometry">2 · Two levels</a>
-        <a href="#recursion">3 · Recursion</a>
-        <a href="#odd">4 · Odd branch</a>
-        <a href="#assembly">5 · Assembly</a>
+        <a href="#map">Big picture</a>
+        <a href="#population">1 · Endpoints</a>
+        <a href="#geometry">2 · Two weight values</a>
+        <a href="#recursion">3 · Smaller counts</a>
+        <a href="#odd">4 · Even and odd \(N\)</a>
+        <a href="#assembly">5 · Best constant</a>
       </nav>
     </section>
 
@@ -65,66 +66,66 @@
       <div class="container">
         <div class="blueprint-heading">
           <div>
-            <p class="section-kicker">Formalization blueprint</p>
-            <h2>The dependency graph at a glance</h2>
+            <p class="section-kicker">The full argument on one page</p>
+            <h2>The proof map at a glance</h2>
           </div>
-          <p>The graph separates the finite-population reduction, extremal geometry, and hypergeometric analysis before they merge into the sharp theorem and its corollaries.</p>
+          <p>Each column answers a different question: what values can be worst, what weight pattern can be worst, and how the remaining counting problem is bounded.</p>
         </div>
 
         <div class="blueprint-legend" aria-label="Dependency graph legend">
           <span class="legend-reduction">Reduction</span>
-          <span class="legend-geometry">Geometry</span>
-          <span class="legend-probability">Hypergeometric</span>
-          <span class="legend-result">Exported result</span>
+          <span class="legend-geometry">Worst-case shape</span>
+          <span class="legend-probability">Counting model</span>
+          <span class="legend-result">Final result</span>
         </div>
 
         <div class="proof-map" role="figure" aria-label="Dependency graph for the Sharp Serfling formalization">
           <div class="map-node map-reduction map-wide">
-            <span>Weighted finite population</span>
-            <strong>Center the coefficients and normalize the range</strong>
+            <span>Starting problem</span>
+            <strong>Center the weights and rescale the interval to \([0,1]\)</strong>
             <code>centeredWeight · statistic_affine · sum_sq_centeredWeight_eq_rho</code>
           </div>
           <div class="map-arrow split-arrow" aria-hidden="true">↓ three supporting tracks ↓</div>
 
           <div class="map-tracks">
             <div class="map-track">
-              <p>Reduction track</p>
-              <div class="map-node map-reduction"><span>Cube extremality</span><strong>Binary population reduction</strong><code>binaryRangeReduction</code></div>
+              <p>Which values can be worst?</p>
+              <div class="map-node map-reduction"><span>Interval endpoints</span><strong>It is enough to study zero-one populations</strong><code>binaryRangeReduction</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
-              <div class="map-node map-reduction"><span>Exact bridge</span><strong>Permutation MGF = slice MGF</strong><code>mgf_binary_eq_sliceMgf</code></div>
+              <div class="map-node map-reduction"><span>Exact bridge</span><strong>Random order = uniform fixed-size subset</strong><code>mgf_binary_eq_sliceMgf</code></div>
             </div>
 
             <div class="map-track">
-              <p>Geometry track</p>
-              <div class="map-node map-geometry"><span>Compactness</span><strong>A slice maximizer exists</strong><code>exists_sliceMgf_maximizer</code></div>
+              <p>Which weights can be worst?</p>
+              <div class="map-node map-geometry"><span>Existence</span><strong>A maximizing centered weight vector exists</strong><code>exists_sliceMgf_maximizer</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
-              <div class="map-node map-geometry"><span>Three-coordinate core</span><strong>Every triple has a repeated value</strong><code>threePoint_globalMax_has_duplicate</code></div>
+              <div class="map-node map-geometry"><span>Three-coordinate check</span><strong>A maximizing triple cannot have three distinct values</strong><code>threePoint_globalMax_has_duplicate</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
-              <div class="map-node map-geometry"><span>Lee–Kim reduction</span><strong>Two-level maximizer, verified internally</strong><code>exists_twoLevel_sliceMgf_maximizer</code></div>
+              <div class="map-node map-geometry"><span>Structural conclusion</span><strong>A maximizer can be chosen with two weight values</strong><code>exists_twoLevel_sliceMgf_maximizer</code></div>
             </div>
 
             <div class="map-track">
-              <p>Hypergeometric track</p>
-              <div class="map-node map-probability"><span>Exact representation</span><strong>Two levels = centered hypergeometric</strong><code>sliceMgf_canonicalTwoLevel</code></div>
+              <p>How is the count bounded?</p>
+              <div class="map-node map-probability"><span>Exact representation</span><strong>Two weight values = centered marked-item count</strong><code>sliceMgf_canonicalTwoLevel</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
-              <div class="map-node map-probability"><span>Lemma 1</span><strong>Derivative recursion</strong><code>deriv_mgf_recursion</code></div>
+              <div class="map-node map-probability"><span>Lemma 1</span><strong>Relate the derivative to a smaller population</strong><code>deriv_mgf_recursion</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
-              <div class="map-node map-probability"><span>Proposition 2</span><strong>Uniform coefficient-one bound</strong><code>log_mgf_le_universal</code></div>
+              <div class="map-node map-probability"><span>Proposition 2</span><strong>First prove a bound with constant \(1\)</strong><code>log_mgf_le_universal</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
-              <div class="map-node map-probability"><span>Parity branches</span><strong>Universal even + sharp odd bounds</strong><code>log_mgf_le_universal · odd_mgf_le</code></div>
+              <div class="map-node map-probability"><span>Even and odd population sizes</span><strong>Identify the best constant in both cases</strong><code>log_mgf_le_universal · odd_mgf_le</code></div>
             </div>
           </div>
 
           <div class="map-arrow merge-arrow" aria-hidden="true">tracks combine ↓</div>
           <div class="map-node map-result map-wide">
             <span>Theorem 2 + Proposition 1</span>
-            <strong>Sharp centered-hypergeometric MGF and optimal coefficient</strong>
+            <strong>Best MGF bound for the centered marked-item count</strong>
             <code>sharp_mgf · kappaStar_eq_kappa · sharp_constant</code>
           </div>
           <div class="map-arrow" aria-hidden="true">↓</div>
           <div class="map-node map-result map-wide">
             <span>Theorem 1</span>
-            <strong>Weighted finite-population MGF</strong>
+            <strong>Return to the original weighted sampling problem</strong>
             <code>finitePopulation_mgf · finitePopulation_sharp_constant</code>
           </div>
           <div class="map-arrow" aria-hidden="true">↓</div>
@@ -140,11 +141,11 @@
 
     <section class="section">
       <div class="reading">
-        <p class="section-kicker">How to read the detailed blocks</p>
-        <h2>Mathematics first, formal certificate second</h2>
+        <p class="section-kicker">Two reading levels</p>
+        <h2>Explanation first, formal certificate second</h2>
         <div class="method-key">
-          <div><span>Paper target</span><p>The mathematical statement being established.</p></div>
-          <div><span>Proof move</span><p>The reduction or estimate that advances the argument.</p></div>
+          <div><span>Mathematical target</span><p>What the step establishes and why it is needed.</p></div>
+          <div><span>Proof idea</span><p>The intuitive reason the reduction or estimate works.</p></div>
           <div><span>Lean certificate</span><p>The declaration that checks the claim.</p></div>
           <div><span>Boundary work</span><p>Degenerate cases and hypotheses made explicit in the formal proof.</p></div>
         </div>
@@ -152,14 +153,14 @@
     </section>
 
     <section id="population" class="proof-section reading">
-      <header class="proof-heading"><span>1</span><div><p class="section-kicker">Finite-population reduction</p><h2>From arbitrary intervals to a Hamming slice</h2></div></header>
-      <p>Zero-pad the coefficient vector to \(N\) coordinates and remove its constant component. This makes the statistic insensitive to the population mean and yields the exact identity</p>
+      <header class="proof-heading"><span>1</span><div><p class="section-kicker">Which population values can be worst?</p><h2>From an interval to zeros and ones</h2></div></header>
+      <p>First pad the weights with zeros to \(N\) coordinates and subtract their average. This removes the part of the weights that cannot affect a centered statistic and gives the exact identity</p>
       <div class="formula">
         \[
         \rho_N(w)=\frac{N}{N-1}\lVert w^\circ\rVert_2^2.
         \]
       </div>
-      <p>Affine normalization sends \(X\in[a,b]^N\) to the unit cube. Convexity of the permutation MGF then moves the maximum to a binary population. Conditioning on its number of ones turns the permutation average into a fixed-cardinality subset average.</p>
+      <p>Next rescale every population value from \([a,b]\) to \([0,1]\). The exponential average is convex in each population coordinate, so its maximum over this cube occurs at a corner. A corner contains only zeros and ones. Once the number \(K\) of ones is fixed, a random permutation is equivalent to choosing a uniformly random \(K\)-element subset.</p>
 
       <div class="formal-pair">
         <article class="formal-paper">
@@ -170,7 +171,7 @@
             <span class="paper-step">K-subset</span><span>→</span>
             <span class="paper-step">centered slice MGF</span>
           </div>
-          <p>The reduction preserves the centered-weight norm and introduces no sign restriction on \(w\).</p>
+          <p>Nothing is approximated in these bridges, and the weights may still be positive or negative.</p>
         </article>
         <article class="formal-lean">
           <p class="pair-label">Lean · principal certificates</p>
@@ -189,13 +190,13 @@ statistic_affine</code></pre>
     </section>
 
     <section id="geometry" class="proof-section reading">
-      <header class="proof-heading"><span>2</span><div><p class="section-kicker">Extremal geometry</p><h2>Why a maximizer has only two coordinate values</h2></div></header>
-      <p>Fix the centered Euclidean norm of the coefficient vector. Compactness gives a global maximizer of the slice MGF. The numerator is rewritten as an elementary symmetric polynomial, so any three coordinates can be isolated while the remaining coordinates enter through nonnegative coefficients.</p>
-      <p>On the circle cut out by fixed sum and fixed squared norm, first- and second-order conditions combine with a repeated-Rolle/Hermite sign argument. A strict maximum cannot have three distinct coordinates. Applying this to every triple forces a global maximizer with at most two levels.</p>
+      <header class="proof-heading"><span>2</span><div><p class="section-kicker">Which weight pattern can be worst?</p><h2>Why two weight values are enough</h2></div></header>
+      <p>Now fix two features of the padded weight vector: its coordinates sum to zero and its squared length is fixed. A maximizing vector exists. The key question is whether that maximizer could need many different coordinate values.</p>
+      <p>Focus on any three coordinates while holding their sum and squared length fixed. Those three points move on a circle. The first- and second-order conditions, together with a repeated-Rolle/Hermite argument, rule out a maximum with three distinct values. Repeating this for every triple shows that a global maximizer can be chosen with at most two weight values.</p>
 
       <div class="formal-pair">
         <article class="formal-paper">
-          <p class="pair-label">Lee–Kim reduction cited in Section 3</p>
+          <p class="pair-label">Mathematical conclusion used in Section 3</p>
           <div class="formula compact-formula">
             \[
             \max_{\substack{\mathbf 1^\top y=0\\ \lVert y\rVert_2^2=r^2}}
@@ -220,7 +221,7 @@ statistic_affine</code></pre>
       </div>
 
       <details class="lean-detail">
-        <summary>Analytic sub-certificates</summary>
+        <summary>Technical certificates behind the three-coordinate argument</summary>
         <div><code>exists_iteratedDeriv_five_eq_zero_of_three_double_roots</code><p>Repeated Rolle theorem for three double roots.</p></div>
         <div><code>hermite_weighted_deriv_pos</code><p>The quintic Hermite interpolation sign needed by the three-coordinate obstruction.</p></div>
         <div><code>threePoint_globalMax_has_duplicate</code><p>A constrained global maximum on the three-coordinate sphere has a repeated value.</p></div>
@@ -228,8 +229,8 @@ statistic_affine</code></pre>
     </section>
 
     <section id="recursion" class="proof-section reading">
-      <header class="proof-heading"><span>3</span><div><p class="section-kicker">Hypergeometric core</p><h2>The recursion that retains the variance scale</h2></div></header>
-      <p>A centered two-level slice is a scaled centered hypergeometric count \(H_{N,K,m}-Km/N\). Its MGF \(G_{N,K,m}\) obeys an exact derivative identity that removes one success, one sampled coordinate, and two population coordinates:</p>
+      <header class="proof-heading"><span>3</span><div><p class="section-kicker">The remaining counting problem</p><h2>Relating the count to a smaller population</h2></div></header>
+      <p>Suppose \(K\) of the \(N\) population items are marked and \(m\) items are drawn without replacement. Let \(H_{N,K,m}\) count how many marked items are drawn. After subtracting its mean \(Km/N\), its MGF \(G_{N,K,m}\) satisfies the exact derivative identity</p>
       <div class="formula theorem-formula">
         \[
         G'_{N,K,m}(t)
@@ -240,7 +241,8 @@ statistic_affine</code></pre>
         v_{N,K,m}=\frac{K(N-K)m(N-m)}{N^2(N-1)}.
         \]
       </div>
-      <p>The prefactor is exactly the hypergeometric variance. That identity is the reason the sample-size term \(m(N-m)/(N-1)\) survives the induction instead of being replaced by a looser finite-population correction.</p>
+      <p>The smaller MGF on the right uses a population of size \(N-2\), with one fewer marked item and one fewer draw. Crucially, the multiplier \(v_{N,K,m}\) is exactly the variance of the original count. This is why the proof retains the precise sample-size factor \(m(N-m)/(N-1)\).</p>
+      <p class="formula-hint">On a narrow screen, scroll the formula sideways.</p>
 
       <div class="formal-pair">
         <article class="formal-paper">
@@ -269,21 +271,21 @@ theorem sharp_mgf {N K m : ℕ}
     </section>
 
     <section id="odd" class="proof-section reading">
-      <header class="proof-heading"><span>4</span><div><p class="section-kicker">Sharp parity analysis</p><h2>The easy even branch and the hard odd branch</h2></div></header>
+      <header class="proof-heading"><span>4</span><div><p class="section-kicker">Where even and odd sizes differ</p><h2>Exact balance exists only when \(N\) is even</h2></div></header>
       <div class="route-comparison">
         <article>
           <h3>Even \(N\)</h3>
-          <p>The universal coefficient-one recursion bound is already sharp. An exactly balanced population \(K=N/2\) forces equality in the normalized second-order limit at the origin.</p>
+          <p>The constant-\(1\) bound is already best possible. The exactly balanced choice \(K=N/2\) exists, and the behavior as \(t\) approaches zero forces the constant to be at least \(1\).</p>
           <p><code>log_mgf_le_universal</code><br><code>tendsto_normalizedLogMgf_even_central</code></p>
         </article>
         <article>
           <h3>Odd \(N\)</h3>
-          <p>The nearest-balanced Bernoulli slice identifies the smaller candidate coefficient, but controlling every \(m\) requires a sharper induction and a separate central-slice argument.</p>
+          <p>The integer \(N/2\) does not exist. The closest possible split identifies a smaller candidate constant, but proving it for every sample size requires one additional comparison in the most balanced case.</p>
           <p><code>mgf_one_le_oddProxy</code><br><code>odd_mgf_le</code></p>
         </article>
       </div>
 
-      <p>For noncentral slices, a pointwise derivative comparison closes the induction. At the hard central slice, that comparison can cross the target. The proof integrates the derivative difference, reduces its minimum to a single endpoint, and shows that the positive signed area dominates the negative one.</p>
+      <p>A direct derivative comparison works whenever \(K\) is not the most difficult nearly balanced value. At that remaining value, the derivative comparison may briefly go in the wrong direction. The proof therefore compares the accumulated area instead and shows that the earlier positive contribution always dominates the later negative contribution.</p>
 
       <div class="mini-chain">
         <code>centralDeficit_bounds</code><span>→</span>
@@ -294,14 +296,14 @@ theorem sharp_mgf {N K m : ℕ}
       </div>
 
       <div class="proof-translation">
-        <div><span>Base cases</span><p>The one-draw case contains a self-contained Kearns–Saul proof; the central two-draw law and its equality at \(t=L_{N,2}\) are handled exactly by <code>log_mgf_lowerNearest_two_eq_exact_at_increment</code>.</p></div>
-        <div><span>Certificates</span><p>The polynomial endpoint estimates used in the central parameter check are verified as <code>P0_nonneg</code>, <code>P12_nonneg</code>, and <code>P7_nonneg</code>.</p></div>
+        <div><span>Starting cases</span><p>The one-draw case is proved directly; the most balanced two-draw case and its equality at \(t=L_{N,2}\) are also computed exactly.</p></div>
+        <div><span>Algebraic checks</span><p>The endpoint estimates needed for the accumulated-area comparison are reduced to three explicit polynomial inequalities and verified in Lean.</p></div>
       </div>
     </section>
 
     <section id="assembly" class="proof-section reading">
-      <header class="proof-heading"><span>5</span><div><p class="section-kicker">Sharpness and assembly</p><h2>Return from the scalar problem to the main theorem</h2></div></header>
-      <p>The variational constant is defined as the maximum over sample size and success count, followed by the supremum over nonzero tilt. The upper bound comes from <code>sharp_mgf</code>; the matching lower bound is local for even \(N\) and attained at nonzero tilt for odd \(N\).</p>
+      <header class="proof-heading"><span>5</span><div><p class="section-kicker">Why the constant cannot be improved</p><h2>Return from the count to the main theorem</h2></div></header>
+      <p>To ask for the smallest possible constant, maximize the normalized log MGF over every number \(K\) of marked items, every sample size \(m\), and every nonzero real \(t\). The proved upper bound matches a lower-bound example: near \(t=0\) when \(N\) is even, and at an explicit nonzero \(t\) when \(N\) is odd.</p>
       <div class="formula">
         \[
         \kappa_N^\star
@@ -317,7 +319,7 @@ theorem sharp_mgf {N K m : ℕ}
         <article><span>Theorem 1</span><div><h3>Weighted finite population</h3><p>Binary reduction, the exact slice bridges, and the sharp hypergeometric theorem give the full range-normalized MGF inequality.</p><code>finitePopulation_mgf · finitePopulation_sharp_constant</code></div></article>
         <article><span>Corollary 1</span><div><h3>Sharp Serfling correction</h3><p>Equal weights identify the statistic with the sample-mean deviation and specialize \(\rho_N(w)\) to \((N-n)/(n(N-1))\). Fixed-\(n\) even sharpness and uniform-in-\(n\) sharpness are checked explicitly.</p><code>serfling_mgf · serfling_correction_chain · serfling_fixed_even_sharp · serfling_uniform_sharp_constant</code></div></article>
         <article><span>Corollary 2</span><div><h3>Weighted exchangeable contrast</h3><p>Uniform permutation and conditioning transfer the result to equality-in-law exchangeability.</p><code>weighted_exchangeable_mgf_centeredNorm_inLaw · exchangeableInLaw_Cstar_sharp_constant</code></div></article>
-        <article><span>Asymptotics</span><div><h3>Exact first-order inflation</h3><p>The parity expansions have explicit \(O(N^{-3})\) remainders and imply \(N(C_N^\star-1)\to1\).</p><code>exchangeableConstant_even_expansion · exchangeableConstant_odd_expansion</code></div></article>
+        <article><span>Large populations</span><div><h3>Exact first-order behavior</h3><p>The even- and odd-\(N\) expansions have explicit \(O(N^{-3})\) remainders and imply \(N(C_N^\star-1)\to1\).</p><code>exchangeableConstant_even_expansion · exchangeableConstant_odd_expansion</code></div></article>
       </div>
 
       <p class="numbering-note"><strong>Audit boundary.</strong> The proof graph describes mathematical dependencies at a readable scale. <code>AxiomAudit.lean</code> covers headline declarations and <code>FullAxiomAudit.lean</code> automatically checks every declaration in the project namespace.</p>
@@ -326,7 +328,7 @@ theorem sharp_mgf {N K m : ℕ}
     <section class="section dark-section">
       <div class="container next-grid">
         <div><p class="section-kicker">Cross-reference</p><h2>Find the exact certificate</h2></div>
-        <a class="next-card" href="declarations.html"><span>01</span><strong>Declaration map</strong><p>Search by theorem number, mathematical role, module, or Lean identifier.</p></a>
+        <a class="next-card" href="declarations.html"><span>01</span><strong>Lean map</strong><p>Search by theorem number, mathematical role, module, or Lean identifier.</p></a>
         <a class="next-card" href="index.html"><span>02</span><strong>Return to overview</strong><p>Review the main theorem, sharp constant, and consequences.</p></a>
       </div>
     </section>
@@ -336,7 +338,7 @@ theorem sharp_mgf {N K m : ℕ}
     <div class="container footer-inner">
       <p>Sharp Serfling formalization</p>
       <div>
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · forthcoming</span>
         <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · GitHub</span>
         <a href="https://statchan1106.github.io/">Seongchan Lee</a>
         <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a>

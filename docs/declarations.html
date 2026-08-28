@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Searchable paper-to-Lean declaration map for the Sharp Serfling formalization.">
+  <meta name="description" content="Searchable map from each mathematical result in Sharp Serfling to the Lean declaration that checks it.">
   <meta property="og:title" content="Declaration Map — Sharp Serfling">
-  <meta property="og:description" content="A searchable cross-reference from the mathematical results to checked Lean declarations.">
+  <meta property="og:description" content="Find the exact Lean certificate for each theorem, corollary, reduction, and technical estimate.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statchan1106.github.io/sharp-serfling-lean/declarations.html">
   <meta property="og:image" content="https://statchan1106.github.io/sharp-serfling-lean/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Declaration Map — Sharp Serfling">
-  <meta name="twitter:description" content="A searchable cross-reference from the mathematical results to checked Lean declarations.">
+  <meta name="twitter:description" content="Find the exact Lean certificate for each theorem, corollary, reduction, and technical estimate.">
   <meta name="twitter:image" content="https://statchan1106.github.io/sharp-serfling-lean/og.png">
   <link rel="canonical" href="https://statchan1106.github.io/sharp-serfling-lean/declarations.html">
   <title>Declaration Map — Sharp Serfling</title>
@@ -33,14 +33,14 @@
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="index.html"><span>SS</span><strong>Formalization guide</strong></a>
+      <a class="brand" href="index.html"><span>SS</span><strong>Reader's proof guide</strong></a>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="index.html">Overview</a>
-        <a href="proof.html">Proof blueprint</a>
-        <a href="declarations.html" aria-current="page">Declaration map</a>
+        <a href="proof.html">Proof guide</a>
+        <a href="declarations.html" aria-current="page">Lean map</a>
       </nav>
       <nav class="external-nav" aria-label="Publication links">
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · forthcoming</span>
         <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · GitHub</span>
       </nav>
     </div>
@@ -48,12 +48,12 @@
 
   <main id="content">
     <section class="subhero reading">
-      <p class="eyebrow">Paper-to-Lean cross-reference</p>
-      <h1>Declaration map</h1>
-      <p class="intro">Search by mathematical role, result number, module, or declaration. Each group names the checked theorem and explains what part of the argument it certifies.</p>
+      <p class="eyebrow">For readers who want the exact formal statement</p>
+      <h1>Lean declaration map</h1>
+      <p class="intro">The overview and proof guide explain the mathematics first. This page is the cross-reference: search for a theorem, idea, or symbol to find the exact Lean declaration whose proof is checked by the kernel.</p>
       <label class="declaration-search">
         <span>Filter declarations</span>
-        <input id="declaration-filter" type="search" placeholder="Try “Serfling”, “recursion”, “odd”, or “variance”" autocomplete="off">
+        <input id="declaration-filter" type="search" placeholder="Try “Serfling”, “variance”, “even”, or “recursion”" autocomplete="off">
       </label>
       <p id="result-count" class="result-count">13 result groups</p>
     </section>
@@ -66,8 +66,8 @@
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.finitePopulation_mgf">finitePopulation_mgf</button>
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.finitePopulation_sharp_constant">finitePopulation_sharp_constant</button>
           </div>
-          <h2>Main range-normalized MGF bound</h2>
-          <p>The full arbitrary-signed-weight theorem and the proof that no smaller coefficient depending only on \(N\) works uniformly.</p>
+          <h2>Main weighted bound and best constant</h2>
+          <p>Checks the inequality for arbitrary positive or negative weights and proves that no smaller population-size-only constant works in every case.</p>
         </article>
 
         <article class="declaration-card" data-group="equations variance rho centered weight degeneracy">
@@ -93,8 +93,8 @@
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.serfling_uniform_sharp_constant">serfling_uniform_sharp_constant</button>
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.serfling_uniform_odd_witness">serfling_uniform_odd_witness</button>
           </div>
-          <h2>MGF and tail specializations</h2>
-          <p>Equal weights recover the without-replacement sample mean, the full correction chain, fixed-\(n\) sharpness for even \(N\), and uniform-in-\(n\) sharpness with the odd \(n=1\) witness.</p>
+          <h2>Sample-mean and probability bounds</h2>
+          <p>Equal weights recover the sample mean without replacement. These declarations check upper, lower, and two-sided bounds, compare the finite-population corrections, and prove when the constant is best possible.</p>
         </article>
 
         <article class="declaration-card" data-group="corollary 2 exchangeable in law mgf tail optimal constant">
@@ -105,7 +105,7 @@
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.exchangeableInLaw_Cstar_sharp_constant">exchangeableInLaw_Cstar_sharp_constant</button>
           </div>
           <h2>Weighted exchangeable concentration</h2>
-          <p>Uses equality of pushforward laws under coordinate permutations and proves both validity and minimality of \(C_N^\star\).</p>
+          <p>Transfers the result to random vectors whose joint law is unchanged by relabeling coordinates, and proves both validity and minimality of \(C_N^\star\).</p>
         </article>
 
         <article class="declaration-card" data-group="theorem 2 hypergeometric sharp mgf variance">
@@ -115,11 +115,11 @@
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.sharpMGFStatement">sharpMGFStatement</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.actualVariance_eq_variance">actualVariance_eq_variance</button>
           </div>
-          <h2>Uniform parity-sharp scalar bound</h2>
-          <p>Controls every \((N,K,m,t)\), including deterministic boundary cases, with the sample-size component of the exact hypergeometric variance.</p>
+          <h2>Best bound for the marked-item count</h2>
+          <p>Controls the centered number of marked items in every sample drawn without replacement, including deterministic boundary cases, while retaining the exact sample-size variance factor.</p>
         </article>
 
-        <article class="declaration-card" data-group="proposition 1 variational sharpness kappa star even odd attainment small tilt">
+        <article class="declaration-card" data-group="proposition 1 variational best constant kappa star even odd attainment small parameter">
           <p class="paper-tag">Proposition 1 · optimal hypergeometric constant</p>
           <div class="code-stack">
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.kappaStar_eq_kappa">kappaStar_eq_kappa</button>
@@ -127,8 +127,8 @@
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.tendsto_normalizedLogMgf_even_central">tendsto_normalizedLogMgf_even_central</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.sharp_constant">sharp_constant</button>
           </div>
-          <h2>Evaluation of the variational problem</h2>
-          <p>The literal maximum/supremum equals \(\kappa_N\): approached at zero tilt for even \(N\), attained at nonzero tilt for odd \(N\).</p>
+          <h2>Exact value of the best constant</h2>
+          <p>The literal maximum/supremum equals \(\kappa_N\): it is approached as \(t\to0\) for even \(N\) and attained at an explicit nonzero \(t\) for odd \(N\).</p>
         </article>
 
         <article class="declaration-card" data-group="proposition 2 universal coefficient one hypergeometric mgf">
@@ -137,8 +137,8 @@
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.mgf_le_universal">mgf_le_universal</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.log_mgf_le_universal">log_mgf_le_universal</button>
           </div>
-          <h2>Uniform MGF bound with multiplier one</h2>
-          <p>Checks equation (15) for all admissible \(N,K,m,t\), including the simultaneous induction and complement reductions.</p>
+          <h2>A first bound with constant one</h2>
+          <p>Checks equation (15) for every admissible \((N,K,m,t)\), using the smaller-population identity and the two complement symmetries.</p>
         </article>
 
         <article class="declaration-card" data-group="lee kim reduction binary slice two level extremizer geometry elementary symmetric">
@@ -148,8 +148,8 @@
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.exists_twoLevel_sliceMgf_maximizer">exists_twoLevel_sliceMgf_maximizer</button>
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.sliceLogMgf_le">sliceLogMgf_le</button>
           </div>
-          <h2>Extremizers of the finite slice problem</h2>
-          <p>Internally verifies the Lee–Kim reduction cited by the manuscript: bounded populations reduce to endpoint vectors, a two-level maximizer exists, and the centered-slice inequality follows.</p>
+          <h2>Why zeros, ones, and two weight values suffice</h2>
+          <p>Internally verifies the structural reduction used by the manuscript: interval-valued populations reduce to endpoint values, and a maximizing centered weight vector can be chosen with at most two values.</p>
         </article>
 
         <article class="declaration-card" data-group="lemma 1 recursion complement stein hypergeometric derivative representation">
@@ -163,20 +163,20 @@
           <p>Formalizes the Stein identity, the \((N,K,m)\mapsto(N-2,K-1,m-1)\) derivative recursion, and both complement symmetries.</p>
         </article>
 
-        <article class="declaration-card" data-group="odd population bernoulli kearns saul central two induction noncentral">
-          <p class="paper-tag">Odd-population induction</p>
+        <article class="declaration-card" data-group="odd population bernoulli kearns saul central two induction nearly balanced">
+          <p class="paper-tag">When the population size is odd</p>
           <div class="code-stack">
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.mgf_one_le_oddProxy">mgf_one_le_oddProxy</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.mgf_lowerNearest_two_le_oddProxy">mgf_lowerNearest_two_le_oddProxy</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.log_mgf_lowerNearest_two_eq_exact_at_increment">log_mgf_lowerNearest_two_eq_exact_at_increment</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.odd_mgf_le">odd_mgf_le</button>
           </div>
-          <h2>Sharp base cases and complete induction</h2>
-          <p>Combines the Bernoulli optimum, the exact central two-draw calculation, noncentral derivative domination, and the hard-central integrated comparison.</p>
+          <h2>Starting cases and the full smaller-population argument</h2>
+          <p>Combines the one-draw optimum, the exact most-balanced two-draw calculation, the direct derivative comparison away from balance, and the accumulated-area comparison at the hardest value.</p>
         </article>
 
         <article class="declaration-card" data-group="lemmas signed area central parameters certificates polynomial hard central">
-          <p class="paper-tag">Odd central slice · analytic certificates</p>
+          <p class="paper-tag">Most-balanced odd-size case · analytic certificates</p>
           <div class="code-stack">
             <button class="copy-symbol" data-copy="SharpSerfling.Analysis.singleCrossing_integral_nonneg">singleCrossing_integral_nonneg</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.centralParameters">centralParameters</button>
@@ -184,8 +184,8 @@
             <button class="copy-symbol" data-copy="SharpSerfling.Certificates.P12_nonneg">P12_nonneg</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Certificates.P7_nonneg">P7_nonneg</button>
           </div>
-          <h2>Single-crossing and endpoint positivity</h2>
-          <p>Checks the signed-area lemma, root ordering and gap estimates, and the three polynomial endpoint certificates used in the hard central case.</p>
+          <h2>Accumulated-area and endpoint checks</h2>
+          <p>Checks the one-sign-change area lemma, the ordering and separation of the crossing points, and the three polynomial inequalities used in the most-balanced case.</p>
         </article>
 
         <article class="declaration-card" data-group="three coordinate hermite rolle analysis geometry">
@@ -200,14 +200,14 @@
         </article>
 
         <article class="declaration-card" data-group="asymptotics exchangeable constant expansion even odd limit">
-          <p class="paper-tag">Parity expansions and first-order limit</p>
+          <p class="paper-tag">Even- and odd-size expansions and first-order limit</p>
           <div class="code-stack">
             <button class="copy-symbol" data-copy="SharpSerfling.exchangeableConstant_even_expansion">exchangeableConstant_even_expansion</button>
             <button class="copy-symbol" data-copy="SharpSerfling.exchangeableConstant_odd_expansion">exchangeableConstant_odd_expansion</button>
             <button class="copy-symbol" data-copy="SharpSerfling.tendsto_nat_mul_exchangeableConstant_sub_one">tendsto_nat_mul_exchangeableConstant_sub_one</button>
           </div>
           <h2>Asymptotic behavior of \(C_N^\star\)</h2>
-          <p>Proves both parity-dependent expansions with \(O(N^{-3})\) remainders and the exact first-order coefficient \(1\).</p>
+          <p>Proves the expansions for both even and odd \(N\), with \(O(N^{-3})\) remainders, and the exact first-order coefficient \(1\).</p>
         </article>
       </div>
       <p id="no-results" class="no-results" hidden>No declaration group matches this search.</p>
@@ -218,12 +218,12 @@
         <p class="section-kicker">Notation dictionary</p>
         <h2>Paper symbols and Lean objects</h2>
         <div class="dictionary-list">
-          <div><span>\(T_w\)</span><code>FinitePopulation.statistic X w σ</code><p>Centered weighted statistic under a coordinate permutation.</p></div>
-          <div><span>\(\rho_N(w)\)</span><code>rho N n w</code><p>Coefficient-dependent finite-population variance factor.</p></div>
+          <div><span>\(T_w\)</span><code>FinitePopulation.statistic hn X w π</code><p>The weighted deviation from the population mean after a random coordinate permutation.</p></div>
+          <div><span>\(\rho_N(w)\)</span><code>rho N n w</code><p>The exact part of the variance determined by the weights.</p></div>
           <div><span>\(w^\circ\)</span><code>centeredWeight hn w</code><p>Centered component of the zero-padded weight vector.</p></div>
-          <div><span>\(\kappa_N\)</span><code>SharpSerfling.kappa N</code><p>Sharp parity-dependent finite-population multiplier.</p></div>
+          <div><span>\(\kappa_N\)</span><code>SharpSerfling.kappa N</code><p>The smallest uniform multiplier, with different formulas for even and odd \(N\).</p></div>
           <div><span>\(C_N^\star\)</span><code>SharpSerfling.exchangeableConstant N</code><p>Sharp coefficient in centered-weight norm normalization.</p></div>
-          <div><span>\(G_{N,K,m}(t)\)</span><code>Hypergeometric.mgf N K m t</code><p>Centered hypergeometric MGF.</p></div>
+          <div><span>\(G_{N,K,m}(t)\)</span><code>Hypergeometric.mgf N K m t</code><p>The MGF of the centered number of marked items in a sample without replacement.</p></div>
           <div><span>\(\kappa_N^\star\)</span><code>Hypergeometric.kappaStar N</code><p>Literal variational optimum over \((K,m,t)\).</p></div>
         </div>
       </div>
@@ -252,7 +252,7 @@ rg -n '\b(sorry|admit)\b|^\s*axiom\b|\b(unsafe|implemented_by|opaque)\b' . \
     <div class="container footer-inner">
       <p>Sharp Serfling formalization</p>
       <div>
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · forthcoming</span>
         <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · GitHub</span>
         <a href="https://statchan1106.github.io/">Seongchan Lee</a>
         <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a>

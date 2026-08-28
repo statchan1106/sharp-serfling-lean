@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A paper-to-Lean guide to the sharp variance-scale refinement of Serfling's inequality.">
-  <meta property="og:title" content="Sharp Serfling — Formalization Guide">
-  <meta property="og:description" content="A readable guide to the formal proof of the sharp variance-scale finite-population bound.">
+  <meta name="description" content="A reader-friendly guide to a best-possible concentration bound for sampling without replacement, together with its Lean verification.">
+  <meta property="og:title" content="Sharp Serfling — A Reader's Guide">
+  <meta property="og:description" content="Why sampling without replacement concentrates more strongly, what the best constant is, and how Lean checks the proof.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://statchan1106.github.io/sharp-serfling-lean/">
   <meta property="og:image" content="https://statchan1106.github.io/sharp-serfling-lean/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sharp Serfling — Formalization Guide">
-  <meta name="twitter:description" content="A readable guide to the formal proof of the sharp variance-scale finite-population bound.">
+  <meta name="twitter:title" content="Sharp Serfling — A Reader's Guide">
+  <meta name="twitter:description" content="Why sampling without replacement concentrates more strongly, what the best constant is, and how Lean checks the proof.">
   <meta name="twitter:image" content="https://statchan1106.github.io/sharp-serfling-lean/og.png">
   <link rel="canonical" href="https://statchan1106.github.io/sharp-serfling-lean/">
-  <title>Sharp Serfling — Formalization Guide</title>
+  <title>Sharp Serfling — A Reader's Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Source+Sans+3:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
@@ -33,14 +33,14 @@
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="index.html"><span>SS</span><strong>Formalization guide</strong></a>
+      <a class="brand" href="index.html"><span>SS</span><strong>Reader's proof guide</strong></a>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="index.html" aria-current="page">Overview</a>
-        <a href="proof.html">Proof blueprint</a>
-        <a href="declarations.html">Declaration map</a>
+        <a href="proof.html">Proof guide</a>
+        <a href="declarations.html">Lean map</a>
       </nav>
       <nav class="external-nav" aria-label="Publication links">
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · forthcoming</span>
         <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · GitHub</span>
       </nav>
     </div>
@@ -49,26 +49,41 @@
   <main id="content">
     <section class="hero container">
       <div class="hero-main">
-        <p class="eyebrow">Lean formalization project</p>
+        <p class="eyebrow">Sampling without replacement, explained and verified</p>
         <h1>A sharp refinement of Serfling’s inequality at the variance scale</h1>
         <p class="byline"><a href="https://statchan1106.github.io/">Seongchan Lee</a> · <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a></p>
-        <p class="intro">This project formalizes the weighted finite-population inequality, its sharp parity-dependent constant, the resulting Serfling and exchangeable bounds, and the centered-hypergeometric extremal problem in Lean 4.</p>
+        <p class="intro">This page explains a simple question: how much more concentrated is an average when we sample without replacement? The answer uses the exact finite-population variance factor, extends to signed weighted sums, and is checked in Lean 4.</p>
         <div class="actions">
-          <a class="button primary" href="#theorem">Start with Theorem 1</a>
-          <a class="button" href="proof.html">Open the proof blueprint</a>
+          <a class="button primary" href="#question">Start with the idea</a>
+          <a class="button" href="#theorem">See the main result</a>
         </div>
       </div>
       <aside class="hero-summary">
         <p class="small-label">In one sentence</p>
-        <p>The exact finite-population variance factor also controls a uniform quadratic MGF bound, and the optimal multiplier is determined by parity through a centered hypergeometric problem.</p>
+        <p>As the sample grows toward the whole population, randomness disappears. The theorem keeps exactly this sample-size improvement and finds the smallest population-size correction that works in every case.</p>
       </aside>
+    </section>
+
+    <section id="question" class="section reader-entry">
+      <div class="reading">
+        <p class="section-kicker">The question before the formulas</p>
+        <h2>Sampling without replacement should become easier to predict</h2>
+        <p class="section-intro">If an item cannot be drawn twice, every observation tells us something about what remains. When all \(N\) items are observed, the sample mean is the population mean and there is no randomness left.</p>
+        <div class="story-grid">
+          <article><span>Small sample</span><h3>Some uncertainty remains</h3><p>The sample mean can still move because most of the population has not been seen.</p></article>
+          <article><span>Large sample</span><h3>Less can vary</h3><p>The exact variance shrinks by the factor \((N-n)/(N-1)\).</p></article>
+          <article><span>Whole population</span><h3>The error is zero</h3><p>At \(n=N\), the sample mean equals the population mean exactly.</p></article>
+        </div>
+        <p class="plain-callout"><strong>The main result:</strong> the same factor that appears in the exact variance also remains valid in an exponential concentration bound. The paper then identifies the smallest additional correction depending only on \(N\).</p>
+      </div>
     </section>
 
     <section id="theorem" class="section muted-section">
       <div class="reading">
-        <p class="section-kicker">Theorem 1</p>
-        <h2>The weighted finite-population bound</h2>
-        <p>Let \(X=(X_1,\ldots,X_N)\in[a,b]^N\), let π be a uniform permutation, and let \(w\in\mathbb R^n\). For the centered statistic \(T_w=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N)\), define</p>
+        <p class="section-kicker">The main result</p>
+        <h2>The weighted bound, in plain language</h2>
+        <p>Start with \(N\) fixed numbers between \(a\) and \(b\), reveal them in a uniformly random order, and attach any positive or negative weights to the first \(n\) observations. The quantity \(T_w\) is the resulting weighted error after subtracting the population mean.</p>
+        <p>An MGF, short for <em>moment generating function</em>, is the exponential average \(\mathbb E[e^{tT_w}]\). Controlling it for every real \(t\) gives upper, lower, and two-sided probability bounds. The theorem says:</p>
 
         <div class="formula theorem-formula">
           \[
@@ -79,50 +94,58 @@
           \rho_N(w)=\frac{N\sum_i w_i^2-(\sum_i w_i)^2}{N-1}.
           \]
         </div>
+        <p class="formula-hint">On a narrow screen, scroll the formula sideways.</p>
+
+        <div class="math-explainer" aria-label="Meaning of the main formula">
+          <div><span>\(T_w\)</span><p>The weighted deviation we want to control.</p></div>
+          <div><span>\(\rho_N(w)\)</span><p>The exact variance contribution of the weights. Adding the same constant to every padded weight does not change it.</p></div>
+          <div><span>\(\kappa_N\)</span><p>The smallest extra correction depending only on the population size \(N\).</p></div>
+        </div>
 
         <div class="translation-list" aria-label="Paper to Lean notation">
           <div><span>Paper</span><strong>\(\rho_N(w)\)</strong><i aria-hidden="true">→</i><code>rho N n w</code></div>
-          <div><span>Paper</span><strong>\(T_w\)</strong><i aria-hidden="true">→</i><code>FinitePopulation.statistic X w σ</code></div>
+          <div><span>Paper</span><strong>\(T_w\)</strong><i aria-hidden="true">→</i><code>FinitePopulation.statistic hn X w π</code></div>
           <div><span>Lean certificate</span><button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.finitePopulation_mgf">SharpSerfling.FinitePopulation.finitePopulation_mgf</button></div>
         </div>
 
-        <p class="note"><strong>Sharpness.</strong> The same development proves that κ<sub>N</sub> is the smallest constant depending only on \(N\) that works uniformly over every bounded population, sample size, coefficient vector, and transform parameter.</p>
+        <p class="note"><strong>“Sharp” means best possible.</strong> The same development proves that no smaller constant depending only on \(N\) can work simultaneously for every bounded population, sample size, weight vector, and real value of \(t\).</p>
       </div>
     </section>
 
     <section class="section">
       <div class="reading">
-        <p class="section-kicker">The proof's four structural moves</p>
-        <h2>A first reading path</h2>
-        <p class="section-intro">The formal development follows the full chain from an arbitrary weighted population to the scalar hypergeometric problem, including the analytic work needed for the odd-population optimum.</p>
+        <p class="section-kicker">How the proof becomes manageable</p>
+        <h2>Four ideas to keep in mind</h2>
+        <p class="section-intro">The original statement allows arbitrary bounded values and signed weights. The proof repeatedly replaces this large problem by a smaller one without losing the exact variance factor.</p>
 
         <ol class="idea-list">
           <li>
             <div class="idea-number">1</div>
-            <div><h3>Reduce bounded populations to binary populations</h3><p>Convexity moves the permutation MGF from the interval cube to its endpoint vertices without restricting the signs of the weights.</p></div>
+            <div><h3>Only the two endpoints can be worst</h3><p>After rescaling \([a,b]\) to \([0,1]\), convexity shows that it is enough to consider populations made only of zeros and ones.</p></div>
           </li>
           <li>
             <div class="idea-number">2</div>
-            <div><h3>Reduce a centered slice maximizer to two levels</h3><p>Compactness supplies an extremizer; symmetric-polynomial identities and a three-coordinate argument show that one can be chosen with at most two coordinate values.</p></div>
+            <div><h3>The worst weight pattern uses two values</h3><p>Among centered weights of a fixed size, a maximizing pattern can be chosen with at most two distinct values. This is the main geometric reduction.</p></div>
           </li>
           <li>
             <div class="idea-number">3</div>
-            <div><h3>Identify a centered hypergeometric MGF</h3><p>The two-level subset sum is exactly a scaled centered hypergeometric random variable, with the finite-population factor preserved in its variance.</p></div>
+            <div><h3>The problem becomes counting marked items</h3><p>With a zero-one population and two weight levels, the statistic is a rescaled hypergeometric count: the number of marked items in a sample drawn without replacement.</p></div>
           </li>
           <li>
             <div class="idea-number">4</div>
-            <div><h3>Run the sharp recursion and solve the parity split</h3><p>An exact derivative recursion lowers \((N,K,m)\) to \((N-2,K-1,m-1)\). Even \(N\) is fixed by local variance; odd \(N\) requires a sharp Bernoulli base and an integrated single-crossing argument.</p></div>
+            <div><h3>Compare with a smaller counting problem</h3><p>An exact derivative identity reduces \((N,K,m)\) to \((N-2,K-1,m-1)\). The last step differs according to whether \(N\) can be split into two equal halves.</p></div>
           </li>
         </ol>
 
-        <a class="text-link" href="proof.html">See the dependency graph and paper-to-Lean proof blocks →</a>
+        <a class="text-link" href="proof.html">Follow the proof one idea at a time →</a>
       </div>
     </section>
 
     <section class="section muted-section">
       <div class="reading">
-        <p class="section-kicker">The sharp coefficient</p>
-        <h2>Why parity matters</h2>
+        <p class="section-kicker">The best population-size correction</p>
+        <h2>Why even and odd population sizes differ</h2>
+        <p class="section-intro">The most difficult zero-one population is as balanced as possible. An exact half-and-half split exists when \(N\) is even, but not when \(N\) is odd. That small arithmetic difference changes the best uniform constant.</p>
         <div class="formula">
           \[
           \kappa_N=
@@ -133,29 +156,36 @@
           \]
         </div>
         <div class="result-pair">
-          <article><p class="small-label">Even populations</p><p class="result-math">An exactly balanced binary population forces the coefficient \(1\) through the second derivative at \(t=0\).</p></article>
-          <article><p class="small-label">Odd populations</p><p class="result-math">Exact balance is unavailable; the extremum is attained by the nearest-balanced Bernoulli slice at a nonzero tilt.</p></article>
+          <article><p class="small-label">When \(N\) is even</p><p class="result-math">A population with exactly \(N/2\) zeros and \(N/2\) ones exists. Behavior near \(t=0\) already forces the best constant to be \(1\).</p></article>
+          <article><p class="small-label">When \(N\) is odd</p><p class="result-math">Exact balance is impossible. The closest split gives a constant strictly below \(1\), attained at an explicit nonzero value of \(t\).</p></article>
         </div>
       </div>
     </section>
 
     <section class="section">
       <div class="reading">
-        <p class="section-kicker">Consequences and trust</p>
-        <h2>What is checked</h2>
+        <p class="section-kicker">What readers can take away</p>
+        <h2>Consequences, scope, and formal trust</h2>
         <div class="plain-notes">
           <article>
             <h3>Variance-scale Serfling correction</h3>
-            <p>For equal weights, the MGF and one- and two-sided tail bounds use the exact sampling-variance factor \((N-n)/(N-1)\), multiplied by the sharp κ<sub>N</sub>.</p>
+            <p>With equal weights, \(T_w\) is the difference between the sample mean and the population mean. The probability bounds retain the exact sample-size factor \((N-n)/(N-1)\).</p>
           </article>
           <article>
             <h3>Weighted exchangeable transfer</h3>
-            <p>The finite-population theorem transfers to bounded exchangeable vectors, including the smallest uniform constant and the zero-centered-weight degeneracy.</p>
+            <p>If relabeling the coordinates does not change their joint distribution, the same analysis controls signed weighted contrasts and identifies the smallest uniform constant.</p>
           </article>
           <article>
             <h3>Kernel-checked scope</h3>
-            <p>The source contains no <code>sorry</code>, <code>admit</code>, project-defined axiom, <code>unsafe</code>, <code>implemented_by</code>, or <code>opaque</code> declaration. An automatic full-namespace audit checks every project declaration and reports only Lean and Mathlib's ordinary logical foundations.</p>
+            <p>Lean checks the definitions, reductions, inequalities, best-constant statements, edge cases, and asymptotic claims. The source has no proof placeholders or project-defined axioms.</p>
           </article>
+        </div>
+
+        <div class="term-grid" aria-label="Short glossary">
+          <article><h3>MGF</h3><p>The exponential average \(\mathbb E[e^{tZ}]\). A quadratic upper bound on its logarithm yields concentration inequalities.</p></article>
+          <article><h3>Hypergeometric count</h3><p>The number of marked items found when a fixed-size sample is drawn without replacement.</p></article>
+          <article><h3>Exchangeable</h3><p>A joint distribution that is unchanged when its coordinates are relabeled.</p></article>
+          <article><h3>Lean certificate</h3><p>The exact declaration whose proof term is checked by the Lean kernel.</p></article>
         </div>
       </div>
     </section>
@@ -163,11 +193,11 @@
     <section class="section dark-section">
       <div class="container next-grid">
         <div>
-          <p class="section-kicker">Choose your depth</p>
+          <p class="section-kicker">Choose how far to go</p>
           <h2>Continue reading</h2>
         </div>
-        <a class="next-card" href="proof.html"><span>01</span><strong>Proof blueprint</strong><p>The full reduction, the hypergeometric recursion, the odd central case, and the assembly of the main results.</p></a>
-        <a class="next-card" href="declarations.html"><span>02</span><strong>Declaration map</strong><p>A searchable cross-reference from mathematical claims to checked Lean declarations.</p></a>
+        <a class="next-card" href="proof.html"><span>01</span><strong>Guided proof</strong><p>Read the reductions in ordinary language first, then open the exact Lean certificates when desired.</p></a>
+        <a class="next-card" href="declarations.html"><span>02</span><strong>Lean map</strong><p>Find the checked declaration corresponding to each theorem, corollary, and supporting lemma.</p></a>
       </div>
     </section>
   </main>
@@ -176,7 +206,7 @@
     <div class="container footer-inner">
       <p>Sharp Serfling formalization</p>
       <div>
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · PDF</span>
+        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · forthcoming</span>
         <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · GitHub</span>
         <a href="https://statchan1106.github.io/">Seongchan Lee</a>
         <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a>

@@ -19,9 +19,9 @@
 
 This repository formalizes the variance-scale refinement of Serfling's
 inequality in Lean 4 and Mathlib. The development includes the weighted
-finite-population MGF inequality, the optimal parity-dependent constant, the
-equal-weight Serfling tails, the exchangeable transfer, the centered
-hypergeometric extremal problem, and the even/odd asymptotics.
+finite-population MGF inequality, the best constants for even and odd population
+sizes, the equal-weight Serfling tails, the exchangeable transfer, the centered
+hypergeometric optimization, and the even/odd asymptotics.
 
 ## Main result
 
@@ -75,7 +75,7 @@ minimality theorem is
 ```mermaid
 flowchart TD
     A[Centered weights and affine normalization] --> B[Binary population reduction]
-    B --> C[Fixed-cardinality Hamming slice]
+    B --> C[Uniform fixed-size subset]
     C --> D[Two-level slice maximizer]
     D --> E[Centered hypergeometric MGF]
     E --> F[Derivative recursion]
