@@ -1,5 +1,5 @@
 window.SHARP_SERFLING_LINKS = {
-  // Add the public paper URL here after the arXiv release.
+  // Keep this empty until release; then paste the canonical arXiv abstract URL.
   paper: "",
   code: "https://github.com/statchan1106/sharp-serfling-lean"
 };

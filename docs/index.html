@@ -50,13 +50,14 @@
     <section class="hero container">
       <div class="hero-main">
         <p class="eyebrow">Sampling without replacement, explained and verified</p>
-        <h1>A sharp refinement of Serfling’s inequality at the variance scale</h1>
+        <h1>A sharp variance-scale refinement of Serfling’s inequality</h1>
         <p class="byline"><a href="https://statchan1106.github.io/">Seongchan Lee</a> · <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a></p>
         <p class="intro">This page explains a simple question: how much more concentrated is an average when we sample without replacement? The answer uses the exact finite-population variance factor, extends to signed weighted sums, and is checked in Lean 4.</p>
         <div class="actions">
           <a class="button primary" href="#question">Start with the idea</a>
           <a class="button" href="#theorem">See the main result</a>
         </div>
+        <p class="reader-note"><strong>Paper status.</strong> The manuscript is in preparation and is not yet on arXiv. This guide follows the current 28-page draft; the public paper link will appear here after release.</p>
       </div>
       <aside class="hero-summary">
         <p class="small-label">In one sentence</p>
@@ -73,6 +74,15 @@
           <article><span>Small sample</span><h3>Some uncertainty remains</h3><p>The sample mean can still move because most of the population has not been seen.</p></article>
           <article><span>Large sample</span><h3>Less can vary</h3><p>The exact variance shrinks by the factor \((N-n)/(N-1)\).</p></article>
           <article><span>Whole population</span><h3>The error is zero</h3><p>At \(n=N\), the sample mean equals the population mean exactly.</p></article>
+        </div>
+        <div class="formula">
+          \[
+          \operatorname{Var}(\bar X_{S_n})
+          =
+          \frac{\sigma_N^2}{n}\frac{N-n}{N-1},
+          \qquad
+          \sigma_N^2=\frac1N\sum_{j=1}^N(X_j-\bar X_N)^2.
+          \]
         </div>
         <p class="plain-callout"><strong>The main result:</strong> the same factor that appears in the exact variance also remains valid in an exponential concentration bound. The paper then identifies the smallest additional correction depending only on \(N\).</p>
       </div>
@@ -98,7 +108,7 @@
 
         <div class="math-explainer" aria-label="Meaning of the main formula">
           <div><span>\(T_w\)</span><p>The weighted deviation we want to control.</p></div>
-          <div><span>\(\rho_N(w)\)</span><p>The exact variance contribution of the weights. Adding the same constant to every padded weight does not change it.</p></div>
+          <div><span>\(\rho_N(w)\)</span><p>The exact variance contribution of the weights: \(\operatorname{Var}(T_w)=\rho_N(w)\sigma_N^2\). Adding the same constant to every padded weight does not change it.</p></div>
           <div><span>\(\kappa_N\)</span><p>The smallest extra correction depending only on the population size \(N\).</p></div>
         </div>
 
@@ -136,6 +146,8 @@
             <div><h3>Compare with a smaller counting problem</h3><p>An exact derivative identity reduces \((N,K,m)\) to \((N-2,K-1,m-1)\). The last step differs according to whether \(N\) can be split into two equal halves.</p></div>
           </li>
         </ol>
+
+        <p class="plain-callout"><strong>Where the new proof begins.</strong> The manuscript invokes the first two reductions from Lee–Kim (2026) and then proves the centered hypergeometric recursion and its sharp constant. This Lean repository verifies the two cited reductions internally as well, so its formal proof boundary is deliberately larger than the paper’s new-contribution boundary.</p>
 
         <a class="text-link" href="proof.html">Follow the proof one idea at a time →</a>
       </div>

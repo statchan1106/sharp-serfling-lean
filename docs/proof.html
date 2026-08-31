@@ -52,6 +52,7 @@
       <h1>How a weighted sampling problem becomes one counting problem</h1>
       <p class="intro">The proof starts with arbitrary values and signed weights. It first shows what a worst case must look like, then turns that worst case into the number of marked items drawn without replacement. An exact relation to a smaller population finishes the bound.</p>
       <p class="reader-note"><strong>First-time reader?</strong> Read the explanatory paragraphs and the light-colored mathematics cards. The dark Lean cards record the exact machine-checked statements and can be skipped on a first pass.</p>
+      <p class="reader-note"><strong>Draft alignment.</strong> Section and result numbers on this page follow the current 28-page manuscript draft dated 2026-09-01.</p>
       <nav class="jump-nav" aria-label="Proof sections">
         <a href="#map">Big picture</a>
         <a href="#population">1 · Endpoints</a>
@@ -108,7 +109,7 @@
               <p>How is the count bounded?</p>
               <div class="map-node map-probability"><span>Exact representation</span><strong>Two weight values = centered marked-item count</strong><code>sliceMgf_canonicalTwoLevel</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
-              <div class="map-node map-probability"><span>Lemma 1</span><strong>Relate the derivative to a smaller population</strong><code>deriv_mgf_recursion</code></div>
+              <div class="map-node map-probability"><span>Lemma 2</span><strong>Relate the derivative to a smaller population</strong><code>deriv_mgf_recursion</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
               <div class="map-node map-probability"><span>Proposition 2</span><strong>First prove a bound with constant \(1\)</strong><code>log_mgf_le_universal</code></div>
               <div class="map-arrow" aria-hidden="true">↓</div>
@@ -149,6 +150,16 @@
           <div><span>Lean certificate</span><p>The declaration that checks the claim.</p></div>
           <div><span>Boundary work</span><p>Degenerate cases and hypotheses made explicit in the formal proof.</p></div>
         </div>
+        <div class="formal-pair">
+          <article class="formal-paper">
+            <p class="pair-label">Manuscript boundary</p>
+            <p>Section 3 invokes the binary-population reduction from the proof of Theorem 1 and the two-level extremizer from Proposition 2 of Lee–Kim (2026). The new argument begins with the centered hypergeometric analysis in Sections 4–5.</p>
+          </article>
+          <article class="formal-paper">
+            <p class="pair-label">Lean boundary</p>
+            <p>The repository also proves both cited reductions internally. No Lee–Kim result is represented as an axiom or an unverified hypothesis.</p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -160,6 +171,7 @@
         \rho_N(w)=\frac{N}{N-1}\lVert w^\circ\rVert_2^2.
         \]
       </div>
+      <p>With \(\sigma_N^2=N^{-1}\sum_j(X_j-\bar X_N)^2\), this is the coefficient appearing in the exact identity \(\operatorname{Var}(T_w)=\rho_N(w)\sigma_N^2\). The MGF theorem is designed to retain this same coefficient globally in \(t\), not only to second order at the origin.</p>
       <p>Next rescale every population value from \([a,b]\) to \([0,1]\). The exponential average is convex in each population coordinate, so its maximum over this cube occurs at a corner. A corner contains only zeros and ones. Once the number \(K\) of ones is fixed, a random permutation is equivalent to choosing a uniformly random \(K\)-element subset.</p>
 
       <div class="formal-pair">
@@ -196,7 +208,7 @@ statistic_affine</code></pre>
 
       <div class="formal-pair">
         <article class="formal-paper">
-          <p class="pair-label">Mathematical conclusion used in Section 3</p>
+          <p class="pair-label">Section 3 · cited conclusion used by the manuscript</p>
           <div class="formula compact-formula">
             \[
             \max_{\substack{\mathbf 1^\top y=0\\ \lVert y\rVert_2^2=r^2}}
@@ -242,6 +254,7 @@ statistic_affine</code></pre>
         \]
       </div>
       <p>The smaller MGF on the right uses a population of size \(N-2\), with one fewer marked item and one fewer draw. Crucially, the multiplier \(v_{N,K,m}\) is exactly the variance of the original count. This is why the proof retains the precise sample-size factor \(m(N-m)/(N-1)\).</p>
+      <p>The derivative comparison also uses \(2\sinh(t/2)/t\le e^{t^2/24}\). The manuscript now proves this elementary estimate from the power series, and Lean checks the same step through <code>sinh_le_mul_exp_sq_div_six</code> and <code>two_sinh_div_le_exp_sq_div_twentyFour</code>.</p>
       <p class="formula-hint">On a narrow screen, scroll the formula sideways.</p>
 
       <div class="formal-pair">
@@ -322,7 +335,7 @@ theorem sharp_mgf {N K m : ℕ}
         <article><span>Large populations</span><div><h3>Exact first-order behavior</h3><p>The even- and odd-\(N\) expansions have explicit \(O(N^{-3})\) remainders and imply \(N(C_N^\star-1)\to1\).</p><code>exchangeableConstant_even_expansion · exchangeableConstant_odd_expansion</code></div></article>
       </div>
 
-      <p class="numbering-note"><strong>Audit boundary.</strong> The proof graph describes mathematical dependencies at a readable scale. <code>AxiomAudit.lean</code> covers headline declarations and <code>FullAxiomAudit.lean</code> automatically checks every declaration in the project namespace.</p>
+      <p class="numbering-note"><strong>Audit boundary.</strong> The proof graph describes mathematical dependencies at a readable scale. <code>AxiomAudit.lean</code> covers headline declarations and <code>FullAxiomAudit.lean</code> automatically checks every declaration in the project namespace. The current paper-to-code numbering is recorded in <a href="https://github.com/statchan1106/sharp-serfling-lean/blob/main/TRACEABILITY.md">TRACEABILITY.md</a>.</p>
     </section>
 
     <section class="section dark-section">

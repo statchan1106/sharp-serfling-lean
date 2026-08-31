@@ -1,8 +1,9 @@
 # Proof blueprint
 
 This guide follows the mathematical dependency structure of *A Sharp
-Refinement of Serfling's Inequality at the Variance Scale* and records the Lean
-declarations that certify each step.
+Variance-Scale Refinement of Serfling's Inequality* and records the Lean
+declarations that certify each step. It is aligned with the current draft
+identified in [MANUSCRIPT.md](../MANUSCRIPT.md).
 
 ## Destination
 
@@ -36,6 +37,24 @@ $$
 The Lean entry points are
 `SharpSerfling.FinitePopulation.finitePopulation_mgf` and
 `SharpSerfling.FinitePopulation.finitePopulation_sharp_constant`.
+
+## Proof boundary
+
+Section 3 of the manuscript invokes two ingredients from Lee--Kim (2026): the
+binary-population reduction from the proof of their Theorem 1 and the two-level
+extremal-coefficient reduction from their Proposition 2. The new paper
+argument then evaluates the centered hypergeometric problem left by that
+reduction.
+
+This repository checks a larger dependency graph. It proves both imported
+structural reductions internally and then checks the new hypergeometric
+recursion, sharp constant, and consequences. A reader should therefore
+distinguish:
+
+- **manuscript dependency:** Lee--Kim reduction;
+- **new manuscript argument:** Sections 4--5 and the transfers of the sharp
+  constant;
+- **Lean verification boundary:** both parts.
 
 ## Dependency route
 
@@ -74,14 +93,15 @@ Lean certificates:
 - `FinitePopulation.finiteAverage_sample_orbit`
 - `FinitePopulation.mgf_binary_eq_sliceMgf`
 
-## 2. The two-level extremizer (formalized Lee--Kim reduction)
+## 2. The two-level extremizer (the cited reduction, proved internally)
 
-The manuscript cites this reduction to Lee and Kim (2026); the Lean development
-also proves it internally. On the centered fixed-radius sphere, compactness supplies a slice-MGF
-maximizer. The slice numerator is expressed through elementary symmetric
-polynomials. After isolating any three coordinates, a constrained-circle
-argument, a repeated-Rolle theorem, and a Hermite interpolation sign lemma rule
-out three distinct coordinate values at a global maximum.
+The manuscript uses the two-level reduction from Proposition 2 of Lee--Kim
+(2026). The Lean development proves it internally. On the centered
+fixed-radius sphere, compactness supplies a slice-MGF maximizer. The slice
+numerator is expressed through elementary symmetric polynomials. After
+isolating any three coordinates, a constrained-circle argument, a
+repeated-Rolle theorem, and a Hermite interpolation sign lemma rule out three
+distinct coordinate values at a global maximum.
 
 Lean certificates:
 
@@ -112,7 +132,7 @@ v_{N,K,m}
 $$
 
 The variance prefactor is what preserves \(m(N-m)/(N-1)\) through the
-induction.
+induction. This is Lemma 2, equation (13), in the current manuscript.
 
 Lean certificates:
 
@@ -121,6 +141,8 @@ Lean certificates:
 - `Hypergeometric.mgf_successComplement`
 - `Hypergeometric.mgf_sampleComplement`
 - `Hypergeometric.actualVariance_eq_variance`
+- `Hypergeometric.sinh_le_mul_exp_sq_div_six`
+- `Hypergeometric.two_sinh_div_le_exp_sq_div_twentyFour`
 
 ## 4. The parity split
 
@@ -137,6 +159,7 @@ Lean certificates:
 - `Hypergeometric.mgf_one_le_oddProxy`
 - `Hypergeometric.mgf_lowerNearest_two_le_oddProxy`
 - `Hypergeometric.log_mgf_lowerNearest_two_eq_exact_at_increment`
+- `Hypergeometric.centralTwo_scale_le_oddProxy`
 - `Hypergeometric.oddNoncentralEnvelope`
 - `Analysis.singleCrossing_integral_nonneg`
 - `Hypergeometric.centralParameters`

@@ -3,6 +3,10 @@
 All declarations below are in the `SharpSerfling` namespace. Unqualified names
 inherit the namespace shown in the first column.
 
+The paper numbering follows the current draft identified in
+[MANUSCRIPT.md](../MANUSCRIPT.md). Mathematical descriptions are included so
+that the map remains readable if displayed numbers move in a later revision.
+
 ## Main results
 
 | Mathematical result | Lean declaration | Status |
@@ -38,10 +42,11 @@ inherit the namespace shown in the first column.
 |---|---|---|
 | Success and sample complement symmetries | `Hypergeometric.mgf_successComplement`, `mgf_sampleComplement` | complete |
 | Dimension-reducing derivative recursion | `Hypergeometric.deriv_mgf_recursion` | complete |
+| Elementary hyperbolic-sine bound, equation (18) | `Hypergeometric.sinh_le_mul_exp_sq_div_six`, `two_sinh_div_le_exp_sq_div_twentyFour` | complete |
 | Universal coefficient-one bound | `Hypergeometric.log_mgf_le_universal` | complete |
 | Sharp Bernoulli base | `Hypergeometric.mgf_one_le_oddProxy` | complete |
 | Central two-draw base | `Hypergeometric.mgf_lowerNearest_two_le_oddProxy` | complete |
-| Lemma 5 equality at its distinguished tilt | `Hypergeometric.log_mgf_lowerNearest_two_eq_exact_at_increment` | complete |
+| Lemma 6 equality at its distinguished tilt | `Hypergeometric.log_mgf_lowerNearest_two_eq_exact_at_increment` | complete |
 | Noncentral derivative envelope | `Hypergeometric.oddNoncentralEnvelope` | complete |
 | Signed-area comparison | `Analysis.singleCrossing_integral_nonneg` | complete |
 | Hard-central parameter verification | `Hypergeometric.centralParameters` | complete |

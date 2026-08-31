@@ -51,11 +51,12 @@
       <p class="eyebrow">For readers who want the exact formal statement</p>
       <h1>Lean declaration map</h1>
       <p class="intro">The overview and proof guide explain the mathematics first. This page is the cross-reference: search for a theorem, idea, or symbol to find the exact Lean declaration whose proof is checked by the kernel.</p>
+      <p class="reader-note"><strong>Numbering.</strong> Paper numbers follow the current 28-page manuscript draft dated 2026-09-01. Mathematical descriptions remain the stable identifiers if later typesetting changes the displayed numbers.</p>
       <label class="declaration-search">
         <span>Filter declarations</span>
         <input id="declaration-filter" type="search" placeholder="Try “Serfling”, “variance”, “even”, or “recursion”" autocomplete="off">
       </label>
-      <p id="result-count" class="result-count">13 result groups</p>
+      <p id="result-count" class="result-count">14 result groups</p>
     </section>
 
     <section class="declaration-section">
@@ -71,7 +72,7 @@
         </article>
 
         <article class="declaration-card" data-group="equations variance rho centered weight degeneracy">
-          <p class="paper-tag">Definitions and equation (5) · variance structure</p>
+          <p class="paper-tag">Definitions and equation (6) · variance structure</p>
           <div class="code-stack">
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.sum_sq_centeredWeight_eq_rho">sum_sq_centeredWeight_eq_rho</button>
             <button class="copy-symbol" data-copy="SharpSerfling.FinitePopulation.statistic_variance_eq_rho_mul_populationVariance">statistic_variance_eq_rho_mul_populationVariance</button>
@@ -138,7 +139,7 @@
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.log_mgf_le_universal">log_mgf_le_universal</button>
           </div>
           <h2>A first bound with constant one</h2>
-          <p>Checks equation (15) for every admissible \((N,K,m,t)\), using the smaller-population identity and the two complement symmetries.</p>
+          <p>Checks equation (19) for every admissible \((N,K,m,t)\), using the smaller-population identity and the two complement symmetries.</p>
         </article>
 
         <article class="declaration-card" data-group="lee kim reduction binary slice two level extremizer geometry elementary symmetric">
@@ -152,8 +153,8 @@
           <p>Internally verifies the structural reduction used by the manuscript: interval-valued populations reduce to endpoint values, and a maximizing centered weight vector can be chosen with at most two values.</p>
         </article>
 
-        <article class="declaration-card" data-group="lemma 1 recursion complement stein hypergeometric derivative representation">
-          <p class="paper-tag">Lemma 1 · dimension-reducing recursion</p>
+        <article class="declaration-card" data-group="lemma 2 recursion complement stein hypergeometric derivative representation">
+          <p class="paper-tag">Lemma 2 · dimension-reducing recursion</p>
           <div class="code-stack">
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.deriv_mgf_recursion">deriv_mgf_recursion</button>
             <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.mgf_successComplement">mgf_successComplement</button>
@@ -161,6 +162,16 @@
           </div>
           <h2>Exact MGF identities</h2>
           <p>Formalizes the Stein identity, the \((N,K,m)\mapsto(N-2,K-1,m-1)\) derivative recursion, and both complement symmetries.</p>
+        </article>
+
+        <article class="declaration-card" data-group="equation 18 sinh hyperbolic sine power series elementary bound">
+          <p class="paper-tag">Equation (18) · elementary analytic input</p>
+          <div class="code-stack">
+            <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.sinh_le_mul_exp_sq_div_six">sinh_le_mul_exp_sq_div_six</button>
+            <button class="copy-symbol" data-copy="SharpSerfling.Hypergeometric.two_sinh_div_le_exp_sq_div_twentyFour">two_sinh_div_le_exp_sq_div_twentyFour</button>
+          </div>
+          <h2>The hyperbolic-sine estimate</h2>
+          <p>Checks the power-series estimate behind \(2\sinh(t/2)/t\le e^{t^2/24}\), including the analytic input repeatedly used in the derivative comparisons.</p>
         </article>
 
         <article class="declaration-card" data-group="odd population bernoulli kearns saul central two induction nearly balanced">
