@@ -85,8 +85,8 @@ $$
 $$
 
 The coefficient $\kappa_N$ is the smallest value depending only on $N$
-that works uniformly over all bounded populations, sample sizes, signed weight
-vectors, and $t\in\mathbb R$.
+that works uniformly over all bounded populations, original sample sizes $n$,
+signed weight vectors, and $t\in\mathbb R$.
 
 Headline Lean declarations:
 

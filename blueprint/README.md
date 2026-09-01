@@ -119,7 +119,10 @@ Lean certificates:
 ## 3. The hypergeometric bridge
 
 A centered two-level subset sum is exactly a scaled centered hypergeometric
-count. For its MGF $G_{N,K,m}$, the key differential identity is
+count. Here $N$ is the population size, $K$ is the number of marked items, and
+$m$ is the draw size of the auxiliary hypergeometric problem; this $m$ is
+distinct from the original sample size $n$ in $T_w$. For the centered MGF
+$G_{N,K,m}$, the key differential identity is
 
 $$
 G'_{N,K,m}(t)

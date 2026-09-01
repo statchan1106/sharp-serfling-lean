@@ -79,7 +79,7 @@ theorem `sharp_mgf`.
 
 ### 4. Optimality and consequences
 
-The literal variational quantity $\kappa_N^\star$ is evaluated, including
+The literal variational quantity $\kappa_N^*$ is evaluated, including
 the even small-tilt witness and the odd nonzero equality witness. The result is
 then transferred back to:
 
@@ -89,7 +89,7 @@ then transferred back to:
 - bounded exchangeable contrasts under equality in distribution;
 - the best finite-population and exchangeable constants;
 - the even/odd asymptotic expansions and
-  $N(C_N^\star-1)\to1$.
+  $N(\mathcal C_N^\star-1)\to1$.
 
 ## Acceptance and trust boundary
 

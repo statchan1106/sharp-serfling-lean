@@ -37,14 +37,14 @@ shown in the table.
 | Corollary 2, exchangeable MGF, equation (7) | `FinitePopulation.weighted_exchangeable_mgf_centeredNorm_inLaw` | complete |
 | Corollary 2, exchangeable tail, equation (8) | `FinitePopulation.weighted_exchangeable_tail_inLaw` | complete |
 | Corollary 2, zero contrast | `FinitePopulation.exchangeable_contrast_eq_zero_of_centeredWeight_eq_zero` | complete |
-| Corollary 2, smallest $C_N^\star$ | `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant` | complete |
+| Corollary 2, smallest $\mathcal C_N^\star$ | `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant` | complete |
 | Uniform-permutation witness for optimality | `FinitePopulation.isExchangeableInLaw_uniformPermutation` | complete |
-| Even/odd expansions of $C_N^\star$ | `SharpSerfling.exchangeableConstant_even_expansion`, `exchangeableConstant_odd_expansion` | complete |
-| $N(C_N^\star-1)\to1$ | `SharpSerfling.tendsto_nat_mul_exchangeableConstant_sub_one` | complete |
+| Even/odd expansions of $\mathcal C_N^\star$ | `SharpSerfling.exchangeableConstant_even_expansion`, `exchangeableConstant_odd_expansion` | complete |
+| $N(\mathcal C_N^\star-1)\to1$ | `SharpSerfling.tendsto_nat_mul_exchangeableConstant_sub_one` | complete |
 | Theorem 2, centered hypergeometric MGF, equation (9) | `Hypergeometric.sharp_mgf`, `sharpMGFStatement` | complete |
 | Exact hypergeometric variance | `Hypergeometric.actualVariance_eq_variance` | complete |
 | Variational definition, equation (10) | `Hypergeometric.variationalValues`, `kappaStar` | complete |
-| Proposition 1, $\kappa_N^\star=\kappa_N$ | `Hypergeometric.kappaStar_eq_kappa` | complete |
+| Proposition 1, $\kappa_N^*=\kappa_N$ | `Hypergeometric.kappaStar_eq_kappa` | complete |
 | Proposition 1, odd attainment | `Hypergeometric.kappaStar_odd_attained` | complete |
 | Proposition 1, fixed-$m$ even small-tilt limit | `Hypergeometric.tendsto_normalizedLogMgf_even_central` | complete |
 

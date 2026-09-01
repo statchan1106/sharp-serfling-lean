@@ -492,7 +492,7 @@ theorem mgf_le_universal_half {N K m : ℕ}
     rw [mgf_successComplement (Nat.pos_of_ne_zero hN0) hK (-t)] at hbound
     simpa only [neg_neg, neg_sq] using hbound
 
-/-- Universal quadratic MGF bound, with the larger sample sizes supplied by sample
+/-- Universal quadratic MGF bound, with the larger draw sizes supplied by sample
 complementation. -/
 theorem mgf_le_universal {N K m : ℕ} (hN : 2 ≤ N) (hK : K ≤ N)
     (hm : m ≤ N) (t : ℝ) :

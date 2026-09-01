@@ -13,7 +13,7 @@ noncomputable def actualVariance (N K m : ℕ) : ℝ :=
     ((count K s : ℝ) - center N K m) ^ 2)
 
 /-- The centered hypergeometric count has the advertised closed-form
-variance for all nontrivial sample sizes and numbers of marked items. -/
+variance for all nontrivial draw sizes and numbers of marked items. -/
 theorem actualVariance_eq_variance_of_interior {N K m : ℕ}
     (hK0 : 0 < K) (hKN : K < N) (hm0 : 0 < m) (hmN : m < N) :
     actualVariance N K m = variance N K m := by

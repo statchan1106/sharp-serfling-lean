@@ -3,7 +3,7 @@ import Mathlib.Data.Fin.Rev
 
 namespace SharpSerfling.Hypergeometric
 
-/-- Complementing the sampled subset identifies sample sizes `m` and `N-m`. -/
+/-- Complementing the sampled subset identifies draw sizes `m` and `N-m`. -/
 def sampleComplement {N m : ℕ} (hm : m ≤ N) : Sample N m ≃ Sample N (N - m) :=
   Set.powersetCard.compl (by simpa using Nat.sub_add_cancel hm)
 

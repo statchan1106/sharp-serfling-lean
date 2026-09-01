@@ -133,7 +133,7 @@
             <div class="map-node map-result"><span>Corollary 1</span><strong>Serfling MGF and tails</strong><code>serfling_mgf · serfling_tail</code></div>
             <div class="map-node map-result"><span>Corollary 2</span><strong>Exchangeable MGF and tail</strong><code>weighted_exchangeable_mgf_centeredNorm_inLaw</code></div>
             <div class="map-node map-result"><span>Sharpness</span><strong>Smallest exchangeable constant</strong><code>exchangeableInLaw_Cstar_sharp_constant</code></div>
-            <div class="map-node map-result"><span>Asymptotics</span><strong>\(N(C_N^\star-1)\to1\)</strong><code>tendsto_nat_mul_exchangeableConstant_sub_one</code></div>
+            <div class="map-node map-result"><span>Asymptotics</span><strong>\(N(\mathcal C_N^\star-1)\to1\)</strong><code>tendsto_nat_mul_exchangeableConstant_sub_one</code></div>
           </div>
         </div>
       </div>
@@ -241,7 +241,7 @@ statistic_affine</code></pre>
 
     <section id="recursion" class="proof-section reading">
       <header class="proof-heading"><span>3</span><div><p class="section-kicker">The remaining counting problem</p><h2>Relating the count to a smaller population</h2></div></header>
-      <p>Suppose \(K\) of the \(N\) population items are marked and \(m\) items are drawn without replacement. Let \(H_{N,K,m}\) count how many marked items are drawn. After subtracting its mean \(Km/N\), its MGF \(G_{N,K,m}\) satisfies the exact derivative identity</p>
+      <p>Suppose \(K\) of the \(N\) population items are marked and \(m\) items are drawn without replacement. Here \(m\) is the draw size of the auxiliary hypergeometric problem, not the original sample size \(n\) in \(T_w\). Let \(H_{N,K,m}\) count how many marked items are drawn. After subtracting its mean \(Km/N\), its MGF \(G_{N,K,m}\) satisfies the exact derivative identity</p>
       <div class="formula theorem-formula">
         \[
         G'_{N,K,m}(t)
@@ -292,7 +292,7 @@ theorem sharp_mgf {N K m : ℕ}
         </article>
         <article>
           <h3>Odd \(N\)</h3>
-          <p>The integer \(N/2\) does not exist. The closest possible split identifies a smaller candidate constant, but proving it for every sample size requires one additional comparison in the most balanced case.</p>
+          <p>The integer \(N/2\) does not exist. The closest possible split identifies a smaller candidate constant, but proving it for every draw size requires one additional comparison in the most balanced case.</p>
           <p><code>mgf_one_le_oddProxy</code><br><code>odd_mgf_le</code></p>
         </article>
       </div>
@@ -308,17 +308,17 @@ theorem sharp_mgf {N K m : ℕ}
       </div>
 
       <div class="proof-translation">
-        <div><span>Starting cases</span><p>The one-draw case is proved directly; the most balanced two-draw case and its equality at \(t=L_{N,2}\) are also computed exactly.</p></div>
+        <div><span>Starting cases</span><p>The one-draw case is proved directly; the most balanced two-draw case and its equality at \(t=\widetilde L_N\) are also computed exactly.</p></div>
         <div><span>Algebraic checks</span><p>The endpoint estimates needed for the accumulated-area comparison are reduced to three explicit polynomial inequalities and verified in Lean.</p></div>
       </div>
     </section>
 
     <section id="assembly" class="proof-section reading">
       <header class="proof-heading"><span>5</span><div><p class="section-kicker">Why the constant cannot be improved</p><h2>Return from the count to the main theorem</h2></div></header>
-      <p>To ask for the smallest possible constant, maximize the normalized log MGF over every number \(K\) of marked items, every sample size \(m\), and every nonzero real \(t\). The proved upper bound matches a lower-bound example: near \(t=0\) when \(N\) is even, and at an explicit nonzero \(t\) when \(N\) is odd.</p>
+      <p>To ask for the smallest possible constant, maximize the normalized log MGF over every number \(K\) of marked items, every draw size \(m\), and every nonzero real \(t\). The proved upper bound matches a lower-bound example: near \(t=0\) when \(N\) is even, and at an explicit nonzero \(t\) when \(N\) is odd.</p>
       <div class="formula">
         \[
-        \kappa_N^\star
+        \kappa_N^*
         =
         \max_{1\le m\le N-1}\max_{0\le K\le N}
         \sup_{t\ne0}
@@ -331,7 +331,7 @@ theorem sharp_mgf {N K m : ℕ}
         <article><span>Theorem 1</span><div><h3>Weighted finite population</h3><p>Binary reduction, the exact slice bridges, and the sharp hypergeometric theorem give the full range-normalized MGF inequality.</p><code>finitePopulation_mgf · finitePopulation_sharp_constant</code></div></article>
         <article><span>Corollary 1</span><div><h3>Sharp Serfling correction</h3><p>Equal weights identify the statistic with the sample-mean deviation and specialize \(\rho_N(w)\) to \((N-n)/(n(N-1))\). Fixed-\(n\) even sharpness and uniform-in-\(n\) sharpness are checked explicitly.</p><code>serfling_mgf · serfling_correction_chain · serfling_fixed_even_sharp · serfling_uniform_sharp_constant</code></div></article>
         <article><span>Corollary 2</span><div><h3>Weighted exchangeable contrast</h3><p>Uniform permutation and conditioning transfer the result to equality-in-law exchangeability.</p><code>weighted_exchangeable_mgf_centeredNorm_inLaw · exchangeableInLaw_Cstar_sharp_constant</code></div></article>
-        <article><span>Large populations</span><div><h3>Exact first-order behavior</h3><p>The even- and odd-\(N\) expansions have explicit \(O(N^{-3})\) remainders and imply \(N(C_N^\star-1)\to1\).</p><code>exchangeableConstant_even_expansion · exchangeableConstant_odd_expansion</code></div></article>
+        <article><span>Large populations</span><div><h3>Exact first-order behavior</h3><p>The even- and odd-\(N\) expansions have explicit \(O(N^{-3})\) remainders and imply \(N(\mathcal C_N^\star-1)\to1\).</p><code>exchangeableConstant_even_expansion · exchangeableConstant_odd_expansion</code></div></article>
       </div>
 
       <p class="numbering-note"><strong>Audit boundary.</strong> The proof graph describes mathematical dependencies at a readable scale. <code>AxiomAudit.lean</code> covers headline declarations and <code>FullAxiomAudit.lean</code> automatically checks every declaration in the project namespace. The current paper-to-code numbering is recorded in <a href="https://github.com/statchan1106/sharp-serfling-lean/blob/main/TRACEABILITY.md">TRACEABILITY.md</a>.</p>

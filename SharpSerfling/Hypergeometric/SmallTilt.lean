@@ -162,7 +162,7 @@ theorem tendsto_normalizedLogMgf_zero {N K m : ℕ}
 
 /-- The fixed-`m` equality case asserted in Proposition 1 for even `N`:
 at the central number of marked items, the ratio tends to one as `t → 0`
-through nonzero values, for every nontrivial sample size. -/
+through nonzero values, for every nontrivial draw size. -/
 theorem tendsto_normalizedLogMgf_even_central {q m : ℕ} (hq : 0 < q)
     (hm0 : 1 ≤ m) (hmN : m ≤ 2 * q - 1) :
     Tendsto (normalizedLogMgf (2 * q) q m) (nhdsWithin 0 {0}ᶜ) (nhds 1) := by

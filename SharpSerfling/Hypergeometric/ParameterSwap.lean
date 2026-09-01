@@ -84,7 +84,7 @@ theorem center_swap (N K m : ℕ) : center N K m = center N m K := by
   ring
 
 /-- Hypergeometric MGFs are invariant under swapping the number of marked
-objects and the sample size. -/
+objects and the draw size. -/
 theorem mgf_parameterSwap {N K m : ℕ} (hK : K ≤ N) (hm : m ≤ N) (t : ℝ) :
     mgf N K m t = mgf N m K t := by
   rw [mgf_eq_binomialMgf hK, mgf_eq_binomialMgf hm]

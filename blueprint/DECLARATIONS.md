@@ -20,9 +20,9 @@ readable across typesetting revisions.
 | Corollary 1 uniform-in-`n` sharpness and odd witness | `FinitePopulation.serfling_uniform_sharp_constant`, `serfling_uniform_odd_witness` | complete |
 | Exchangeable MGF under equality in law | `FinitePopulation.weighted_exchangeable_mgf_centeredNorm_inLaw` | complete |
 | Exchangeable Chernoff tail | `FinitePopulation.weighted_exchangeable_tail_inLaw` | complete |
-| Optimal exchangeable coefficient $C_N^\star$ | `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant` | complete |
+| Optimal exchangeable coefficient $\mathcal C_N^\star$ | `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant` | complete |
 | Sharp centered-hypergeometric MGF | `Hypergeometric.sharp_mgf`, `sharpMGFStatement` | complete |
-| Variational evaluation $\kappa_N^\star=\kappa_N$ | `Hypergeometric.kappaStar_eq_kappa` | complete |
+| Variational evaluation $\kappa_N^*=\kappa_N$ | `Hypergeometric.kappaStar_eq_kappa` | complete |
 | Proposition 2, coefficient-one hypergeometric bound | `Hypergeometric.log_mgf_le_universal` | complete |
 
 ## Structural reduction
@@ -63,8 +63,8 @@ readable across typesetting revisions.
 | Exact hypergeometric variance | `Hypergeometric.actualVariance_eq_variance` | complete |
 | Odd optimum attained | `Hypergeometric.kappaStar_odd_attained` | complete |
 | Even small-tilt optimum | `Hypergeometric.tendsto_normalizedLogMgf_even_central` | complete |
-| Even/odd expansions of $C_N^\star$ | `exchangeableConstant_even_expansion`, `exchangeableConstant_odd_expansion` | complete |
-| $N(C_N^\star-1)\to1$ | `tendsto_nat_mul_exchangeableConstant_sub_one` | complete |
+| Even/odd expansions of $\mathcal C_N^\star$ | `exchangeableConstant_even_expansion`, `exchangeableConstant_odd_expansion` | complete |
+| $N(\mathcal C_N^\star-1)\to1$ | `tendsto_nat_mul_exchangeableConstant_sub_one` | complete |
 
 ## Trust boundary
 
