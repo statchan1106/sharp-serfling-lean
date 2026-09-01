@@ -65,7 +65,7 @@ $$
 \qquad
 \kappa_N=
 \begin{cases}
-1,&N\text{ even},\\[2pt]
+1,&N\text{ even},\\
 \displaystyle\frac{2}{N\log((N+1)/(N-1))},&N\text{ odd}.
 \end{cases}
 $$
@@ -102,19 +102,19 @@ principles inside this project.
 
 ```mermaid
 flowchart TD
-    A[Exact variance scale: center padded weights] --> B[Binary endpoint reduction]
-    B --> C[Uniform fixed-cardinality subset]
-    C --> D[Two-level coefficient extremizer]
+    A[Center padded weights] --> B[Binary endpoints]
+    B --> C[Fixed-size subset]
+    C --> D[Two-level extremizer]
     D --> E[Centered hypergeometric MGF]
-    E --> F[Exact derivative recursion]
-    F --> G[Universal coefficient-one bound]
-    F --> H[Sharp odd-population induction]
-    G --> I[Parity-sharp hypergeometric theorem]
+    E --> F[Derivative recursion]
+    F --> G[Coefficient-one bound]
+    F --> H[Sharp odd induction]
+    G --> I[Sharp hypergeometric bound]
     H --> I
-    I --> J[Smallest uniform constant]
-    I --> K[Weighted finite-population theorem]
-    K --> L[Exact-correction Serfling bounds]
-    K --> M[Weighted exchangeable bounds]
+    I --> J[Optimal constant]
+    I --> K[Weighted population MGF]
+    K --> L[Serfling bounds]
+    K --> M[Exchangeable bounds]
 ```
 
 The [proof blueprint](blueprint/README.md) explains why each arrow is needed.
