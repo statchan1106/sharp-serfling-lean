@@ -8,8 +8,8 @@ the larger Lean verification boundary is summarized in
 
 ## Destination
 
-For a fixed population \(X \in [a,b]^N\), a uniform permutation \(\pi\), and
-weights \(w \in \mathbb R^n\), define
+For a fixed population $X \in [a,b]^N$, a uniform permutation $\pi$, and
+weights $w \in \mathbb R^n$, define
 
 $$
 T_w=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N), \qquad
@@ -83,8 +83,8 @@ $$
 
 After affine normalization of the population range, convexity moves the maximum
 of the permutation MGF from the interval cube to a binary vertex. A binary
-population with \(K\) ones turns the permutation average into a uniform
-\(K\)-subset average.
+population with $K$ ones turns the permutation average into a uniform
+$K$-subset average.
 
 Lean certificates:
 
@@ -116,7 +116,7 @@ Lean certificates:
 ## 3. The hypergeometric bridge
 
 A centered two-level subset sum is exactly a scaled centered hypergeometric
-count. For its MGF \(G_{N,K,m}\), the key differential identity is
+count. For its MGF $G_{N,K,m}$, the key differential identity is
 
 $$
 G'_{N,K,m}(t)
@@ -132,7 +132,7 @@ v_{N,K,m}
 =\text{Var}(H_{N,K,m}).
 $$
 
-The variance prefactor is what preserves \(m(N-m)/(N-1)\) through the
+The variance prefactor is what preserves $m(N-m)/(N-1)$ through the
 induction. This is Lemma 2, equation (13), in the current manuscript.
 
 Lean certificates:
@@ -147,8 +147,8 @@ Lean certificates:
 
 ## 4. The parity split
 
-For even \(N\), the coefficient-one bound is sharp because an exactly balanced
-population exists. For odd \(N\), the nearest-balanced Bernoulli law identifies
+For even $N$, the coefficient-one bound is sharp because an exactly balanced
+population exists. For odd $N$, the nearest-balanced Bernoulli law identifies
 the smaller candidate constant. The remaining induction separates noncentral
 slices, where pointwise derivative domination works, from one hard central
 slice, where the accumulated derivative difference is controlled by a
@@ -170,8 +170,8 @@ Lean certificates:
 
 ## 5. Sharpness and consequences
 
-The literal variational constant over all \(K,m\), and nonzero tilts is proved
-equal to \(\kappa_N\). The finite-population result then specializes to the
+The literal variational constant over all $K,m$, and nonzero tilts is proved
+equal to $\kappa_N$. The finite-population result then specializes to the
 variance-scale Serfling bound and transfers to bounded exchangeable vectors.
 
 Lean certificates:

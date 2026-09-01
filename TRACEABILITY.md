@@ -20,33 +20,33 @@ shown in the table.
 
 | Manuscript item | Checked Lean declaration(s) | Status |
 |---|---|---|
-| Definition of \(\rho_N(w)\) | `SharpSerfling.rho` | complete |
-| Exact weighted variance \(\operatorname{Var}(T_w)=\rho_N(w)\sigma_N^2\) | `FinitePopulation.statistic_variance_eq_rho_mul_populationVariance` | complete |
+| Definition of $\rho_N(w)$ | `SharpSerfling.rho` | complete |
+| Exact weighted variance $\mathrm{Var}(T_w)=\rho_N(w)\sigma_N^2$ | `FinitePopulation.statistic_variance_eq_rho_mul_populationVariance` | complete |
 | Theorem 1, weighted finite-population MGF, equation (3) | `FinitePopulation.finitePopulation_mgf` | complete |
 | Theorem 1, smallest uniform multiplier | `FinitePopulation.finitePopulation_sharp_constant` | complete |
-| Odd \(N\) strict improvement \(\kappa_N<1\), and \(\kappa_N\le1\) | `Hypergeometric.kappa_odd_lt_one`, `kappa_le_one` | complete |
+| Odd $N$ strict improvement $\kappa_N<1$, and $\kappa_N\le1$ | `Hypergeometric.kappa_odd_lt_one`, `kappa_le_one` | complete |
 | Corollary 1, equal-weight MGF, equation (4) | `FinitePopulation.serfling_mgf` | complete |
 | Corollary 1, upper tail, equation (5) | `FinitePopulation.serfling_tail` | complete |
 | Corollary 1, lower and two-sided tails | `FinitePopulation.serfling_lower_tail`, `serfling_twoSided_tail` | complete |
 | Three finite-population corrections | `FinitePopulation.serfling_correction_chain` | complete |
-| Corollary 1, fixed-\(n\) even sharpness | `FinitePopulation.serfling_fixed_even_sharp` | complete |
-| Corollary 1, smallest coefficient uniform over \(n\) | `FinitePopulation.serfling_uniform_sharp_constant` | complete |
-| Odd \(N\) uniform optimum attained at \(n=1\) | `FinitePopulation.serfling_uniform_odd_witness` | complete |
+| Corollary 1, fixed-$n$ even sharpness | `FinitePopulation.serfling_fixed_even_sharp` | complete |
+| Corollary 1, smallest coefficient uniform over $n$ | `FinitePopulation.serfling_uniform_sharp_constant` | complete |
+| Odd $N$ uniform optimum attained at $n=1$ | `FinitePopulation.serfling_uniform_odd_witness` | complete |
 | Centered zero-padding identity, equation (6) | `FinitePopulation.sum_sq_centeredWeight_eq_rho` | complete |
-| \(\rho_N(w)=0\) iff \(w^\circ=0\) | `FinitePopulation.rho_eq_zero_iff_centeredWeight_eq_zero` | complete |
+| $\rho_N(w)=0$ iff $w^\circ=0$ | `FinitePopulation.rho_eq_zero_iff_centeredWeight_eq_zero` | complete |
 | Corollary 2, exchangeable MGF, equation (7) | `FinitePopulation.weighted_exchangeable_mgf_centeredNorm_inLaw` | complete |
 | Corollary 2, exchangeable tail, equation (8) | `FinitePopulation.weighted_exchangeable_tail_inLaw` | complete |
 | Corollary 2, zero contrast | `FinitePopulation.exchangeable_contrast_eq_zero_of_centeredWeight_eq_zero` | complete |
-| Corollary 2, smallest \(C_N^\star\) | `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant` | complete |
+| Corollary 2, smallest $C_N^\star$ | `FinitePopulation.exchangeableInLaw_Cstar_sharp_constant` | complete |
 | Uniform-permutation witness for optimality | `FinitePopulation.isExchangeableInLaw_uniformPermutation` | complete |
-| Even/odd expansions of \(C_N^\star\) | `SharpSerfling.exchangeableConstant_even_expansion`, `exchangeableConstant_odd_expansion` | complete |
-| \(N(C_N^\star-1)\to1\) | `SharpSerfling.tendsto_nat_mul_exchangeableConstant_sub_one` | complete |
+| Even/odd expansions of $C_N^\star$ | `SharpSerfling.exchangeableConstant_even_expansion`, `exchangeableConstant_odd_expansion` | complete |
+| $N(C_N^\star-1)\to1$ | `SharpSerfling.tendsto_nat_mul_exchangeableConstant_sub_one` | complete |
 | Theorem 2, centered hypergeometric MGF, equation (9) | `Hypergeometric.sharp_mgf`, `sharpMGFStatement` | complete |
 | Exact hypergeometric variance | `Hypergeometric.actualVariance_eq_variance` | complete |
 | Variational definition, equation (10) | `Hypergeometric.variationalValues`, `kappaStar` | complete |
-| Proposition 1, \(\kappa_N^\star=\kappa_N\) | `Hypergeometric.kappaStar_eq_kappa` | complete |
+| Proposition 1, $\kappa_N^\star=\kappa_N$ | `Hypergeometric.kappaStar_eq_kappa` | complete |
 | Proposition 1, odd attainment | `Hypergeometric.kappaStar_odd_attained` | complete |
-| Proposition 1, fixed-\(m\) even small-tilt limit | `Hypergeometric.tendsto_normalizedLogMgf_even_central` | complete |
+| Proposition 1, fixed-$m$ even small-tilt limit | `Hypergeometric.tendsto_normalizedLogMgf_even_central` | complete |
 
 ## Section 3: reduction to centered hypergeometric MGFs
 
@@ -93,10 +93,10 @@ axioms or unverified interfaces here.
 
 | Manuscript item | Checked Lean declaration(s) | Status |
 |---|---|---|
-| Lemma 3, odd \(\kappa_N\) bounds, equation (28) | `Hypergeometric.kappa_odd_lower`, `kappa_odd_upper` | complete |
-| Lemma 4, \(\gamma\) bounds, equations (29)--(32) | `oddGamma_ge_alpha_sq_div_six`, `oddGamma_le_one_sixth`, `oddGamma_ge_alpha_sq_add_u_div_twelve`, `oddGamma_ge_alpha_sq_add_u_div_seven` | complete |
+| Lemma 3, odd $\kappa_N$ bounds, equation (28) | `Hypergeometric.kappa_odd_lower`, `kappa_odd_upper` | complete |
+| Lemma 4, $\gamma$ bounds, equations (29)--(32) | `oddGamma_ge_alpha_sq_div_six`, `oddGamma_le_one_sixth`, `oddGamma_ge_alpha_sq_add_u_div_twelve`, `oddGamma_ge_alpha_sq_add_u_div_seven` | complete |
 | Lemma 5, central-deficit bounds, equation (33) | `Hypergeometric.centralDeficit_bounds` | complete |
-| Lemma 6, central \(m=2\) bound, equation (34) | `Hypergeometric.log_mgf_lowerNearest_two_le_exact` | complete |
+| Lemma 6, central $m=2$ bound, equation (34) | `Hypergeometric.log_mgf_lowerNearest_two_le_exact` | complete |
 | Lemma 7, signed-area comparison, equations (35)--(36) | `Analysis.singleCrossing_integral_nonneg` | complete |
 | Lemma 8, hard-central conditions, equation (37) | `Hypergeometric.centralParameters` and its component bounds | complete |
 | Appendix C polynomial expansions and positivity | `Certificates.P0_nonneg`, `P12_nonneg`, `P7_nonneg` and endpoint identities | complete |

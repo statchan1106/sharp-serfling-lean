@@ -36,8 +36,8 @@ boundary correspond to the formal development.
 
 ## Mathematical destination
 
-Let \(X=(X_1,\ldots,X_N)\in[a,b]^N\) be fixed, let \(\pi\) be a
-uniform random permutation, and let \(w\in\mathbb R^n\). Define
+Let $X=(X_1,\ldots,X_N)\in[a,b]^N$ be fixed, let $\pi$ be a
+uniform random permutation, and let $w\in\mathbb R^n$. Define
 
 $$
 T_w=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N),\qquad
@@ -53,7 +53,7 @@ $$
 then the exact sampling-variance identity is
 
 $$
-\operatorname{Var}(T_w)=\rho_N(w)\sigma_N^2.
+\mathrm{Var}(T_w)=\rho_N(w)\sigma_N^2.
 $$
 
 The main theorem keeps this same weight-dependent scale for every real tilt:
@@ -70,9 +70,9 @@ $$
 \end{cases}
 $$
 
-The coefficient \(\kappa_N\) is the smallest value depending only on \(N\)
+The coefficient $\kappa_N$ is the smallest value depending only on $N$
 that works uniformly over all bounded populations, sample sizes, signed weight
-vectors, and \(t\in\mathbb R\).
+vectors, and $t\in\mathbb R$.
 
 Headline Lean declarations:
 

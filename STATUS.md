@@ -27,18 +27,18 @@ statement-by-statement map is in [TRACEABILITY.md](TRACEABILITY.md).
 
 The project checks zero-padding and centering of the weights, the identity
 
-\[
+$$
 \rho_N(w)=\frac{N}{N-1}\lVert w^\circ\rVert_2^2,
-\]
+$$
 
 the exact variance formula
 
-\[
-\operatorname{Var}(T_w)=\rho_N(w)\sigma_N^2,
-\]
+$$
+\mathrm{Var}(T_w)=\rho_N(w)\sigma_N^2,
+$$
 
 and the equal-weight specialization
-\(\rho_N(w)=(N-n)/(n(N-1))\). Constant populations, the zero contrast, and
+$\rho_N(w)=(N-n)/(n(N-1))$. Constant populations, the zero contrast, and
 empty/full binary slices are explicit rather than hidden by positivity
 assumptions.
 
@@ -61,9 +61,9 @@ This is a larger verification boundary than the one used in the manuscript.
 The exact success/sample complement identities, Stein representation, and
 dimension-reducing derivative recursion are checked. The elementary estimate
 
-\[
+$$
 \frac{2\sinh(t/2)}{t}\le e^{t^2/24}
-\]
+$$
 
 is formalized through `sinh_le_mul_exp_sq_div_six` and
 `two_sinh_div_le_exp_sq_div_twentyFour`. These inputs give the universal
@@ -77,7 +77,7 @@ theorem `sharp_mgf`.
 
 ### 4. Optimality and consequences
 
-The literal variational quantity \(\kappa_N^\star\) is evaluated, including
+The literal variational quantity $\kappa_N^\star$ is evaluated, including
 the even small-tilt witness and the odd nonzero equality witness. The result is
 then transferred back to:
 
@@ -87,7 +87,7 @@ then transferred back to:
 - bounded exchangeable contrasts under equality in distribution;
 - the best finite-population and exchangeable constants;
 - the even/odd asymptotic expansions and
-  \(N(C_N^\star-1)\to1\).
+  $N(C_N^\star-1)\to1$.
 
 ## Acceptance and trust boundary
 
