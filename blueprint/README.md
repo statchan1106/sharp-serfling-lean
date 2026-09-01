@@ -12,9 +12,10 @@ For a fixed population $X \in [a,b]^N$, a uniform permutation $\pi$, and
 weights $w \in \mathbb R^n$, define
 
 $$
-T_w=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N), \qquad
-\rho_N(w)=
-\frac{N\sum_i w_i^2-(\sum_i w_i)^2}{N-1}.
+\begin{aligned}
+T_w&=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N),\\
+\rho_N(w)&=\frac{N\sum_i w_i^2-(\sum_i w_i)^2}{N-1}.
+\end{aligned}
 $$
 
 The main theorem proves
@@ -22,7 +23,7 @@ The main theorem proves
 $$
 \log \mathbb E e^{tT_w}
 \le
-\frac{\kappa_N}{8}\rho_N(w)(b-a)^2t^2,
+\frac{\kappa_N}{8}\rho_N(w)(b-a)^2t^2.
 $$
 
 where
@@ -41,19 +42,21 @@ The Lean entry points are
 
 ## Proof boundary
 
-Section 3 of the manuscript invokes two ingredients from Lee--Kim (2026): the
-binary-population reduction from the proof of their Theorem 1 and the two-level
-extremal-coefficient reduction from their Proposition 2. The new paper
-argument then evaluates the centered hypergeometric problem left by that
-reduction.
+Section 3 invokes two ingredients from
+[*A Sharper Hoeffding Bound for Weighted Sums of Exchangeable Random
+Variables*](https://arxiv.org/abs/2608.04900): the binary-population reduction
+from the proof of Theorem 1 and the two-level extremal-coefficient reduction
+from Proposition 2. The present paper then evaluates the centered
+hypergeometric problem left by that reduction. The earlier argument is also
+available as an [independent Lean project](https://github.com/statchan1106/exchangeable-hoeffding-lean).
 
 This repository checks a larger dependency graph. It proves both imported
 structural reductions internally and then checks the new hypergeometric
 recursion, sharp constant, and consequences. A reader should therefore
 distinguish:
 
-- **manuscript dependency:** Lee--Kim reduction;
-- **new manuscript argument:** Sections 4--5 and the transfers of the sharp
+- **earlier Hoeffding-paper dependency:** binary and two-level reductions;
+- **new argument in the present paper:** Sections 4--5 and the transfers of the sharp
   constant;
 - **Lean verification boundary:** both parts.
 
@@ -96,8 +99,8 @@ Lean certificates:
 
 ## 2. The two-level extremizer (the cited reduction, proved internally)
 
-The manuscript uses the two-level reduction from Proposition 2 of Lee--Kim
-(2026). The Lean development proves it internally. On the centered
+The present paper uses the two-level reduction from Proposition 2 of the
+earlier Hoeffding paper. The Lean development proves it internally. On the centered
 fixed-radius sphere, compactness supplies a slice-MGF maximizer. The slice
 numerator is expressed through elementary symmetric polynomials. After
 isolating any three coordinates, a constrained-circle argument, a

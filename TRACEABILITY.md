@@ -1,4 +1,4 @@
-# Manuscript-to-Lean traceability
+# Paper-to-Lean traceability
 
 This map follows the companion paper described in
 [MANUSCRIPT.md](MANUSCRIPT.md). The mathematical description is the stable
@@ -11,14 +11,14 @@ shown in the table.
 
 ## Section 1: motivation and exact sampling variance
 
-| Manuscript item | Checked Lean declaration(s) | Status |
+| Paper item | Checked Lean declaration(s) | Status |
 |---|---|---|
 | Exact sample-mean variance, equation (1) | `FinitePopulation.statistic_variance_eq_rho_mul_populationVariance`, `SharpSerfling.rho_equalWeights` | complete |
 | Exact finite-population correction, equation (2) | `SharpSerfling.rho_equalWeights`, `FinitePopulation.serfling_correction_chain` | complete |
 
 ## Section 2: main results
 
-| Manuscript item | Checked Lean declaration(s) | Status |
+| Paper item | Checked Lean declaration(s) | Status |
 |---|---|---|
 | Definition of $\rho_N(w)$ | `SharpSerfling.rho` | complete |
 | Exact weighted variance $\mathrm{Var}(T_w)=\rho_N(w)\sigma_N^2$ | `FinitePopulation.statistic_variance_eq_rho_mul_populationVariance` | complete |
@@ -50,11 +50,12 @@ shown in the table.
 
 ## Section 3: reduction to centered hypergeometric MGFs
 
-The manuscript invokes the binary and two-level reductions from Lee--Kim
-(2026). The repository proves those ingredients internally, so they are not
-axioms or unverified interfaces here.
+The paper invokes the binary and two-level reductions from
+[*A Sharper Hoeffding Bound for Weighted Sums of Exchangeable Random
+Variables*](https://arxiv.org/abs/2608.04900). The repository proves those
+ingredients internally, so they are not axioms or unverified interfaces here.
 
-| Manuscript role | Checked Lean declaration(s) | Status |
+| Paper role | Checked Lean declaration(s) | Status |
 |---|---|---|
 | Affine normalization and binary endpoint reduction | `FinitePopulation.statistic_affine`, `binaryReduction`, `binaryRangeReduction` | complete |
 | Permutation orbit equals a uniform fixed-cardinality slice | `FinitePopulation.finiteAverage_sample_orbit`, `mgf_binary_eq_sliceMgf` | complete |
@@ -66,7 +67,7 @@ axioms or unverified interfaces here.
 
 ## Section 4: uniform centered-hypergeometric bound
 
-| Manuscript item | Checked Lean declaration(s) | Status |
+| Paper item | Checked Lean declaration(s) | Status |
 |---|---|---|
 | Lemma 2, Stein/binomial representation | `Hypergeometric.binomialAverage_stein`, `mgf_eq_binomialMgf` | complete |
 | Lemma 2, derivative recursion, equation (13) | `Hypergeometric.deriv_mgf_recursion` | complete |
@@ -78,7 +79,7 @@ axioms or unverified interfaces here.
 
 ## Section 5: smallest uniform MGF constant
 
-| Manuscript role | Checked Lean declaration(s) | Status |
+| Paper role | Checked Lean declaration(s) | Status |
 |---|---|---|
 | Sharp Bernoulli/Kearns--Saul base | `Hypergeometric.onePhi_le_exact`, `mgf_one_le_oddProxy` | complete |
 | Central two-draw base and exact distinguished-tilt equality | `Hypergeometric.log_mgf_lowerNearest_two_le_exact`, `log_mgf_lowerNearest_two_eq_exact_at_increment` | complete |
@@ -91,7 +92,7 @@ axioms or unverified interfaces here.
 
 ## Appendices B and C: analytic lemmas and certificates
 
-| Manuscript item | Checked Lean declaration(s) | Status |
+| Paper item | Checked Lean declaration(s) | Status |
 |---|---|---|
 | Lemma 3, odd $\kappa_N$ bounds, equation (28) | `Hypergeometric.kappa_odd_lower`, `kappa_odd_upper` | complete |
 | Lemma 4, $\gamma$ bounds, equations (29)--(32) | `oddGamma_ge_alpha_sq_div_six`, `oddGamma_le_one_sixth`, `oddGamma_ge_alpha_sq_add_u_div_twelve`, `oddGamma_ge_alpha_sq_add_u_div_seven` | complete |
@@ -108,5 +109,5 @@ axioms or unverified interfaces here.
 - `FullAxiomAudit.lean` checks every declaration whose name begins with
   `SharpSerfling` and rejects dependencies outside `propext`,
   `Classical.choice`, and `Quot.sound`.
-- CI rejects `sorry`, `admit`, project-defined `axiom`, `unsafe`,
-  `implemented_by`, and `opaque` in project Lean sources.
+- The source audit rejects `sorry`, `admit`, project-defined `axiom`,
+  `unsafe`, `implemented_by`, and `opaque` in project Lean sources.

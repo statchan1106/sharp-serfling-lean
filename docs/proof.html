@@ -151,12 +151,12 @@
         </div>
         <div class="formal-pair">
           <article class="formal-paper">
-            <p class="pair-label">Manuscript boundary</p>
-            <p>Section 3 invokes the binary-population reduction from the proof of Theorem 1 and the two-level extremizer from Proposition 2 of Lee–Kim (2026). The new argument begins with the centered hypergeometric analysis in Sections 4–5.</p>
+            <p class="pair-label">Paper boundary</p>
+            <p>Section 3 invokes the binary-population reduction from Theorem 1 and the two-level extremizer from Proposition 2 of <a href="https://arxiv.org/abs/2608.04900"><em>A Sharper Hoeffding Bound for Weighted Sums of Exchangeable Random Variables</em></a>. The present argument begins with the centered hypergeometric analysis in Sections 4–5.</p>
           </article>
           <article class="formal-paper">
             <p class="pair-label">Lean boundary</p>
-            <p>The repository also proves both cited reductions internally. No Lee–Kim result is represented as an axiom or an unverified hypothesis.</p>
+            <p>The repository also proves both cited reductions internally. The earlier exchangeable setting is documented in its own <a href="https://statchan1106.github.io/exchangeable-hoeffding-lean/">Lean project</a>.</p>
           </article>
         </div>
       </div>
@@ -207,7 +207,7 @@ statistic_affine</code></pre>
 
       <div class="formal-pair">
         <article class="formal-paper">
-          <p class="pair-label">Section 3 · cited conclusion used by the manuscript</p>
+          <p class="pair-label">Section 3 · cited conclusion used by the paper</p>
           <div class="formula compact-formula">
             \[
             \max_{\substack{\mathbf 1^\top y=0\\ \lVert y\rVert_2^2=r^2}}
@@ -253,7 +253,7 @@ statistic_affine</code></pre>
         \]
       </div>
       <p>The smaller MGF on the right uses a population of size \(N-2\), with one fewer marked item and one fewer draw. Crucially, the multiplier \(v_{N,K,m}\) is exactly the variance of the original count. This is why the proof retains the precise sample-size factor \(m(N-m)/(N-1)\).</p>
-      <p>The derivative comparison also uses \(2\sinh(t/2)/t\le e^{t^2/24}\). The manuscript now proves this elementary estimate from the power series, and Lean checks the same step through <code>sinh_le_mul_exp_sq_div_six</code> and <code>two_sinh_div_le_exp_sq_div_twentyFour</code>.</p>
+      <p>The derivative comparison also uses \(2\sinh(t/2)/t\le e^{t^2/24}\). The paper proves this elementary estimate from the power series, and Lean checks the same step through <code>sinh_le_mul_exp_sq_div_six</code> and <code>two_sinh_div_le_exp_sq_div_twentyFour</code>.</p>
       <p class="formula-hint">On a narrow screen, scroll the formula sideways.</p>
 
       <div class="formal-pair">

@@ -7,7 +7,6 @@
 <p align="center">
   <a href="https://statchan1106.github.io/sharp-serfling-lean/"><img src="https://img.shields.io/badge/Reader's%20guide-open-126765?style=flat-square" alt="Reader's guide"></a>
   <a href="https://github.com/statchan1106/sharp-serfling-lean"><img src="https://img.shields.io/badge/Code-GitHub-111827?style=flat-square" alt="GitHub repository"></a>
-  <a href="https://github.com/statchan1106/sharp-serfling-lean/actions/workflows/lean_action_ci.yml?query=branch%3Amain"><img src="https://github.com/statchan1106/sharp-serfling-lean/actions/workflows/lean_action_ci.yml/badge.svg?branch=main" alt="Lean CI"></a>
 </p>
 
 <p align="center">
@@ -24,6 +23,14 @@ map from the paper to Lean declarations.
 [MANUSCRIPT.md](MANUSCRIPT.md) records how the paper's sections and proof
 boundary correspond to the formal development.
 
+The binary-population and two-level reductions used here originate in
+*A Sharper Hoeffding Bound for Weighted Sums of Exchangeable Random Variables*.
+Readers interested in that earlier exchangeable setting can consult the
+[paper](https://arxiv.org/abs/2608.04900) and its
+[Lean project](https://github.com/statchan1106/exchangeable-hoeffding-lean).
+The present project starts from those reductions and develops the sharp
+variance-scale finite-population bound.
+
 ## Start here
 
 | If you want to... | Open... |
@@ -31,6 +38,7 @@ boundary correspond to the formal development.
 | Understand the result before reading Lean | [Reader's guide](https://statchan1106.github.io/sharp-serfling-lean/) |
 | Follow the mathematical proof in dependency order | [Proof guide](https://statchan1106.github.io/sharp-serfling-lean/proof.html) or [blueprint/README.md](blueprint/README.md) |
 | Find the Lean theorem for a paper statement | [Lean declaration map](https://statchan1106.github.io/sharp-serfling-lean/declarations.html) or [TRACEABILITY.md](TRACEABILITY.md) |
+| See the earlier exchangeable Hoeffding setting | [Exchangeable Hoeffding in Lean](https://statchan1106.github.io/exchangeable-hoeffding-lean/) |
 | Check what is formalized and what the audit guarantees | [STATUS.md](STATUS.md) |
 | Use the library from Lean | `import SharpSerfling` |
 
@@ -40,8 +48,10 @@ Let $X=(X_1,\ldots,X_N)\in[a,b]^N$ be fixed, let $\pi$ be a
 uniform random permutation, and let $w\in\mathbb R^n$. Define
 
 $$
-T_w=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N),\qquad
-\rho_N(w)=\frac{N\sum_iw_i^2-(\sum_iw_i)^2}{N-1}.
+\begin{aligned}
+T_w&=\sum_{i=1}^n w_i(X_{\pi(i)}-\bar X_N),\\
+\rho_N(w)&=\frac{N\sum_iw_i^2-(\sum_iw_i)^2}{N-1}.
+\end{aligned}
 $$
 
 If
@@ -86,19 +96,21 @@ Headline Lean declarations:
 
 ## What is inherited, and what is new?
 
-The manuscript and this repository have slightly different proof boundaries.
-The distinction is intentional.
+The paper and this repository have slightly different proof boundaries. The
+first two reductions were established in the earlier
+[exchangeable Hoeffding paper](https://arxiv.org/abs/2608.04900); the present
+paper uses them as its starting point.
 
-| Role in the argument | In the manuscript | In this repository |
+| Role in the argument | In the paper | In this repository |
 |---|---|---|
-| Reduce a bounded population to a binary population | Invoked from the proof of Theorem 1 of Lee--Kim (2026) | Proved internally by `binaryRangeReduction` |
-| Reduce centered fixed-norm coefficients to at most two values | Invoked from Proposition 2 of Lee--Kim (2026) | Proved internally by `exists_twoLevel_sliceMgf_maximizer` |
+| Reduce a bounded population to a binary population | Invoked from the proof of Theorem 1 in the earlier Hoeffding paper | Proved internally by `binaryRangeReduction` |
+| Reduce centered fixed-norm coefficients to at most two values | Invoked from Proposition 2 in the earlier Hoeffding paper | Proved internally by `exists_twoLevel_sliceMgf_maximizer` |
 | Convert the two-level problem to a centered hypergeometric MGF | Exact bridge used in Section 3 | Proved by `sliceMgf_canonicalTwoLevel` and `sliceLogMgf_le` |
 | Prove the dimension-reducing MGF recursion | New argument in Section 4 | Proved by `deriv_mgf_recursion` |
 | Find the sharp parity-dependent constant | New argument in Section 5 | Proved by `sharp_mgf`, `kappaStar_eq_kappa`, and `sharp_constant` |
 | Transfer the result to Serfling and exchangeable bounds | Consequences of the main theorem | Proved in the `FinitePopulation` modules |
 
-Thus the formalization is stronger than the manuscript at the structural
+Thus the formalization is stronger than the paper at the structural
 reduction step: the paper cites that step, whereas Lean checks it from first
 principles inside this project.
 
@@ -122,7 +134,7 @@ flowchart TD
 ```
 
 The [proof blueprint](blueprint/README.md) explains why each arrow is needed.
-The [traceability table](TRACEABILITY.md) records current manuscript numbers,
+The [traceability table](TRACEABILITY.md) records current paper numbers,
 stable mathematical roles, and exact Lean declarations.
 
 ## Source tree by mathematical role
@@ -150,9 +162,6 @@ lake env lean FullAxiomAudit.lean
 rg -n '\b(sorry|admit)\b|^\s*axiom\b|\b(unsafe|implemented_by|opaque)\b' . \
   --glob '*.lean' --glob '!**/.lake/**'
 ```
-
-The build, both kernel audits, and the forbidden-source scan also run in GitHub
-Actions.
 
 ## Verification boundary
 

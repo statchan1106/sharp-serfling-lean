@@ -44,8 +44,10 @@ assumptions.
 
 ### 2. Structural reduction
 
-The manuscript invokes the binary and two-level reductions from Lee--Kim
-(2026). The Lean verification proves both internally:
+The paper invokes the binary and two-level reductions from
+[*A Sharper Hoeffding Bound for Weighted Sums of Exchangeable Random
+Variables*](https://arxiv.org/abs/2608.04900). The Lean verification proves
+both internally:
 
 1. convexity reduces an interval-valued population to a binary vertex;
 2. permutation averaging is identified with a fixed-cardinality slice;
@@ -54,7 +56,7 @@ The manuscript invokes the binary and two-level reductions from Lee--Kim
    maximizer with at most two coordinate values;
 5. a canonical two-level slice is exactly a scaled centered hypergeometric MGF.
 
-This is a larger verification boundary than the one used in the manuscript.
+This is a larger verification boundary than the one used in the paper.
 
 ### 3. Hypergeometric analysis
 

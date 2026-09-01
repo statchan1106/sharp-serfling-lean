@@ -22,11 +22,13 @@ For a statement-by-statement mapping, see [TRACEABILITY.md](TRACEABILITY.md).
 
 ## Paper boundary and Lean boundary
 
-Section 3 of the paper invokes two earlier ingredients from Lee--Kim (2026):
-the binary-population reduction from the proof of their Theorem 1 and the
-two-level extremal-coefficient reduction from their Proposition 2. The new
-paper argument evaluates the centered hypergeometric problem left by this
-reduction.
+Section 3 of the paper invokes two ingredients from
+[*A Sharper Hoeffding Bound for Weighted Sums of Exchangeable Random
+Variables*](https://arxiv.org/abs/2608.04900): the binary-population reduction
+from the proof of Theorem 1 and the two-level extremal-coefficient reduction
+from Proposition 2. The present paper evaluates the centered hypergeometric
+problem left by this reduction. The earlier setting has its own
+[Lean project](https://github.com/statchan1106/exchangeable-hoeffding-lean).
 
 The Lean project closes a larger verification boundary. It proves both
 structural reductions internally before checking the new recursion, the sharp

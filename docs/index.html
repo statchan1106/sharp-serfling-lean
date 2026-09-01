@@ -76,11 +76,11 @@
         </div>
         <div class="formula">
           \[
+          \begin{aligned}
           \operatorname{Var}(\bar X_{S_n})
-          =
-          \frac{\sigma_N^2}{n}\frac{N-n}{N-1},
-          \qquad
-          \sigma_N^2=\frac1N\sum_{j=1}^N(X_j-\bar X_N)^2.
+          &=\frac{\sigma_N^2}{n}\frac{N-n}{N-1},\\
+          \sigma_N^2&=\frac1N\sum_{j=1}^N(X_j-\bar X_N)^2.
+          \end{aligned}
           \]
         </div>
         <p class="plain-callout"><strong>The main result:</strong> the same factor that appears in the exact variance also remains valid in an exponential concentration bound. The paper then identifies the smallest additional correction depending only on \(N\).</p>
@@ -96,14 +96,14 @@
 
         <div class="formula theorem-formula">
           \[
-          \log \mathbb E\,e^{tT_w}
+          \log \mathbb E e^{tT_w}
           \le
-          \frac{\kappa_N}{8}\,\rho_N(w)(b-a)^2t^2,
-          \qquad
+          \frac{\kappa_N}{8}\rho_N(w)(b-a)^2t^2.
+          \]
+          \[
           \rho_N(w)=\frac{N\sum_i w_i^2-(\sum_i w_i)^2}{N-1}.
           \]
         </div>
-        <p class="formula-hint">On a narrow screen, scroll the formula sideways.</p>
 
         <div class="math-explainer" aria-label="Meaning of the main formula">
           <div><span>\(T_w\)</span><p>The weighted deviation we want to control.</p></div>
@@ -146,7 +146,7 @@
           </li>
         </ol>
 
-        <p class="plain-callout"><strong>Where the new proof begins.</strong> The manuscript invokes the first two reductions from Lee–Kim (2026) and then proves the centered hypergeometric recursion and its sharp constant. This Lean repository verifies the two cited reductions internally as well, so its formal proof boundary is deliberately larger than the paper’s new-contribution boundary.</p>
+        <p class="plain-callout"><strong>Where the present paper begins.</strong> The binary-population and two-level reductions were introduced in <a href="https://arxiv.org/abs/2608.04900"><em>A Sharper Hoeffding Bound for Weighted Sums of Exchangeable Random Variables</em></a>; its <a href="https://statchan1106.github.io/exchangeable-hoeffding-lean/">Lean project</a> gives the earlier exchangeable setting. The present paper starts from those reductions and proves the centered hypergeometric recursion and its sharp variance-scale constant. This repository also verifies the cited reductions internally.</p>
 
         <a class="text-link" href="proof.html">Follow the proof one idea at a time →</a>
       </div>
