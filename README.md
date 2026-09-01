@@ -15,10 +15,10 @@
   <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a>
 </p>
 
-This repository is the machine-checked companion to a sharp concentration
-inequality for sampling without replacement. It contains the complete Lean 4
-development, a proof guide for mathematical readers, and a theorem-by-theorem
-map from the paper to Lean declarations.
+This repository formalizes in Lean 4 the main results of
+*A Sharp Variance-Scale Refinement of Serfling's Inequality*. It follows the
+proof structure of the paper and records the correspondence between its
+mathematical statements and their Lean formulations.
 
 [MANUSCRIPT.md](MANUSCRIPT.md) records how the paper's sections and proof
 boundary correspond to the formal development.
