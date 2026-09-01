@@ -2,8 +2,9 @@
 
 This guide follows the mathematical dependency structure of *A Sharp
 Variance-Scale Refinement of Serfling's Inequality* and records the Lean
-declarations that certify each step. It is aligned with the current draft
-identified in [MANUSCRIPT.md](../MANUSCRIPT.md).
+declarations that certify each step. The relationship between the paper and
+the larger Lean verification boundary is summarized in
+[MANUSCRIPT.md](../MANUSCRIPT.md).
 
 ## Destination
 

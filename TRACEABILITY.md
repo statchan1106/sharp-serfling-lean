@@ -1,8 +1,8 @@
 # Manuscript-to-Lean traceability
 
-This map follows the current 28-page draft identified in
+This map follows the companion paper described in
 [MANUSCRIPT.md](MANUSCRIPT.md). The mathematical description is the stable
-identifier; theorem and equation numbers are those of the 2026-09-01 snapshot.
+identifier; displayed theorem and equation numbers are included for navigation.
 Every listed declaration is kernel-checked.
 
 All abbreviated declaration names below inherit either the

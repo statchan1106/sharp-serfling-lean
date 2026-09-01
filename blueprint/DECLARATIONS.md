@@ -3,9 +3,9 @@
 All declarations below are in the `SharpSerfling` namespace. Unqualified names
 inherit the namespace shown in the first column.
 
-The paper numbering follows the current draft identified in
-[MANUSCRIPT.md](../MANUSCRIPT.md). Mathematical descriptions are included so
-that the map remains readable if displayed numbers move in a later revision.
+The paper structure is summarized in [MANUSCRIPT.md](../MANUSCRIPT.md).
+Mathematical descriptions accompany displayed numbers so that the map remains
+readable across typesetting revisions.
 
 ## Main results
 

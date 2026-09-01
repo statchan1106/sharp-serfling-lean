@@ -40,7 +40,7 @@
         <a href="declarations.html" aria-current="page">Lean map</a>
       </nav>
       <nav class="external-nav" aria-label="Publication links">
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper · forthcoming</span>
+        <span hidden class="project-link-placeholder" data-project-link="paper" data-live-label="Paper ↗">Paper</span>
         <span class="project-link-placeholder" data-project-link="code" data-live-label="Code ↗">Code · GitHub</span>
       </nav>
     </div>
@@ -51,7 +51,7 @@
       <p class="eyebrow">For readers who want the exact formal statement</p>
       <h1>Lean declaration map</h1>
       <p class="intro">The overview and proof guide explain the mathematics first. This page is the cross-reference: search for a theorem, idea, or symbol to find the exact Lean declaration whose proof is checked by the kernel.</p>
-      <p class="reader-note"><strong>Numbering.</strong> Paper numbers follow the current 28-page manuscript draft dated 2026-09-01. Mathematical descriptions remain the stable identifiers if later typesetting changes the displayed numbers.</p>
+      <p class="reader-note"><strong>Numbering.</strong> Paper numbers are included for navigation, while the mathematical descriptions remain the stable identifiers across typesetting revisions.</p>
       <label class="declaration-search">
         <span>Filter declarations</span>
         <input id="declaration-filter" type="search" placeholder="Try “Serfling”, “variance”, “even”, or “recursion”" autocomplete="off">
@@ -263,7 +263,7 @@ rg -n '\b(sorry|admit)\b|^\s*axiom\b|\b(unsafe|implemented_by|opaque)\b' . \
     <div class="container footer-inner">
       <p>Sharp Serfling formalization</p>
       <div>
-        <span class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper · forthcoming</span>
+        <span hidden class="project-link-placeholder" data-project-link="paper" data-live-label="Paper">Paper</span>
         <span class="project-link-placeholder" data-project-link="code" data-live-label="Repository">Code · GitHub</span>
         <a href="https://statchan1106.github.io/">Seongchan Lee</a>
         <a href="https://ilmunk.github.io/index.html">Ilmun Kim</a>

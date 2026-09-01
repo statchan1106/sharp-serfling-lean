@@ -3,7 +3,10 @@ const toast = document.querySelector("#toast");
 document.querySelectorAll("[data-project-link]").forEach((placeholder) => {
   const key = placeholder.dataset.projectLink;
   const url = window.SHARP_SERFLING_LINKS?.[key];
-  if (!url) return;
+  if (!url) {
+    placeholder.remove();
+    return;
+  }
 
   const link = document.createElement("a");
   link.href = url;

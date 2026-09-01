@@ -1,8 +1,8 @@
 # Formalization status
 
-The formalization is complete for the mathematical statements in the current
-28-page draft of *A Sharp Variance-Scale Refinement of Serfling's Inequality*.
-The aligned snapshot is identified in [MANUSCRIPT.md](MANUSCRIPT.md), and the
+The formalization is complete for the mathematical statements in
+*A Sharp Variance-Scale Refinement of Serfling's Inequality*. The paper-level
+proof boundary is explained in [MANUSCRIPT.md](MANUSCRIPT.md), and the
 statement-by-statement map is in [TRACEABILITY.md](TRACEABILITY.md).
 
 ## At a glance

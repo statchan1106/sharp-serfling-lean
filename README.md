@@ -5,7 +5,6 @@
 </p>
 
 <p align="center">
-  <a href="MANUSCRIPT.md"><img src="https://img.shields.io/badge/Paper-preprint%20in%20preparation-9ca3af?style=flat-square" alt="Preprint in preparation"></a>
   <a href="https://statchan1106.github.io/sharp-serfling-lean/"><img src="https://img.shields.io/badge/Reader's%20guide-open-126765?style=flat-square" alt="Reader's guide"></a>
   <a href="https://github.com/statchan1106/sharp-serfling-lean"><img src="https://img.shields.io/badge/Code-GitHub-111827?style=flat-square" alt="GitHub repository"></a>
   <a href="https://github.com/statchan1106/sharp-serfling-lean/actions/workflows/lean_action_ci.yml?query=branch%3Amain"><img src="https://github.com/statchan1106/sharp-serfling-lean/actions/workflows/lean_action_ci.yml/badge.svg?branch=main" alt="Lean CI"></a>
@@ -20,10 +19,10 @@
 This repository is the machine-checked companion to a sharp concentration
 inequality for sampling without replacement. It contains the complete Lean 4
 development, a proof guide for mathematical readers, and a theorem-by-theorem
-map from the current manuscript to Lean declarations.
+map from the paper to Lean declarations.
 
-The paper is not yet public. [MANUSCRIPT.md](MANUSCRIPT.md) records the current
-draft alignment and the one-place publication-link update for the project site.
+[MANUSCRIPT.md](MANUSCRIPT.md) records how the paper's sections and proof
+boundary correspond to the formal development.
 
 ## Start here
 
@@ -158,6 +157,5 @@ Project sources contain no `sorry`, `admit`, project-defined `axiom`, `unsafe`,
 standard logical foundations inherited from Lean and Mathlib: `propext`,
 `Classical.choice`, and `Quot.sound`.
 
-The documentation is aligned with the current 28-page manuscript draft dated
-2026-09-01; see [MANUSCRIPT.md](MANUSCRIPT.md) for the snapshot identifier and
-publication status.
+The documentation follows the paper's current theorem and section structure;
+see [MANUSCRIPT.md](MANUSCRIPT.md) for the proof-boundary overview.
