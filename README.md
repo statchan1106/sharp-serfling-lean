@@ -69,7 +69,7 @@ $$
 The main theorem keeps this same weight-dependent scale for every real tilt:
 
 $$
-\log \mathbb E e^{tT_w}
+\log \mathbb E\left[e^{tT_w}\right]
 \le
 \frac{\kappa_N}{8}\rho_N(w)(b-a)^2t^2.
 $$
